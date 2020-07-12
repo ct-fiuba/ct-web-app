@@ -89,7 +89,7 @@ export default function NewQRForm(props) {
 				className={classes.button}
 				disabled={!isAllCompleted(state.QRs)}
 			>
-				Agregar QR
+				Añadir QR
 			</Button>
 			{state.QRs.map((qr) => (
       	<SingleQRForm key={qr.key} index={qr.key} initialState={qr.data} obtainInfo={obtainInfoSingleQr}/>

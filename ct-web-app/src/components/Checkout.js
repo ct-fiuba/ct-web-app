@@ -66,7 +66,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Checkout() {
 	const [state, setState] = React.useState({
-    firstStepInfo: {},
+    firstStepInfo: {
+    typeOfStore: '',
+    storeName: '',
+    email: '',
+    address: '',
+    city: '',
+    state: '',
+    zip: '',
+    country: '',
+  },
     secondStepInfo: {},
   });
   const classes = useStyles();
@@ -110,7 +119,7 @@ export default function Checkout() {
 	const getStepContent = (step) => {
 		switch (step) {
 			case 0:
-				return <NewStoreForm completeFunction={changeFirstStepState} obtainInfo={obtainFirstStepInfo} />;
+				return <NewStoreForm initialState={{...state.firstStepInfo}} completeFunction={changeFirstStepState} obtainInfo={obtainFirstStepInfo} />;
 			case 1:
 				return <NewQRForm completeFunction={changeSecondStepState} obtainInfo={obtainSecondStepInfo} />;
 			case 2:

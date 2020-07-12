@@ -11,15 +11,7 @@ export default function NewStoreForm(props) {
     checkCompleteness();
   });
 
-	const [state, setState] = React.useState({
-    typeOfStore: '',
-    storeName: '',
-    email: '',
-    address: '',
-    city: '',
-    zip: '',
-    country: '',
-  });
+	const [state, setState] = React.useState(props.initialState);
 
 	const allFieldsCompleted = () => {
 		return (state.typeOfStore !== '' &&
@@ -27,6 +19,7 @@ export default function NewStoreForm(props) {
 			state.email !== '' &&
 			state.address !== '' &&
 			state.city !== '' &&
+			state.state !== '' &&
 			state.zip !== '' &&
 			state.country !== '');
 	}
@@ -125,7 +118,7 @@ export default function NewStoreForm(props) {
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField required id="state" name="state" label="Provincia" fullWidth />
+          <TextField required id="state" name="state" label="Provincia" value={state.state} autoComplete="shipping address-level2" onChange={handleChange} fullWidth />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField

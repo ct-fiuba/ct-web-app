@@ -48,7 +48,7 @@ export default function ConfirmationForm(props) {
           </Typography>
         	<Typography gutterBottom>{establecimiento.address}</Typography>
           <Typography gutterBottom>{establecimiento.zip + ", " + establecimiento.city}</Typography>
-          <Typography gutterBottom>{establecimiento.country}</Typography>
+          <Typography gutterBottom>{establecimiento.state + ", " + establecimiento.country}</Typography>
         </Grid>
       </Grid>
 			<Typography variant="h6" gutterBottom>

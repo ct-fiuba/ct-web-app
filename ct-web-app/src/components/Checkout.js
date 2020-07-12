@@ -114,7 +114,7 @@ export default function Checkout() {
 			case 1:
 				return <NewQRForm completeFunction={changeSecondStepState} obtainInfo={obtainSecondStepInfo} />;
 			case 2:
-				return <ConfirmationForm firstStepInfo={{...state.firstStepInfo}} secondStepInfo={{...state.secondStepInfo}}/>;
+				return <ConfirmationForm firstStepInfo={{...state.firstStepInfo}} secondStepInfo={state.secondStepInfo}/>;
 			default:
 				throw new Error('Unknown step');
 		}

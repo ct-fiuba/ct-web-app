@@ -29,7 +29,7 @@ const typeTranslation = {
 export default function ConfirmationForm(props) {
   const classes = useStyles();
 	const establecimiento = props.firstStepInfo;
-	const QRs = [props.secondStepInfo];
+	const QRs = props.secondStepInfo;
 
   return (
     <React.Fragment>

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -15,10 +15,6 @@ export default function SingleQRForm(props) {
     exitQR: false,
   });
 
-  useEffect(() => {
-    checkCompleteness();
-  });
-
   const handleChange = (event) => {
     const name = event.target.name;
     let value = event.target.value;
@@ -30,23 +26,11 @@ export default function SingleQRForm(props) {
       [name]: value,
     });
 
-    if (allFieldsCompleted()) {
-			props.obtainInfo({
-				...state,
-				[name]: value,
-			});
-		}
+    props.obtainInfo(props.index, {
+      ...state,
+      [name]: value,
+    });
   };
-
-  const allFieldsCompleted = () => {
-		return (state.name !== '' &&
-			state.m2 !== '' &&
-      state.openPlace !== '');
-	}
-
-  const checkCompleteness = () => {
-		props.completeFunction(allFieldsCompleted());
-	}
 
   return (
     <React.Fragment>

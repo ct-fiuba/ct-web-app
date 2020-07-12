@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {} from 'react';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -8,12 +8,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 
 export default function SingleQRForm(props) {
-  const [state, setState] = React.useState({
-    name: '',
-    m2: '',
-    openPlace: '',
-    exitQR: false,
-  });
+  const [state, setState] = React.useState(props.initialState);
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -36,10 +31,10 @@ export default function SingleQRForm(props) {
     <React.Fragment>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <TextField required id="name" name="name" value={state.name} onChange={handleChange} label="Identificador del QR" fullWidth />
+          <TextField required name="name" value={state.name} onChange={handleChange} label="Identificador del QR" fullWidth />
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField required type="number" id="m2" name="m2"  value={state.m2} onChange={handleChange} label="Metros cuadrados" fullWidth />
+          <TextField required type="number" name="m2"  value={state.m2} onChange={handleChange} label="Metros cuadrados" fullWidth />
         </Grid>
         <Grid item xs={12} md={6}>
 					<FormControl fullWidth>
@@ -48,7 +43,6 @@ export default function SingleQRForm(props) {
 							value={state.openPlace}
 							onChange={handleChange}
 							name="openPlace"
-							id="openPlace"
 							inputProps={{ 'aria-label': 'openPlace' }}
 							fullWidth
 						>

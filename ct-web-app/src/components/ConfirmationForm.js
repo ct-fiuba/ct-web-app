@@ -57,7 +57,7 @@ export default function ConfirmationForm(props) {
       <List disablePadding>
         {QRs.map((qr) => (
           <ListItem className={classes.listItem} key={qr.name}>
-            <ListItemText primary={qr.exitQR ? qr.name + " (x2)" : qr.name} secondary={qr.openSpace === "yes" ? "Espacio Abierto" : "Espacio Cerrado"}/>
+            <ListItemText primary={qr.exitQR ? qr.name + " (x2)" : qr.name} secondary={qr.openPlace === "yes" ? "Espacio Abierto" : "Espacio Cerrado"}/>
             <Typography variant="body2">{qr.m2 + " m2"}</Typography>
           </ListItem>
         ))}

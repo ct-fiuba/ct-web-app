@@ -13,16 +13,25 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NewQRForm(props) {
   const classes = useStyles();
-	const [state, setState] = React.useState({
-    QRs: [{
-			key: 0,
-			data: {},
-		}],
-  });
+
+	const transformInitialState = () => {
+		let result = []
+		props.initialState.forEach((value, i) => {
+			result.push({
+				key: i,
+				data: value
+			});
+		});
+		return {QRs: result};
+	}
+
+	const [state, setState] = React.useState(transformInitialState());
 
 	useEffect(() => {
     checkCompleteness();
   });
+
+
 
 	const isAllCompleted = (newQRs) => {
 		let result = true;
@@ -41,7 +50,12 @@ export default function NewQRForm(props) {
 			return
 		const newQR = {
 			key: state.QRs.length,
-			data: {},
+			data: {
+				name: '',
+				m2: '',
+				openPlace: '',
+				exitQR: false,
+			}
 		}
 		let newQRs = JSON.parse(JSON.stringify(state.QRs));
 		newQRs.push(newQR);
@@ -78,7 +92,7 @@ export default function NewQRForm(props) {
 				Agregar QR
 			</Button>
 			{state.QRs.map((qr) => (
-      	<SingleQRForm key={qr.key} index={qr.key} obtainInfo={obtainInfoSingleQr}/>
+      	<SingleQRForm key={qr.key} index={qr.key} initialState={qr.data} obtainInfo={obtainInfoSingleQr}/>
 			))}
     </React.Fragment>
   );

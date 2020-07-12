@@ -76,7 +76,12 @@ export default function Checkout() {
     zip: '',
     country: '',
   },
-    secondStepInfo: {},
+    secondStepInfo: [{
+    name: '',
+    m2: '',
+    openPlace: '',
+    exitQR: false,
+  }],
   });
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
@@ -121,7 +126,7 @@ export default function Checkout() {
 			case 0:
 				return <NewStoreForm initialState={{...state.firstStepInfo}} completeFunction={changeFirstStepState} obtainInfo={obtainFirstStepInfo} />;
 			case 1:
-				return <NewQRForm completeFunction={changeSecondStepState} obtainInfo={obtainSecondStepInfo} />;
+				return <NewQRForm initialState={state.secondStepInfo} completeFunction={changeSecondStepState} obtainInfo={obtainSecondStepInfo} />;
 			case 2:
 				return <ConfirmationForm firstStepInfo={{...state.firstStepInfo}} secondStepInfo={state.secondStepInfo}/>;
 			default:

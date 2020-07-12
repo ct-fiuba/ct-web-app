@@ -16,7 +16,7 @@ export default function NewStoreForm(props) {
 	const allFieldsCompleted = () => {
 		return (state.typeOfStore !== '' &&
 			state.storeName !== '' &&
-			state.email !== '' &&
+			state.email !== '' && /\S+@\S+\.\S+/.test(state.email) &&
 			state.address !== '' &&
 			state.city !== '' &&
 			state.state !== '' &&

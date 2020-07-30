@@ -67,8 +67,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Checkout() {
 	const [state, setState] = React.useState({
     firstStepInfo: {
-    typeOfStore: '',
-    storeName: '',
+    type: '',
+    name: '',
     email: '',
     address: '',
     city: '',
@@ -90,6 +90,9 @@ export default function Checkout() {
 	const steps = ['Registro del establecimiento', 'Generación de QRs', 'Confirmación'];
 
   const handleNext = () => {
+    if (activeStep === 2) {
+      sendDataToServer();
+    }
     setActiveStep(activeStep + 1);
   };
 
@@ -99,19 +102,19 @@ export default function Checkout() {
 
   const changeFirstStepState = (value) => {
     setFirstStepComplete(value);
-  }
+  };
 
   const obtainFirstStepInfo = (info) => {
     setState({...state, firstStepInfo: info});
-  }
+  };
 
   const changeSecondStepState = (value) => {
     setSecondStepComplete(value);
-  }
+  };
 
   const obtainSecondStepInfo = (info) => {
     setState({...state, secondStepInfo: info});
-  }
+  };
 
   const isNextButtonEnabled = () => {
     if (activeStep === 0)
@@ -119,7 +122,25 @@ export default function Checkout() {
     if (activeStep === 1)
       return secondStepComplete;
     return true;
-  }
+  };
+
+  const constructBody = () => {
+    let body = {...state.firstStepInfo, QRs: state.secondStepInfo};
+    body['openPlace'] = body['openPlace'] === 'no' ? false : true;
+    console.log(body);
+    return body;
+  };
+
+  const sendDataToServer = () => {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(constructBody())
+    };
+    fetch('http://localhost:5005/establishments', requestOptions)
+        .then(response => response.json())
+        .then(data => console.log(data));
+  };
 
 	const getStepContent = (step) => {
 		switch (step) {
@@ -128,11 +149,11 @@ export default function Checkout() {
 			case 1:
 				return <NewQRForm initialState={state.secondStepInfo} completeFunction={changeSecondStepState} obtainInfo={obtainSecondStepInfo} />;
 			case 2:
-				return <ConfirmationForm firstStepInfo={{...state.firstStepInfo}} secondStepInfo={state.secondStepInfo}/>;
+				  return <ConfirmationForm firstStepInfo={{...state.firstStepInfo}} secondStepInfo={state.secondStepInfo}/>;
 			default:
 				throw new Error('Unknown step');
 		}
-	}
+	};
 
   return (
     <React.Fragment>

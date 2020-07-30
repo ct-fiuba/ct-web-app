@@ -38,8 +38,8 @@ export default function ConfirmationForm(props) {
           <Typography variant="h6" gutterBottom className={classes.title}>
             Datos generales
           </Typography>
-          <Typography gutterBottom><b>{establecimiento.storeName}</b></Typography>
-          <Typography gutterBottom>{typeTranslation[establecimiento.typeOfStore]}</Typography>
+          <Typography gutterBottom><b>{establecimiento.name}</b></Typography>
+          <Typography gutterBottom>{typeTranslation[establecimiento.type]}</Typography>
           <Typography gutterBottom>{establecimiento.email}</Typography>
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>

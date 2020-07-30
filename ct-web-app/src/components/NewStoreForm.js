@@ -14,8 +14,8 @@ export default function NewStoreForm(props) {
 	const [state, setState] = React.useState(props.initialState);
 
 	const allFieldsCompleted = () => {
-		return (state.typeOfStore !== '' &&
-			state.storeName !== '' &&
+		return (state.type !== '' &&
+			state.name !== '' &&
 			state.email !== '' && /\S+@\S+\.\S+/.test(state.email) &&
 			state.address !== '' &&
 			state.city !== '' &&
@@ -51,13 +51,13 @@ export default function NewStoreForm(props) {
       <Grid container spacing={3}>
 			  <Grid item xs={12}>
 					<FormControl fullWidth>
-						<InputLabel htmlFor="typeOfStore">Tipo de establecimiento</InputLabel>
+						<InputLabel htmlFor="type">Tipo de establecimiento</InputLabel>
 						<NativeSelect
-							value={state.typeOfStore}
+							value={state.type}
 							onChange={handleChange}
-							name="typeOfStore"
-							id="typeOfStore"
-							inputProps={{ 'aria-label': 'typeOfStore' }}
+							name="type"
+							id="type"
+							inputProps={{ 'aria-label': 'type' }}
 							fullWidth
 						>
 							<option aria-label="None" value="" />
@@ -72,10 +72,10 @@ export default function NewStoreForm(props) {
         <Grid item xs={12}>
           <TextField
             required
-            id="storeName"
-            name="storeName"
+            id="name"
+            name="name"
             label="Nombre del establecimiento"
-						value={state.storeName}
+						value={state.name}
 						onChange={handleChange}
             fullWidth
           />

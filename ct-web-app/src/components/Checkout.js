@@ -139,7 +139,10 @@ export default function Checkout() {
     };
     fetch('http://localhost:5005/establishments', requestOptions)
         .then(response => response.json())
-        .then(data => console.log(data));
+        .then(data => {
+          const establishment_id = data['_id'];
+          window.open("http://localhost:5005/establishments/PDF/" + establishment_id, "_blank")
+        });
   };
 
 	const getStepContent = (step) => {

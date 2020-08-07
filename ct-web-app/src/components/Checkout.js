@@ -125,7 +125,7 @@ export default function Checkout() {
   };
 
   const constructBody = () => {
-    let body = {...state.firstStepInfo, QRs: state.secondStepInfo};
+    let body = {...state.firstStepInfo, spaces: state.secondStepInfo};
     body['openPlace'] = body['openPlace'] === 'no' ? false : true;
     console.log(body);
     return body;

@@ -23,7 +23,7 @@ export default function SingleQRForm(props) {
   const handleChange = (event) => {
     const name = event.target.name;
     let value = event.target.value;
-    if (name === 'exitQR') {
+    if (name === 'hasExit') {
       value = event.target.checked;
     }
     setState({
@@ -66,7 +66,7 @@ export default function SingleQRForm(props) {
             </Grid>
             <Grid item xs={12}>
               <FormControlLabel
-                control={<Checkbox color="secondary" name="exitQR" checked={state.exitQR} onChange={handleChange} />}
+                control={<Checkbox color="secondary" name="hasExit" checked={state.hasExit} onChange={handleChange} />}
                 label="Generar un QR de salida"
               />
             </Grid>

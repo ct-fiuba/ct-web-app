@@ -80,7 +80,7 @@ export default function Checkout() {
     name: '',
     m2: '',
     openPlace: '',
-    exitQR: false,
+    hasExit: false,
   }],
   });
   const classes = useStyles();

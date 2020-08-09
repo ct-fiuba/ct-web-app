@@ -54,7 +54,7 @@ export default function NewQRForm(props) {
 				name: '',
 				m2: '',
 				openPlace: '',
-				exitQR: false,
+				hasExit: false,
 			}
 		}
 		let newQRs = JSON.parse(JSON.stringify(state.QRs));

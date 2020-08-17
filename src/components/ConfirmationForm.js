@@ -58,7 +58,11 @@ export default function ConfirmationForm(props) {
         {QRs.map((qr) => (
           <ListItem className={classes.listItem} key={qr.name}>
             <ListItemText primary={qr.hasExit ? qr.name + " (x2)" : qr.name} secondary={qr.openPlace === "yes" ? "Espacio Abierto" : "Espacio Cerrado"}/>
-            <Typography variant="body2">{`Espacio: ${qr.m2} m2. Visita estimada: ${qr.estimatedVisitDuration} minutos.`}</Typography>
+            <Typography variant="body2">{
+              qr.estimatedVisitDuration ?
+                `Espacio: ${qr.m2} m2. Visita estimada: ${qr.estimatedVisitDuration} minutos.`:
+                `Espacio: ${qr.m2} m2.`
+              }</Typography>
           </ListItem>
         ))}
       </List>

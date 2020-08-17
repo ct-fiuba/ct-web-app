@@ -79,6 +79,7 @@ export default function Checkout() {
     secondStepInfo: [{
     name: '',
     m2: '',
+    estimatedVisitDuration: '',
     openPlace: '',
     hasExit: false,
   }],

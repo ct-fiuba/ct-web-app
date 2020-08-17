@@ -41,7 +41,7 @@ export default function NewQRForm(props) {
 
   const allFieldsCompleted = (qr) => {
 		return (qr.name !== '' &&
-			qr.m2 !== '' &&
+			qr.m2 !== '' && qr.estimatedVisitDuration !== '' &&
       qr.openPlace !== '');
 	}
 
@@ -53,6 +53,7 @@ export default function NewQRForm(props) {
 			data: {
 				name: '',
 				m2: '',
+				estimatedVisitDuration: '',
 				openPlace: '',
 				hasExit: false,
 			}

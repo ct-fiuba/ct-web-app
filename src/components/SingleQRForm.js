@@ -49,6 +49,9 @@ export default function SingleQRForm(props) {
               <TextField required type="number" name="m2"  value={state.m2} onChange={handleChange} label="Metros cuadrados" fullWidth />
             </Grid>
             <Grid item xs={12} md={6}>
+              <TextField required type="number" name="estimatedVisitDuration"  value={state.estimatedVisitDuration} onChange={handleChange} label="Tiempo promedio de visita (min)" fullWidth />
+            </Grid>
+            <Grid item xs={12} md={6}>
               <FormControl fullWidth>
                 <InputLabel htmlFor="openPlace">Espacio abierto</InputLabel>
                 <NativeSelect
@@ -64,7 +67,7 @@ export default function SingleQRForm(props) {
                 </NativeSelect>
               </FormControl>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} md={6}>
               <FormControlLabel
                 control={<Checkbox color="secondary" name="hasExit" checked={state.hasExit} onChange={handleChange} />}
                 label="Generar un QR de salida"

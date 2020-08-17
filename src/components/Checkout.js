@@ -138,12 +138,13 @@ export default function Checkout() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(constructBody())
     };
-    fetch('http://localhost:5005/establishments', requestOptions)
+    fetch(process.env.REACT_APP_USER_API_URL + '/establishments', requestOptions)
         .then(response => response.json())
         .then(data => {
           const establishment_id = data['_id'];
-          window.open("http://localhost:5005/establishments/PDF/" + establishment_id, "_blank")
-        });
+          window.open(process.env.REACT_APP_USER_API_URL + '/establishments/PDF/' + establishment_id, '_blank');
+        })
+        .catch(err => console.log('Error at fetch: ', err));
   };
 
 	const getStepContent = (step) => {

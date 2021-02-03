@@ -52,7 +52,7 @@ export default class Rules extends React.Component {
   mockRules() {
     return [
       {id: 0, index: 0, contagionRisk: 'Alto', durationValue: 60, durationCmp: '>', m2Value: 30, m2Cmp: '<', spaceValue: 'Cerrado'},
-      {id: 1, index: 1, contagionRisk: 'Bajo', durationValue: 60, durationCmp: '<', m2Value: 50, m2Cmp: '>', spaceValue: 'Abierto'},
+      {id: 1, index: 1, contagionRisk: 'Medio', durationValue: 60, durationCmp: '<', m2Value: 50, m2Cmp: '>', spaceValue: 'Abierto'},
       {id: 2, index: 2, contagionRisk: 'Alto', durationValue: 120, durationCmp: '>'},
       {id: 3, index: 3, contagionRisk: 'Bajo', m2Value: 100, m2Cmp: '>', spaceValue: 'Abierto'}
     ];

@@ -6,8 +6,7 @@ import Home from './components/Home/Home.js';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 
 function App() {

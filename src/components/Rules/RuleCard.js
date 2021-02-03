@@ -11,6 +11,17 @@ const useStyles = makeStyles({
   root: {
     minWidth: 275,
     margin: '10px',
+    borderTopWidth: '30px',
+    borderTopStyle: 'inset',
+  },
+  highRisk: {
+    borderTopColor: '#d50000',
+  },
+  mediumRisk: {
+    borderTopColor: '#ffb300',
+  },
+  lowRisk: {
+    borderTopColor: '#00e676',
   },
   bullet: {
     display: 'inline-block',
@@ -22,12 +33,11 @@ const useStyles = makeStyles({
   },
   pos: {
     marginBottom: 12,
-  },
+  }
 });
 
 export default function RuleCard(props) {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
 
   return (
     <Draggable draggableId={`${props.id}`} index={props.index}>
@@ -37,7 +47,7 @@ export default function RuleCard(props) {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <Card className={classes.root}>
+          <Card className={`${classes.root} ${props.contagionRisk === 'Alto' ? classes.highRisk : ''} ${props.contagionRisk === 'Medio' ? classes.mediumRisk : ''} ${props.contagionRisk === 'Bajo' ? classes.lowRisk : ''}`}>
             <CardContent>
               <Typography className={classes.title} color="textSecondary" gutterBottom>
                 {`Orden de evaluación: ${props.index + 1}`}

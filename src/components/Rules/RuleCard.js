@@ -40,18 +40,19 @@ export default function RuleCard(props) {
           <Card className={classes.root}>
             <CardContent>
               <Typography className={classes.title} color="textSecondary" gutterBottom>
-                {`Id: ${props.id}`}
+                {`Orden de evaluación: ${props.index + 1}`}
+                <br />
+                {`Id regla: ${props.id}`}
               </Typography>
               <Typography variant="h5" component="h2">
-                be{bull}nev{bull}o{bull}lent
-          </Typography>
-              <Typography className={classes.pos} color="textSecondary">
-                adjective
-          </Typography>
+                {`Riesgo ${props.contagionRisk}`}
+              </Typography>
               <Typography variant="body2" component="p">
-                well meaning and kindly.
-            <br />
-                {'"a benevolent smile"'}
+                {props.durationCmp ? `Duración ${props.durationCmp} ${props.durationValue} minutos` : ''}
+                {props.durationCmp ? <br /> : '' }
+                {props.m2Cmp ? `Tamaño ${props.m2Cmp} ${props.m2Value} metros cuadrados` : ''}
+                {props.m2Cmp ? <br /> : '' }
+                {props.spaceValue ? `Espacio ${props.spaceValue}` : ''}
               </Typography>
             </CardContent>
             <CardActions>

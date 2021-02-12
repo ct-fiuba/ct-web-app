@@ -9,6 +9,9 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
+import AddRuleFormErrors from './AddRuleFormErrors'
+import Snackbar from '@material-ui/core/Snackbar';
+
 
 const useStyles = makeStyles((theme) => ({
   formControlContagionRisk: {
@@ -87,6 +90,12 @@ export default function AddRuleForm(props) {
   const [checkboxM2, setCheckboxM2] = React.useState(true);
   const [checkboxSpace, setCheckboxSpace] = React.useState(true);
 
+  const [durationMissing, setDurationMissing] = React.useState(false);
+  const [m2Missing, setM2Missing] = React.useState(false);
+  const [spaceMissing, setSpaceMissing] = React.useState(false);
+  const [riskMissing, setRiskMissing] = React.useState(false);
+  const [noCheckbox, setNoCheckbox] = React.useState(false);
+
   const handleContagionRiskChange = (event) => {
     setContagionRisk(event.target.value);
   };
@@ -111,16 +120,36 @@ export default function AddRuleForm(props) {
     setSpaceValue(event.target.value);
   }
 
-  const handleChangeCheckboxDuration = (event) => {
+  const handleChangeCheckboxDuration = () => {
     setCheckboxDuration(!checkboxDuration);
   }
 
-  const handleChangeCheckboxM2 = (event) => {
+  const handleChangeCheckboxM2 = () => {
     setCheckboxM2(!checkboxM2);
   }
 
-  const handleChangeCheckboxSpace = (event) => {
+  const handleChangeCheckboxSpace = () => {
     setCheckboxSpace(!checkboxSpace);
+  }
+
+  const handleCloseDurationMissing = () => {
+    setDurationMissing(false);
+  }
+
+  const handleCloseM2Missing = () => {
+    setM2Missing(false);
+  }
+
+  const handleCloseSpaceMissing = () => {
+    setSpaceMissing(false);
+  }
+
+  const handleCloseRiskMissing = () => {
+    setRiskMissing(false);
+  }
+
+  const handleCloseNoCheckbox = () => {
+    setNoCheckbox(false);
   }
 
   const fieldsValidation = () => {
@@ -130,6 +159,38 @@ export default function AddRuleForm(props) {
     console.log("m2 cmp:", m2Cmp);
     console.log("m2 value:", m2Value);
     console.log("space value:", spaceValue);
+
+    if (!contagionRisk) {
+      setRiskMissing(true);
+      return false;
+    }
+
+    if (checkboxDuration) {
+      if (!durationCmp || !durationValue || durationValue <= 0) {
+        setDurationMissing(true);
+        return false;
+      }
+    }
+
+    if (checkboxM2) {
+      if (!m2Cmp || !m2Value || m2Value <= 0) {
+        setM2Missing(true);
+        return false;
+      }
+    }
+
+    if (checkboxSpace) {
+      if (!spaceValue) {
+        setSpaceMissing(true);
+        return false;
+      }
+    }
+
+    if (!checkboxDuration && !checkboxM2 && !checkboxSpace) {
+      setNoCheckbox(true);
+      return false;
+    }
+    return true;
   }
 
   const handleConfirm = () => {
@@ -279,6 +340,19 @@ export default function AddRuleForm(props) {
           Crear
         </Button>
       </Grid>
+
+      <AddRuleFormErrors 
+        durationMissing={durationMissing}
+        handleCloseDurationMissing={handleCloseDurationMissing}
+        m2Missing={m2Missing}
+        handleCloseM2Missing={handleCloseM2Missing}
+        spaceMissing={spaceMissing}
+        handleCloseSpaceMissing={handleCloseSpaceMissing}
+        riskMissing={riskMissing}
+        handleCloseRiskMissing={handleCloseRiskMissing}
+        noCheckbox={noCheckbox}
+        handleCloseNoCheckbox={handleCloseNoCheckbox}
+      />
     </Grid>
   );
 }

@@ -50,7 +50,7 @@ export default function RulesContainer(props) {
 	return (
 		<Grid container className={classes.container}>
 			<Grid item xs={12}>
-				<AddRuleButton />
+				<AddRuleButton addRule={props.addRule}/>
 			</Grid>
 			<Grid item xs={12}>
 				<DragDropContext onDragEnd={props.onDragEnd}>

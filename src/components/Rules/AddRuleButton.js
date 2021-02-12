@@ -39,11 +39,6 @@ export default function AddRuleButton(props) {
     setOpen(false);
   };
 
-  const confirmAddition = () => {
-    props.deleteRule(props.id);
-    setOpen(false);
-  };
-
   return (
     <div>
       <Button className={classes.addButton} size="large" variant="filled" color="primary" onClick={handleClickOpen}>
@@ -55,7 +50,7 @@ export default function AddRuleButton(props) {
           <DialogContentText>
             Para que un contacto coincida con una regla de contagio se deben cumplir todas las condiciones al mismo tiempo.
           </DialogContentText>
-          <AddRuleForm handleClose={handleClose} handleConfirm={confirmAddition} />
+          <AddRuleForm handleClose={handleClose} addRule={props.addRule} />
         </DialogContent>
       </Dialog>
     </div>

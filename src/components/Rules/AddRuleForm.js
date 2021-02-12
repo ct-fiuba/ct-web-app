@@ -10,8 +10,6 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import AddRuleFormErrors from './AddRuleFormErrors'
-import Snackbar from '@material-ui/core/Snackbar';
-
 
 const useStyles = makeStyles((theme) => ({
   formControlContagionRisk: {
@@ -153,13 +151,6 @@ export default function AddRuleForm(props) {
   }
 
   const fieldsValidation = () => {
-    console.log("Contagion risk:", contagionRisk);
-    console.log("Duration cmp:", durationCmp);
-    console.log("Duration value:", durationValue);
-    console.log("m2 cmp:", m2Cmp);
-    console.log("m2 value:", m2Value);
-    console.log("space value:", spaceValue);
-
     if (!contagionRisk) {
       setRiskMissing(true);
       return false;
@@ -193,8 +184,31 @@ export default function AddRuleForm(props) {
     return true;
   }
 
+  const createRule = () => {
+    let rule = {};
+    rule['contagionRisk'] = contagionRisk;
+    if (checkboxDuration) {
+      rule['durationCmp'] = durationCmp;
+      rule['durationValue'] = durationValue;
+    }
+
+    if (checkboxM2) {
+      rule['m2Cmp'] = m2Cmp;
+      rule['m2Value'] = m2Value;
+    }
+
+    if (checkboxSpace) {
+      rule['spaceValue'] = spaceValue;
+    }
+    return rule;
+  }
+
   const handleConfirm = () => {
-    fieldsValidation()
+    if (fieldsValidation()) {
+      const rule = createRule();
+      props.addRule(rule);
+      props.handleClose();
+    }
   }
 
   return (

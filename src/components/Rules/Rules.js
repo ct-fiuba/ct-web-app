@@ -6,7 +6,8 @@ export default class Rules extends React.Component {
     super(props);
     this.onDragEnd = this.onDragEnd.bind(this);
     this.deleteRule = this.deleteRule.bind(this);
-    this.state = { rules: [] };
+    this.addRule = this.addRule.bind(this);
+    this.state = { rules: [], max_id: 0};
   }
 
   componentDidMount() {
@@ -17,6 +18,26 @@ export default class Rules extends React.Component {
     const rules = this.state.rules.filter(rule => rule['id'] !== id);
     this.setState({
       rules: rules
+    });
+  }
+
+  updateIndexes(new_rules) {
+    for (let rule of new_rules) {
+      rule['index'] = rule['index'] + 1;
+    }
+    return new_rules;
+  }
+
+  addRule(rule) {
+    rule['id'] = this.state.max_id + 1;
+    this.setState({max_id: this.state.max_id + 1})
+    rule['index'] = 0;
+    rule['created'] = true;
+    let new_rules = JSON.parse(JSON.stringify(this.state.rules)); //deep clone to update changes
+    new_rules = this.updateIndexes(new_rules);
+    new_rules.unshift(rule);
+    this.setState({
+      rules: new_rules
     });
   }
 
@@ -54,10 +75,10 @@ export default class Rules extends React.Component {
       result.destination.index
     );
     this.setState({ rules: newRules });
-    console.log("state:", this.state);
   }
 
   mockRules() {
+    this.setState({ max_id: 3 });
     return [
       { id: 0, index: 0, contagionRisk: 'Alto', durationValue: 60, durationCmp: '>', m2Value: 30, m2Cmp: '<', spaceValue: 'Cerrado' },
       { id: 1, index: 1, contagionRisk: 'Medio', durationValue: 60, durationCmp: '<', m2Value: 50, m2Cmp: '>', spaceValue: 'Abierto' },
@@ -69,8 +90,8 @@ export default class Rules extends React.Component {
   render() {
     return (
       <div>
-        <RulesContainer rules={this.state.rules} onDragEnd={this.onDragEnd} deleteRule={this.deleteRule} />;
-      </div >
+        <RulesContainer rules={this.state.rules} onDragEnd={this.onDragEnd} deleteRule={this.deleteRule} addRule={this.addRule} />;
+      </div>
     );
   }
 }

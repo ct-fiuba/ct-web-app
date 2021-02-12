@@ -67,6 +67,10 @@ export default class Rules extends React.Component {
   }
 
   render() {
-    return <RulesContainer rules={this.state.rules} onDragEnd={this.onDragEnd} deleteRule={this.deleteRule} />;
+    return (
+      <div>
+        <RulesContainer rules={this.state.rules} onDragEnd={this.onDragEnd} deleteRule={this.deleteRule} />;
+      </div >
+    );
   }
 }

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import RuleCard from "./RuleCard";
+import AddRuleButton from './AddRuleButton'
+import Grid from '@material-ui/core/Grid';
 
 function Rule({ rule, index, deleteRule }) {
 	return (<RuleCard id={rule.id}
@@ -42,21 +44,26 @@ export default function RulesContainer(props) {
 	const classes = useStyles();
 
 	React.useEffect(() => {
-		setState({rules: props.rules});
+		setState({ rules: props.rules });
 	}, [props.rules])
 
 	return (
-		<div className={classes.container}>
-			<DragDropContext onDragEnd={props.onDragEnd}>
-				<Droppable droppableId="list">
-					{provided => (
-						<div ref={provided.innerRef} {...provided.droppableProps}>
-							<RulesList rules={state.rules} deleteRule={props.deleteRule}/>
-							{provided.placeholder}
-						</div>
-					)}
-				</Droppable>
-			</DragDropContext>
-		</div>
+		<Grid container className={classes.container}>
+			<Grid item xs={12}>
+				<AddRuleButton />
+			</Grid>
+			<Grid item xs={12}>
+				<DragDropContext onDragEnd={props.onDragEnd}>
+					<Droppable droppableId="list">
+						{provided => (
+							<div ref={provided.innerRef} {...provided.droppableProps}>
+								<RulesList rules={state.rules} deleteRule={props.deleteRule} />
+								{provided.placeholder}
+							</div>
+						)}
+					</Droppable>
+				</DragDropContext>
+			</Grid>
+		</Grid>
 	);
 }

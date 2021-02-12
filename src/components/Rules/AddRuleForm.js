@@ -8,6 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const useStyles = makeStyles((theme) => ({
   formControlContagionRisk: {
@@ -28,6 +29,10 @@ const useStyles = makeStyles((theme) => ({
   },
   titleDuration: {
     marginTop: '28px',
+    textAlign: 'center',
+  },
+  checkboxes: {
+    marginTop: '16px',
   },
   durationValue: {
     marginTop: '8px',
@@ -42,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
   titleM2: {
     marginTop: '28px',
+    textAlign: 'center',
   },
   m2Value: {
     marginTop: '8px',
@@ -56,6 +62,7 @@ const useStyles = makeStyles((theme) => ({
   },
   titleSpace: {
     marginTop: '28px',
+    textAlign: 'center',
   },
   formControlSpaceValue: {
     margin: theme.spacing(1),
@@ -76,6 +83,9 @@ export default function AddRuleForm(props) {
   const [m2Cmp, setM2Cmp] = React.useState('');
   const [m2Value, setM2Value] = React.useState('');
   const [spaceValue, setSpaceValue] = React.useState('');
+  const [checkboxDuration, setCheckboxDuration] = React.useState(true);
+  const [checkboxM2, setCheckboxM2] = React.useState(true);
+  const [checkboxSpace, setCheckboxSpace] = React.useState(true);
 
   const handleContagionRiskChange = (event) => {
     setContagionRisk(event.target.value);
@@ -101,6 +111,31 @@ export default function AddRuleForm(props) {
     setSpaceValue(event.target.value);
   }
 
+  const handleChangeCheckboxDuration = (event) => {
+    setCheckboxDuration(!checkboxDuration);
+  }
+
+  const handleChangeCheckboxM2 = (event) => {
+    setCheckboxM2(!checkboxM2);
+  }
+
+  const handleChangeCheckboxSpace = (event) => {
+    setCheckboxSpace(!checkboxSpace);
+  }
+
+  const fieldsValidation = () => {
+    console.log("Contagion risk:", contagionRisk);
+    console.log("Duration cmp:", durationCmp);
+    console.log("Duration value:", durationValue);
+    console.log("m2 cmp:", m2Cmp);
+    console.log("m2 value:", m2Value);
+    console.log("space value:", spaceValue);
+  }
+
+  const handleConfirm = () => {
+    fieldsValidation()
+  }
+
   return (
     <Grid container>
       <Grid item xs={12} className={classes.gridContagionRisk}>
@@ -123,7 +158,16 @@ export default function AddRuleForm(props) {
 
 
 
-      <Grid item xs={4}>
+      <Grid item xs={1}>
+        <Checkbox
+          className={classes.checkboxes}
+          checked={checkboxDuration}
+          color="primary"
+          inputProps={{ 'aria-label': 'secondary checkbox' }}
+          onChange={handleChangeCheckboxDuration}
+        />
+      </Grid>
+      <Grid item xs={3}>
         <h4 className={classes.titleDuration}>Duración del contacto</h4>
       </Grid>
       <Grid item xs={4}>
@@ -135,6 +179,7 @@ export default function AddRuleForm(props) {
             value={durationCmp}
             onChange={handleDurationCmpChange}
             variant="outlined"
+            disabled={!checkboxDuration}
           >
             <MenuItem value={'>'}>{'Mayor a'}</MenuItem>
             <MenuItem value={'<'}>{'Menor a'}</MenuItem>
@@ -149,11 +194,21 @@ export default function AddRuleForm(props) {
             variant="outlined"
             onChange={handleDurationValueChange}
             className={classes.durationValue}
+            disabled={!checkboxDuration}
           />
       </Grid>
 
 
-      <Grid item xs={4}>
+      <Grid item xs={1}>
+        <Checkbox
+          className={classes.checkboxes}
+          checked={checkboxM2}
+          color="primary"
+          inputProps={{ 'aria-label': 'secondary checkbox' }}
+          onChange={handleChangeCheckboxM2}
+        />
+      </Grid>
+      <Grid item xs={3}>
         <h4 className={classes.titleM2}>Superficie del espacio</h4>
       </Grid>
       <Grid item xs={4}>
@@ -165,6 +220,7 @@ export default function AddRuleForm(props) {
             value={m2Cmp}
             onChange={handleM2CmpChange}
             variant="outlined"
+            disabled={!checkboxM2}
           >
             <MenuItem value={'>'}>{'Mayor a'}</MenuItem>
             <MenuItem value={'<'}>{'Menor a'}</MenuItem>
@@ -179,12 +235,21 @@ export default function AddRuleForm(props) {
             variant="outlined"
             onChange={handleM2ValueChange}
             className={classes.m2Value}
+            disabled={!checkboxM2}
           />
       </Grid>
 
 
-
-      <Grid item xs={4}>
+      <Grid item xs={1}>
+        <Checkbox
+          className={classes.checkboxes}
+          checked={checkboxSpace}
+          color="primary"
+          inputProps={{ 'aria-label': 'secondary checkbox' }}
+          onChange={handleChangeCheckboxSpace}
+        />
+      </Grid>
+      <Grid item xs={3}>
         <h4 className={classes.titleSpace}>Ventilación del espacio</h4>
       </Grid>
       <Grid item xs={8}>
@@ -196,6 +261,7 @@ export default function AddRuleForm(props) {
             value={spaceValue}
             onChange={handleSpaceValueChange}
             variant="outlined"
+            disabled={!checkboxSpace}
           >
             <MenuItem value={'Abierto'}>{'Abierto'}</MenuItem>
             <MenuItem value={'Cerrado'}>{'Cerrado'}</MenuItem>
@@ -209,7 +275,7 @@ export default function AddRuleForm(props) {
         <Button onClick={props.handleClose} color="primary">
           Cancelar
         </Button>
-        <Button onClick={props.handleConfirm} color="primary">
+        <Button onClick={handleConfirm} color="primary">
           Crear
         </Button>
       </Grid>

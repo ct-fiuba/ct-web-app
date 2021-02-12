@@ -13,7 +13,17 @@ const useStyles = makeStyles((theme) => ({
     color: '#39893c',
     fontWeight: 'bold',
     float: 'right',
-  }
+  },
+  dialogTitle: {
+    marginTop: '40px',
+    marginLeft: '40px',
+    marginRight: '40px',
+  },
+  dialogContent: {
+    marginBottom: '40px',
+    marginLeft: '40px',
+    marginRight: '40px',
+  },
 }));
 
 export default function AddRuleButton(props) {
@@ -39,9 +49,9 @@ export default function AddRuleButton(props) {
       <Button className={classes.addButton} size="large" variant="filled" color="primary" onClick={handleClickOpen}>
         <AddIcon fontSize="large" style={{ color: '#39893c' }} /> Crear nueva regla
       </Button>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Crear regla de contagio</DialogTitle>
-        <DialogContent>
+      <Dialog maxWidth={'md'} open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle className={classes.dialogTitle} id="form-dialog-title">Crear regla de contagio</DialogTitle>
+        <DialogContent className={classes.dialogContent}>
           <DialogContentText>
             Para que un contacto coincida con una regla de contagio se deben cumplir todas las condiciones al mismo tiempo.
           </DialogContentText>

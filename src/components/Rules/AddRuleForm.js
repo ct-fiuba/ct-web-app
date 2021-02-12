@@ -10,9 +10,18 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    width: '165px',
+  formControlContagionRisk: {
+    margin: theme.spacing(4),
+    width: '400px',
+  },
+  labelContagionRisk: {
+    marginLeft: '10px',
+  },
+  gridContagionRisk: {
+    textAlign: 'center',
+  },
+  optionsContagionRisk: {
+    justifyContent: 'center',
   },
   buttonsGrid: {
     textAlign: 'right',
@@ -22,10 +31,11 @@ const useStyles = makeStyles((theme) => ({
   },
   durationValue: {
     marginTop: '8px',
+    width: '-webkit-fill-available',
   },
   formControlDurationCmp: {
     margin: theme.spacing(1),
-    width: '165px',
+    width: '-webkit-fill-available',
   },
   labelDurationCmp: {
     marginLeft: '10px',
@@ -35,12 +45,24 @@ const useStyles = makeStyles((theme) => ({
   },
   m2Value: {
     marginTop: '8px',
+    width: '-webkit-fill-available',
   },
   formControlM2Cmp: {
     margin: theme.spacing(1),
-    width: '165px',
+    width: '-webkit-fill-available',
   },
   labelM2Cmp: {
+    marginLeft: '10px',
+  },
+  titleSpace: {
+    marginTop: '28px',
+  },
+  formControlSpaceValue: {
+    margin: theme.spacing(1),
+    marginRight: '0px',
+    width: '-webkit-fill-available',
+  },
+  labelSpaceValue: {
     marginLeft: '10px',
   }
 }));
@@ -53,6 +75,7 @@ export default function AddRuleForm(props) {
   const [durationValue, setDurationValue] = React.useState('');
   const [m2Cmp, setM2Cmp] = React.useState('');
   const [m2Value, setM2Value] = React.useState('');
+  const [spaceValue, setSpaceValue] = React.useState('');
 
   const handleContagionRiskChange = (event) => {
     setContagionRisk(event.target.value);
@@ -74,20 +97,25 @@ export default function AddRuleForm(props) {
     setM2Value(event.target.value);
   }
 
+  const handleSpaceValueChange = (event) => {
+    setSpaceValue(event.target.value);
+  }
+
   return (
     <Grid container>
-      <Grid item xs={12}>
-        <FormControl className={classes.formControl}>
-          <InputLabel id="contagion-risk-helper-label">Riesgo de contagio</InputLabel>
+      <Grid item xs={12} className={classes.gridContagionRisk}>
+        <FormControl className={classes.formControlContagionRisk}>
+          <InputLabel className={classes.labelContagionRisk} id="contagion-risk-helper-label">Riesgo de contagio</InputLabel>
           <Select
             labelId="contagion-risk-label"
             id="contagion-risk"
             value={contagionRisk}
             onChange={handleContagionRiskChange}
+            variant="outlined"
           >
-            <MenuItem value={'Alto'}>Alto</MenuItem>
-            <MenuItem value={'Medio'}>Medio</MenuItem>
-            <MenuItem value={'Bajo'}>Bajo</MenuItem>
+            <MenuItem className={classes.optionsContagionRisk} value={'Alto'}>Alto</MenuItem>
+            <MenuItem className={classes.optionsContagionRisk} value={'Medio'}>Medio</MenuItem>
+            <MenuItem className={classes.optionsContagionRisk} value={'Bajo'}>Bajo</MenuItem>
           </Select>
           <FormHelperText>Riesgo asociado a la regla</FormHelperText>
         </FormControl>
@@ -100,7 +128,7 @@ export default function AddRuleForm(props) {
       </Grid>
       <Grid item xs={4}>
         <FormControl className={classes.formControlDurationCmp}>
-          <InputLabel className={classes.labelDurationCmp}>Menor o Mayor</InputLabel>
+          <InputLabel className={classes.labelDurationCmp}>Mayor o Menor</InputLabel>
           <Select
             labelId="durationCmp-label"
             id="durationCmp"
@@ -108,8 +136,8 @@ export default function AddRuleForm(props) {
             onChange={handleDurationCmpChange}
             variant="outlined"
           >
-            <MenuItem value={'<'}>{'Menor a'}</MenuItem>
             <MenuItem value={'>'}>{'Mayor a'}</MenuItem>
+            <MenuItem value={'<'}>{'Menor a'}</MenuItem>
           </Select>
         </FormControl>
       </Grid>
@@ -130,7 +158,7 @@ export default function AddRuleForm(props) {
       </Grid>
       <Grid item xs={4}>
         <FormControl className={classes.formControlM2Cmp}>
-          <InputLabel className={classes.labelM2Cmp}>Menor o Mayor</InputLabel>
+          <InputLabel className={classes.labelM2Cmp}>Mayor o Menor</InputLabel>
           <Select
             labelId="m2Cmp-label"
             id="m2Cmp"
@@ -138,8 +166,8 @@ export default function AddRuleForm(props) {
             onChange={handleM2CmpChange}
             variant="outlined"
           >
-            <MenuItem value={'<'}>{'Menor a'}</MenuItem>
             <MenuItem value={'>'}>{'Mayor a'}</MenuItem>
+            <MenuItem value={'<'}>{'Menor a'}</MenuItem>
           </Select>
         </FormControl>
       </Grid>
@@ -154,6 +182,26 @@ export default function AddRuleForm(props) {
           />
       </Grid>
 
+
+
+      <Grid item xs={4}>
+        <h4 className={classes.titleSpace}>Ventilación del espacio</h4>
+      </Grid>
+      <Grid item xs={8}>
+        <FormControl className={classes.formControlSpaceValue}>
+          <InputLabel className={classes.labelSpaceValue}>Abierto o Cerrado</InputLabel>
+          <Select
+            labelId="spaceValue-label"
+            id="spaceValue"
+            value={spaceValue}
+            onChange={handleSpaceValueChange}
+            variant="outlined"
+          >
+            <MenuItem value={'Abierto'}>{'Abierto'}</MenuItem>
+            <MenuItem value={'Cerrado'}>{'Cerrado'}</MenuItem>
+          </Select>
+        </FormControl>
+      </Grid>
 
 
 

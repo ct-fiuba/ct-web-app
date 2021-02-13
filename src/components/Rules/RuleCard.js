@@ -11,22 +11,16 @@ const useStyles = makeStyles({
   root: {
     minWidth: 275,
     margin: '10px',
-    borderTopWidth: '30px',
     borderTopStyle: 'inset',
   },
   highRisk: {
-    borderTopColor: '#d50000',
+    borderTop: '30px solid #ff5252',
   },
   mediumRisk: {
-    borderTopColor: '#ffb300',
+    borderTop: '30px solid #ffdb44',
   },
   lowRisk: {
-    borderTopColor: '#00e676',
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
+    borderTop: '30px solid #b5ffcf',
   },
   title: {
     fontSize: 14,
@@ -60,14 +54,14 @@ export default function RuleCard(props) {
                     {`Id regla: ${props.id}`}
                   </Typography>
                   <Typography variant="h5" component="h2">
-                    {`Riesgo ${props.contagionRisk}`}
+                    {`Riesgo de contagio `}<strong>{props.contagionRisk}</strong>
                   </Typography>
-                  <Typography variant="body2" component="p">
-                    {props.durationCmp ? `Duración ${props.durationCmp} ${props.durationValue} minutos` : ''}
+                  <Typography variant="body1" component="p">
+                    {props.durationCmp ? `Duración ${props.durationCmp === '<' ? "menor a" : "mayor a"} ${props.durationValue} minutos` : ''}
                     {props.durationCmp ? <br /> : ''}
-                    {props.m2Cmp ? `Tamaño ${props.m2Cmp} ${props.m2Value} metros cuadrados` : ''}
+                    {props.m2Cmp ? `Superficie ${props.m2Cmp === '<' ? "menor a" : "mayor a"} ${props.m2Value} metros cuadrados` : ''}
                     {props.m2Cmp ? <br /> : ''}
-                    {props.spaceValue ? `Espacio ${props.spaceValue}` : ''}
+                    {props.spaceValue ? `Ventilación del espacio: ${props.spaceValue}` : ''}
                   </Typography>
                 </CardContent>
               </Grid>

@@ -32,14 +32,12 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function SignIn() {
+export default function ForgotPassword() {
 	const classes = useStyles();
 	const [email, setEmail] = React.useState("");
-	const [password, setPassword] = React.useState("");
 	const [invalidEmailError, setInvalidEmailError] = React.useState(false);
 	const [emailNotFoundError, setEmailNotFoundError] = React.useState(false);
-	const [invalidPasswordError, setInvalidPasswordError] = React.useState(false);
-	const [notAdminError, setNotAdminError] = React.useState(false);
+	const [successPasswordReset, setSuccessPasswordReset] = React.useState(false);
 
 	const handleCloseInvalidEmail = () => {
 		setInvalidEmailError(false);
@@ -49,69 +47,41 @@ export default function SignIn() {
 		setEmailNotFoundError(false);
 	}
 
-	const handleCloseInvalidPassword = () => {
-		setInvalidPasswordError(false);
+	const handleCloseSuccessPasswordReset = () => {
+		setSuccessPasswordReset(false);
 	}
 
-	const handleCloseNotAdmin = () => {
-		setNotAdminError(false);
-	}
 
 	const handleEmailChange = (event) => {
 		setEmail(event.target.value);
 	}
 
-	const handlePasswordChange = (event) => {
-		setPassword(event.target.value);
-	}
-
 	const clearInputs = () => {
 		setEmail("");
-		setPassword("");
 	}
 
-	const handleSignInButton = () => {
+	const handleForgotPasswordButton = () => {
 		const requestOptions = {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ email, password })
+			body: JSON.stringify({ email })
 		};
-		fetch(process.env.REACT_APP_AUTH_SERVER_URL + '/signIn', requestOptions)
+		fetch(process.env.REACT_APP_AUTH_SERVER_URL + '/sendPasswordResetEmail', requestOptions)
 			.then(response => response.json())
-			.then(dataSignIn => {
-				if (dataSignIn.hasOwnProperty('reason')) {
-					if (dataSignIn['reason'] === "INVALID_EMAIL") {
+			.then(data => {
+				if (data.hasOwnProperty('reason')) {
+					if (data['reason'] === "INVALID_EMAIL") {
 						setInvalidEmailError(true);
 					}
-					if (dataSignIn['reason'] === "INVALID_PASSWORD" || dataSignIn['reason'] === "MISSING_PASSWORD") {
-						setInvalidPasswordError(true);
-					}
-					if (dataSignIn['reason'] === "EMAIL_NOT_FOUND") {
+					if (data['reason'] === "EMAIL_NOT_FOUND") {
 						setEmailNotFoundError(true);
 					}
 					clearInputs();
 					return;
 				}
-				const getUserDataRequest = {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({ accessToken: dataSignIn['accessToken'] })
-				};
-
-				fetch(process.env.REACT_APP_AUTH_SERVER_URL + '/getUserData', getUserDataRequest)
-					.then(response => response.json())
-					.then(dataGetUserData => {
-						if (dataGetUserData.hasOwnProperty('role') && dataGetUserData['role'] === "admin") {
-							localStorage.setItem('userId', dataSignIn['userId']);
-							localStorage.setItem('role', dataGetUserData['role']);
-							window.location.replace("/reglas");
-						} else {
-							setNotAdminError(true);
-							clearInputs();
-						}
-					})
+				setSuccessPasswordReset(true);
 			})
-			.catch(err => console.log('Error al iniciar sesión: ', err));
+			.catch(err => console.log('Error al recuperar contraseña: ', err));
 	}
 
 	return (
@@ -124,8 +94,11 @@ export default function SignIn() {
 						<LockOutlinedIcon />
 					</Avatar>
 					<Typography component="h1" variant="h5">
-						Iniciar Sesión
-        </Typography>
+						Recuperar contraseña
+        	</Typography>
+					<Typography component="h8" variant="h8">
+						Ingresá el email asociado a tu cuenta para poder enviar un correo de recuperación de contraseña
+        	</Typography>
 					<form className={classes.form} noValidate>
 						<TextField
 							variant="outlined"
@@ -140,32 +113,19 @@ export default function SignIn() {
 							onChange={handleEmailChange}
 							value={email}
 						/>
-						<TextField
-							variant="outlined"
-							margin="normal"
-							required
-							fullWidth
-							name="password"
-							label="Contraseña"
-							type="password"
-							id="password"
-							autoComplete="current-password"
-							onChange={handlePasswordChange}
-							value={password}
-						/>
 						<Button
 							fullWidth
 							variant="contained"
 							color="primary"
 							className={classes.submit}
-							onClick={handleSignInButton}
+							onClick={handleForgotPasswordButton}
 						>
-							Iniciar Sesión
+							Enviar mail
           </Button>
 						<Grid container>
 							<Grid item xs>
-								<Link href="/recuperarContrasenia" variant="body2">
-									¿Olvidaste tu contraseña?
+								<Link href="/iniciarSesion" variant="body2">
+									Iniciar sesión
               </Link>
 							</Grid>
 						</Grid>
@@ -176,10 +136,8 @@ export default function SignIn() {
 					handleCloseInvalidEmail={handleCloseInvalidEmail}
 					emailNotFound={emailNotFoundError}
 					handleCloseEmailNotFound={handleCloseEmailNotFound}
-					invalidPassword={invalidPasswordError}
-					handleCloseInvalidPassword={handleCloseInvalidPassword}
-					notAdmin={notAdminError}
-					handleCloseNotAdmin={handleCloseNotAdmin}
+					successPasswordReset={successPasswordReset}
+					handleCloseSuccessPasswordReset={handleCloseSuccessPasswordReset}
 				/>
 			</Container>
 		</div>

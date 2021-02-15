@@ -10,6 +10,7 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
+import ForgotPassword from './components/SignIn/ForgotPassword';
 
 class App extends Component {
   constructor(props) {
@@ -43,6 +44,9 @@ class App extends Component {
             </Route>
             <Route path="/iniciarSesion">
               <SignIn />
+            </Route>
+            <Route path="/recuperarContrasenia">
+              <ForgotPassword />
             </Route>
             <Route path="/reglas">
               {this.signedInAdmin(<Rules />)}

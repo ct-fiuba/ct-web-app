@@ -128,7 +128,6 @@ export default function Checkout() {
   const constructBody = () => {
     let body = {...state.firstStepInfo, spaces: state.secondStepInfo};
     body['openPlace'] = body['openPlace'] === 'no' ? false : true;
-    console.log(body);
     return body;
   };
 
@@ -142,7 +141,7 @@ export default function Checkout() {
         .then(response => response.json())
         .then(data => {
           const establishment_id = data['_id'];
-          window.open(process.env.REACT_APP_USER_API_URL + '/establishments/PDF/' + establishment_id, '_blank');
+          window.open(process.env.USER_API_URL + '/establishments/PDF/' + establishment_id, '_blank');
         })
         .catch(err => console.log('Error at fetch: ', err));
   };

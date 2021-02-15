@@ -6,12 +6,12 @@ import {
 export default function Home() {
   return (
     <div>
-      <Link to="/qr">
+      <Link to="/nuevoEstablecimiento">
         <Button>
           <p>Creacion de QRs</p>
         </Button>
       </Link>
-      <Link to="/rules">
+      <Link to="/reglas">
         <Button>
           <p>Reglas de contagio</p>
         </Button>

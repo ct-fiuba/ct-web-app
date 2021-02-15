@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import covidIcon from '../../images/covid.svg';
 import '../../css/home.css';
+import Button from '@material-ui/core/Button';
 
 class Home extends Component {
     render(){
@@ -11,8 +12,12 @@ class Home extends Component {
                 <p className="home-stitle">
                     Bienvenido al sistema de contact tracing para encontrar contagios de COVID-19 manteniendo la privacidad de los usuarios.
                 </p>
-                <a id="LandingIngresarButton" href="/nuevoEstablecimiento">Registrar nuevo establecimiento</a> (acceso público)
-                <a id="LandingIngresarButton" href="/reglas">Administrar las reglas de contagio</a> (acceso restringido a administradores)
+                <Button href="/nuevoEstablecimiento" color="primary">
+                    Registrar nuevo establecimiento
+                </Button>
+                <Button href="/reglas" color="primary">
+                    Administrar las reglas de contagio (administradores)
+                </Button>
             </section>
         )
     }

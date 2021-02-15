@@ -7,7 +7,7 @@ class Home extends Component {
         return(
             <section className="home-page">
                 <img className="rotate covid" src={covidIcon} alt="covid"/>
-                <h1 className="home-title">Contact Tracing COVID-19</h1>
+                <h1 className="home-title">Control de Pandemias</h1>
                 <p className="home-stitle">
                     Bienvenido al sistema de contact tracing para encontrar contagios de COVID-19 manteniendo la privacidad de los usuarios.
                 </p>

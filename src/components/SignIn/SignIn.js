@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import SignInErrors from './SignInErrors';
+import AppBar from '../Shared/AppBar';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -40,21 +41,21 @@ export default function SignIn() {
 	const [invalidPasswordError, setInvalidPasswordError] = React.useState(false);
 	const [notAdminError, setNotAdminError] = React.useState(false);
 
-  const handleCloseInvalidEmail = () => {
-    setInvalidEmailError(false);
-  }
-
-  const handleCloseEmailNotFound = () => {
-    setEmailNotFoundError(false);
+	const handleCloseInvalidEmail = () => {
+		setInvalidEmailError(false);
 	}
 
-  const handleCloseInvalidPassword = () => {
-    setInvalidPasswordError(false);
+	const handleCloseEmailNotFound = () => {
+		setEmailNotFoundError(false);
 	}
-	
+
+	const handleCloseInvalidPassword = () => {
+		setInvalidPasswordError(false);
+	}
+
 	const handleCloseNotAdmin = () => {
-    setNotAdminError(false);
-  }
+		setNotAdminError(false);
+	}
 
 	const handleEmailChange = (event) => {
 		setEmail(event.target.value);
@@ -114,70 +115,73 @@ export default function SignIn() {
 	}
 
 	return (
-		<Container component="main" maxWidth="xs">
-			<CssBaseline />
-			<div className={classes.paper}>
-				<Avatar className={classes.avatar}>
-					<LockOutlinedIcon />
-				</Avatar>
-				<Typography component="h1" variant="h5">
-					Iniciar Sesión
-        </Typography>
-				<form className={classes.form} noValidate>
-					<TextField
-						variant="outlined"
-						margin="normal"
-						required
-						fullWidth
-						id="email"
-						label="Email"
-						name="email"
-						autoComplete="email"
-						autoFocus
-						onChange={handleEmailChange}
-						value={email}
-					/>
-					<TextField
-						variant="outlined"
-						margin="normal"
-						required
-						fullWidth
-						name="password"
-						label="Contraseña"
-						type="password"
-						id="password"
-						autoComplete="current-password"
-						onChange={handlePasswordChange}
-						value={password}
-					/>
-					<Button
-						fullWidth
-						variant="contained"
-						color="primary"
-						className={classes.submit}
-						onClick={handleSignInButton}
-					>
+		<div>
+			<AppBar />
+			<Container component="main" maxWidth="xs">
+				<CssBaseline />
+				<div className={classes.paper}>
+					<Avatar className={classes.avatar}>
+						<LockOutlinedIcon />
+					</Avatar>
+					<Typography component="h1" variant="h5">
 						Iniciar Sesión
+        </Typography>
+					<form className={classes.form} noValidate>
+						<TextField
+							variant="outlined"
+							margin="normal"
+							required
+							fullWidth
+							id="email"
+							label="Email"
+							name="email"
+							autoComplete="email"
+							autoFocus
+							onChange={handleEmailChange}
+							value={email}
+						/>
+						<TextField
+							variant="outlined"
+							margin="normal"
+							required
+							fullWidth
+							name="password"
+							label="Contraseña"
+							type="password"
+							id="password"
+							autoComplete="current-password"
+							onChange={handlePasswordChange}
+							value={password}
+						/>
+						<Button
+							fullWidth
+							variant="contained"
+							color="primary"
+							className={classes.submit}
+							onClick={handleSignInButton}
+						>
+							Iniciar Sesión
           </Button>
-					<Grid container>
-						<Grid item xs>
-							<Link href="#" variant="body2">
-								¿Olvidaste tu contraseña?
+						<Grid container>
+							<Grid item xs>
+								<Link href="#" variant="body2">
+									¿Olvidaste tu contraseña?
               </Link>
+							</Grid>
 						</Grid>
-					</Grid>
-				</form>
-			</div>
-			<SignInErrors 
-        invalidEmail={invalidEmailError}
-        handleCloseInvalidEmail={handleCloseInvalidEmail}
-        emailNotFound={emailNotFoundError}
-				handleCloseEmailNotFound={handleCloseEmailNotFound}
-				invalidPassword={invalidPasswordError}
-				handleCloseInvalidPassword={handleCloseInvalidPassword}
-				notAdmin={notAdminError}
-        handleCloseNotAdmin={handleCloseNotAdmin}
-      />
-		</Container>
+					</form>
+				</div>
+				<SignInErrors
+					invalidEmail={invalidEmailError}
+					handleCloseInvalidEmail={handleCloseInvalidEmail}
+					emailNotFound={emailNotFoundError}
+					handleCloseEmailNotFound={handleCloseEmailNotFound}
+					invalidPassword={invalidPasswordError}
+					handleCloseInvalidPassword={handleCloseInvalidPassword}
+					notAdmin={notAdminError}
+					handleCloseNotAdmin={handleCloseNotAdmin}
+				/>
+			</Container>
+		</div>
 	);
 }

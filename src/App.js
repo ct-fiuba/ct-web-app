@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Checkout from './components/Checkout/Checkout.js';
 import Rules from './components/Rules/Rules.js';
+import SignIn from './components/SignIn/SignIn.js';
 import Home from './components/Home/Home.js';
 import {
   BrowserRouter as Router,
@@ -14,10 +15,13 @@ function App() {
     <Router>
     <div>
       <Switch>
-        <Route path="/qr">
+        <Route path="/nuevoEstablecimiento">
           <Checkout />
         </Route>
-        <Route path="/rules">
+        <Route path="/iniciarSesion">
+          <SignIn />
+        </Route>
+        <Route path="/reglas">
           <Rules />
         </Route>
         <Route path="/">

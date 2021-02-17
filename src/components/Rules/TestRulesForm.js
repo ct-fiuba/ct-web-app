@@ -56,16 +56,8 @@ const useStyles = makeStyles((theme) => ({
 export default function TestRulesForm(props) {
   const classes = useStyles();
 
-  const [contagionRisk, setContagionRisk] = React.useState('');
-  const [durationCmp, setDurationCmp] = React.useState('');
-  const [durationValue, setDurationValue] = React.useState('');
-  const [m2Cmp, setM2Cmp] = React.useState('');
   const [m2Value, setM2Value] = React.useState('');
   const [spaceValue, setSpaceValue] = React.useState('');
-  const [checkboxDuration, setCheckboxDuration] = React.useState(true);
-  const [checkboxM2, setCheckboxM2] = React.useState(true);
-  const [checkboxSpace, setCheckboxSpace] = React.useState(true);
-
   const [m2Missing, setM2Missing] = React.useState(false);
   const [spaceMissing, setSpaceMissing] = React.useState(false);
   const [infectedTimeMissing, setInfectedTimeMissing] = React.useState(false);
@@ -138,9 +130,30 @@ export default function TestRulesForm(props) {
     return true;
   }
 
+  const calculateDuration = () => {
+    // no overlap
+    if (infectedEndDate < healthyStartDate || infectedStartDate > healthyEndDate) {
+      return 0;
+    }
+
+    const minEndDate = healthyEndDate < infectedEndDate ? healthyEndDate : infectedEndDate;
+    const maxStartDate = healthyStartDate < infectedStartDate ? infectedStartDate : healthyStartDate;
+
+    return minEndDate - maxStartDate;
+  }
+
+  const buildTestEnv = () => {
+    return {
+      space: spaceValue,
+      m2: m2Value,
+      duration: calculateDuration() / 60 / 1000
+    }
+  }
+
   const handleConfirm = () => {
     if (fieldsValidation()) {
-      props.handleClose();
+      props.testRules(buildTestEnv());
+      //props.handleClose();
     }
   }
 
@@ -157,7 +170,6 @@ export default function TestRulesForm(props) {
           variant="outlined"
           onChange={handleM2ValueChange}
           className={classes.m2Value}
-          disabled={!checkboxM2}
         />
       </Grid>
 
@@ -174,7 +186,6 @@ export default function TestRulesForm(props) {
             value={spaceValue}
             onChange={handleSpaceValueChange}
             variant="outlined"
-            disabled={!checkboxSpace}
           >
             <MenuItem value={'Abierto'}>{'Abierto'}</MenuItem>
             <MenuItem value={'Cerrado'}>{'Cerrado'}</MenuItem>
@@ -190,7 +201,7 @@ export default function TestRulesForm(props) {
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardTimePicker
             margin="normal"
-            id="time-picker"
+            id="infectedStartDate"
             label="Entrada"
             value={infectedStartDate}
             onChange={handleInfectedStartDateChange}
@@ -205,7 +216,7 @@ export default function TestRulesForm(props) {
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardTimePicker
             margin="normal"
-            id="time-picker"
+            id="infectedEndDate"
             label="Salida"
             value={infectedEndDate}
             onChange={handleInfectedEndDateChange}
@@ -225,7 +236,7 @@ export default function TestRulesForm(props) {
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardTimePicker
             margin="normal"
-            id="time-picker"
+            id="healthyStartDate"
             label="Entrada"
             value={healthyStartDate}
             onChange={handleHealthyStartDateChange}
@@ -240,7 +251,7 @@ export default function TestRulesForm(props) {
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardTimePicker
             margin="normal"
-            id="time-picker"
+            id="healthyEndDate"
             label="Salida"
             value={healthyEndDate}
             onChange={handleHealthyEndDateChange}

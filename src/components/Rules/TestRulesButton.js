@@ -39,6 +39,44 @@ export default function TestRulesButton(props) {
     setOpen(false);
   };
 
+  const evaluateRule = (env, rule) => {
+    let duration = true;
+    let m2 = true;
+    let space = true;
+
+    if (rule.hasOwnProperty('durationValue')) {
+      if (rule.durationCmp === '<') {
+        duration = env.duration <= rule.durationValue;
+      } else {
+        duration = env.duration >= rule.durationValue;
+      }
+    }
+
+    if (rule.hasOwnProperty('m2Value')) {
+      if (rule.m2Cmp === '<') {
+        m2 = env.m2 <= rule.m2Value;
+      } else {
+        m2 = env.m2 >= rule.m2Value;
+      }
+    }
+
+    if (rule.hasOwnProperty('spaceValue')) {
+      space = env.space <= rule.spaceValue;
+    }
+
+    return duration && m2 && space;
+  }
+
+  const testRules = (env) => {
+    props.rules.sort((r1, r2) => {return r1.index < r2.index ? -1 : 1});
+    console.log(env);
+    console.log(props.rules);
+
+    for (let rule of props.rules) {
+      console.log(`Evaluación de la regla con id ${rule.id} dio ${evaluateRule(env, rule)}`);
+    }
+  }
+
   return (
     <div>
       <Button className={classes.testRulesButton} variant="outlined" color="primary" onClick={handleClickOpen}>
@@ -50,7 +88,7 @@ export default function TestRulesButton(props) {
           <DialogContentText>
             Ingrese las características de un espacio, los horarios de entrada y salida de una persona contagiada, y los de una persona sana. Presioná en "Correr Prueba" para validar con qué regla coincidirá ese contacto y qué riesgo tendra la persona sana.
           </DialogContentText>
-          <TestRulesForm handleClose={handleClose} addRule={props.addRule} />
+          <TestRulesForm handleClose={handleClose} testRules={testRules} />
         </DialogContent>
       </Dialog>
     </div>

@@ -63,10 +63,10 @@ export default function RulesContainer(props) {
 	}, [props.rules])
 
 	return (
-		<div container className={classes.divContainer}>
+		<div className={classes.divContainer}>
 			<Grid container>
 				<Grid item xs={6}>
-					<TestRulesButton addRule={props.addRule} />
+					<TestRulesButton rules={state.rules} />
 				</Grid>
 			</Grid>
 			<Grid container className={classes.container}>

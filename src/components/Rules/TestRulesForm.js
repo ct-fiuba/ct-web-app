@@ -153,7 +153,8 @@ export default function TestRulesForm(props) {
   const handleConfirm = () => {
     if (fieldsValidation()) {
       props.testRules(buildTestEnv());
-      //props.handleClose();
+    } else {
+      props.testRules(null);
     }
   }
 

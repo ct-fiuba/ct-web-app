@@ -75,13 +75,10 @@ export default function TestRulesButton(props) {
   const testRules = (env) => {
     setTestRuleResult(null);
     setNotMatch(false);
+    if (!env) return;
     props.rules.sort((r1, r2) => { return r1.index < r2.index ? -1 : 1 });
-    console.log(env);
-    console.log(props.rules);
-
     for (let rule of props.rules) {
       const result = evaluateRule(env, rule);
-      console.log(`Evaluación de la regla con id ${rule.id} dio ${result}`);
       if (result) {
         setTestRuleResult(rule);
         setNotMatch(false);

@@ -6,6 +6,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import TestRulesResult from './TestRulesResult';
 
 const useStyles = makeStyles((theme) => ({
   testRulesButton: {
@@ -30,6 +31,8 @@ export default function TestRulesButton(props) {
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);
+  const [testRuleResult, setTestRuleResult] = React.useState(null);
+  const [notMatch, setNotMatch] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -37,6 +40,8 @@ export default function TestRulesButton(props) {
 
   const handleClose = () => {
     setOpen(false);
+    setTestRuleResult(null);
+    setNotMatch(false);
   };
 
   const evaluateRule = (env, rule) => {
@@ -46,35 +51,45 @@ export default function TestRulesButton(props) {
 
     if (rule.hasOwnProperty('durationValue')) {
       if (rule.durationCmp === '<') {
-        duration = env.duration <= rule.durationValue;
+        duration = parseInt(env.duration) <= parseInt(rule.durationValue);
       } else {
-        duration = env.duration >= rule.durationValue;
+        duration = parseInt(env.duration) >= parseInt(rule.durationValue);
       }
     }
 
     if (rule.hasOwnProperty('m2Value')) {
       if (rule.m2Cmp === '<') {
-        m2 = env.m2 <= rule.m2Value;
+        m2 = parseInt(env.m2) <= parseInt(rule.m2Value);
       } else {
-        m2 = env.m2 >= rule.m2Value;
+        m2 = parseInt(env.m2) >= parseInt(rule.m2Value);
       }
     }
 
     if (rule.hasOwnProperty('spaceValue')) {
-      space = env.space <= rule.spaceValue;
+      space = env.space === rule.spaceValue;
     }
 
     return duration && m2 && space;
   }
 
   const testRules = (env) => {
-    props.rules.sort((r1, r2) => {return r1.index < r2.index ? -1 : 1});
+    setTestRuleResult(null);
+    setNotMatch(false);
+    props.rules.sort((r1, r2) => { return r1.index < r2.index ? -1 : 1 });
     console.log(env);
     console.log(props.rules);
 
     for (let rule of props.rules) {
-      console.log(`Evaluación de la regla con id ${rule.id} dio ${evaluateRule(env, rule)}`);
+      const result = evaluateRule(env, rule);
+      console.log(`Evaluación de la regla con id ${rule.id} dio ${result}`);
+      if (result) {
+        setTestRuleResult(rule);
+        setNotMatch(false);
+        return;
+      }
     }
+    setTestRuleResult(null);
+    setNotMatch(true);
   }
 
   return (
@@ -89,6 +104,7 @@ export default function TestRulesButton(props) {
             Ingrese las características de un espacio, los horarios de entrada y salida de una persona contagiada, y los de una persona sana. Presioná en "Correr Prueba" para validar con qué regla coincidirá ese contacto y qué riesgo tendra la persona sana.
           </DialogContentText>
           <TestRulesForm handleClose={handleClose} testRules={testRules} />
+          <TestRulesResult rule={testRuleResult} notMatch={notMatch} />
         </DialogContent>
       </Dialog>
     </div>

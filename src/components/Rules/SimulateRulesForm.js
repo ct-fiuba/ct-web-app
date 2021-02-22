@@ -215,7 +215,7 @@ export default function SimulateRulesForm(props) {
       </Grid>
 
       <Grid className={classes.sliderGrids} item xs={4}>
-        <h4 className={classes.titles}>Dias a simular
+        <h4 className={classes.titles}>Días a simular
           <Tooltip className={classes.tooltips} placement="right" title={<span className={classes.tooltipsText}>Cantidad de días que durará la simulación.</span>}>
             <HelpIcon color="action" fontSize="small"></HelpIcon>
           </Tooltip>

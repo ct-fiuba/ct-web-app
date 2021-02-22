@@ -6,7 +6,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import TestRulesResult from './TestRulesResult';
+import SimulateRulesResult from './SimulateRulesResult';
 
 const useStyles = makeStyles((theme) => ({
   simulateRulesButton: {
@@ -31,8 +31,8 @@ export default function SimulateRulesButton(props) {
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);
-  const [testRuleResult, setTestRuleResult] = React.useState(null);
-  const [notMatch, setNotMatch] = React.useState(false);
+  const [simulateRuleResult, setSimulateRuleResult] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -40,53 +40,36 @@ export default function SimulateRulesButton(props) {
 
   const handleClose = () => {
     setOpen(false);
-    setTestRuleResult(null);
-    setNotMatch(false);
+    setSimulateRuleResult(null);
+    setLoading(false);
   };
 
-  const evaluateRule = (env, rule) => {
-    let duration = true;
-    let m2 = true;
-    let space = true;
-
-    if (rule.hasOwnProperty('durationValue')) {
-      if (rule.durationCmp === '<') {
-        duration = parseInt(env.duration) <= parseInt(rule.durationValue);
-      } else {
-        duration = parseInt(env.duration) >= parseInt(rule.durationValue);
-      }
-    }
-
-    if (rule.hasOwnProperty('m2Value')) {
-      if (rule.m2Cmp === '<') {
-        m2 = parseInt(env.m2) <= parseInt(rule.m2Value);
-      } else {
-        m2 = parseInt(env.m2) >= parseInt(rule.m2Value);
-      }
-    }
-
-    if (rule.hasOwnProperty('spaceValue')) {
-      space = env.space === rule.spaceValue;
-    }
-
-    return duration && m2 && space;
+  const sleep = async (milliseconds) => {
+    await new Promise(r => setTimeout(r, milliseconds));
   }
 
-  const simulateRules = (env) => {
-    setTestRuleResult(null);
-    setNotMatch(false);
-    if (!env) return;
-    props.rules.sort((r1, r2) => { return r1.index < r2.index ? -1 : 1 });
-    for (let rule of props.rules) {
-      const result = evaluateRule(env, rule);
-      if (result) {
-        setTestRuleResult(rule);
-        setNotMatch(false);
-        return;
-      }
+  const formatAPIResponse = (config, response) => {
+    // We should format the API response here!
+    return {
+      infected: config.infectedUsers,
+      highRisk: (config.users - config.infectedUsers) * 20 / 100,
+      midRisk: (config.users - config.infectedUsers) * 50 / 100,
+      lowRisk: (config.users - config.infectedUsers) * 30 / 100,
     }
-    setTestRuleResult(null);
-    setNotMatch(true);
+  }
+
+  const simulateAPI = async (config) => {
+    // We should hit an API here!
+    await sleep(4000);
+    setLoading(false);
+    setSimulateRuleResult(formatAPIResponse(config, null));
+  }
+
+  const simulateRules = (config) => {
+    console.log(config);
+    setSimulateRuleResult(null);
+    setLoading(true);
+    simulateAPI(config);
   }
 
   return (
@@ -101,7 +84,7 @@ export default function SimulateRulesButton(props) {
             Defini los valores para simular el comportamiento de la sociedad y entender qué porcentaje de los usuarios terminaría con cada riesgo de contagio luego de un período de tiempo, para poder editar las reglas de contagio tal que representen de la forma más precisa posible a la enfermedad.
           </DialogContentText>
           <SimulateRulesForm handleClose={handleClose} simulateRules={simulateRules} />
-          <TestRulesResult rule={testRuleResult} notMatch={notMatch} />
+          <SimulateRulesResult result={simulateRuleResult} loading={loading} />
         </DialogContent>
       </Dialog>
     </div>

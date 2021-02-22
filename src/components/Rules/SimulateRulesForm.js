@@ -15,13 +15,11 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '5px',
     textAlign: 'center',
   },
-  m2Value: {
-    marginTop: '8px',
-    marginLeft: '8px',
-    width: '-webkit-fill-available',
-  },
   sliderGrids: {
     marginTop: '15px'
+  },
+  firstSliderGrid: {
+    marginTop: '25px'
   },
   tooltipsText: {
     fontSize: '14px'
@@ -73,7 +71,14 @@ export default function SimulateRulesForm(props) {
   }
 
   const handleConfirm = () => {
-    props.simulateRules(null);
+    const config = {
+      users: usersValue,
+      infectedUsers: infectedUsersValue,
+      establishments: establishmentsValue,
+      mobility: mobilityValue,
+      days: daysValue,
+    }
+    props.simulateRules(config);
   }
 
   const usersMarks = [
@@ -133,14 +138,14 @@ export default function SimulateRulesForm(props) {
 
   return (
     <Grid container>
-      <Grid className={classes.sliderGrids} item xs={4}>
+      <Grid className={classes.firstSliderGrid} item xs={4}>
         <h4 className={classes.titles}>Usuarios
           <Tooltip className={classes.tooltips} placement="right" title={<span className={classes.tooltipsText}>Cantidad de usuarios en la simulación</span>}>
             <HelpIcon color="action" fontSize="small"></HelpIcon>
           </Tooltip>
         </h4>
       </Grid>
-      <Grid className={classes.sliderGrids} item xs={8}>
+      <Grid className={classes.firstSliderGrid} item xs={8}>
         <Slider
           value={usersValue}
           aria-labelledby="discrete-slider-always"

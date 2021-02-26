@@ -11,8 +11,8 @@ export default class Rules extends React.Component {
     this.state = { rules: [], max_id: 0};
   }
 
-  componentDidMount() {
-    this.getCurrentRules();
+  async componentDidMount() {
+    await this.getCurrentRules();
   }
 
   deleteRule(id) {
@@ -42,12 +42,10 @@ export default class Rules extends React.Component {
     });
   }
 
-  getCurrentRules() {
+  async getCurrentRules() {
     // We should hit an endpoint to get the current rules
-    const rules = this.mockRules();
-    this.setState({
-      rules: rules
-    });
+    //const rules = this.mockRules();
+    await this.getRules();
   }
 
   reorder(list, startIndex, endIndex) {
@@ -86,6 +84,20 @@ export default class Rules extends React.Component {
       { id: 2, index: 2, contagionRisk: 'Alto', durationValue: 120, durationCmp: '>' },
       { id: 3, index: 3, contagionRisk: 'Bajo', m2Value: 100, m2Cmp: '>', spaceValue: 'Abierto' }
     ];
+  }
+
+  async getRules() {
+    fetch(process.env.REACT_APP_USER_API_URL + '/rules')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        for (let rule of data) {
+          rule['id'] = rule['_id'];
+        }
+        console.log(data);
+        this.setState({ max_id: data.length - 1, rules: data });
+      })
+      .catch(err => console.log('Error at fetch: ', err));
   }
 
   render() {

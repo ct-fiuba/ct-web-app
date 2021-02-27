@@ -156,9 +156,45 @@ export default class Rules extends React.Component {
     return changes;
   }
 
+  async addNewRules(new_rules) {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(new_rules)
+    };
+    return fetch(process.env.REACT_APP_USER_API_URL + '/rules', requestOptions)
+  }
+
+  async deleteRules(deleted_rules) {
+    const requestOptions = {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(deleted_rules)
+    };
+    return fetch(process.env.REACT_APP_USER_API_URL + '/rules', requestOptions)
+  }
+
+  async updateRules(updated_rules) {
+    const requestOptions = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(updated_rules)
+    };
+    return fetch(process.env.REACT_APP_USER_API_URL + '/rules', requestOptions)
+  }
+
   async saveChanges() {
     let changes = this.calculateChanges(this.state.rules);
-    console.log(changes);
+    if (changes['added'].length > 0) {
+      const addRes = await this.addNewRules({ rules: changes['added'] });
+    }
+    if (changes['updated'].length > 0) {
+      const updateRes = await this.updateRules({ rules: changes['updated'] });
+    }
+    if (changes['deleted'].length > 0) {
+      const deleteRes = await this.deleteRules({ ruleIds: changes['deleted'] });
+    }
+		window.location.replace("/reglas");
   }
 
   render() {

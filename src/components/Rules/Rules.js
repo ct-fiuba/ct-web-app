@@ -8,7 +8,8 @@ export default class Rules extends React.Component {
     this.onDragEnd = this.onDragEnd.bind(this);
     this.deleteRule = this.deleteRule.bind(this);
     this.addRule = this.addRule.bind(this);
-    this.state = { rules: [], max_id: 0};
+    this.saveChanges = this.saveChanges.bind(this);
+    this.state = { rules: [], max_index: 0, savedRules: [] };
   }
 
   async componentDidMount() {
@@ -30,8 +31,8 @@ export default class Rules extends React.Component {
   }
 
   addRule(rule) {
-    rule['id'] = this.state.max_id + 1;
-    this.setState({max_id: this.state.max_id + 1})
+    rule['id'] = this.state.max_index + 1;
+    this.setState({max_index: this.state.max_index + 1})
     rule['index'] = 0;
     rule['created'] = true;
     let new_rules = JSON.parse(JSON.stringify(this.state.rules)); //deep clone to update changes
@@ -43,8 +44,6 @@ export default class Rules extends React.Component {
   }
 
   async getCurrentRules() {
-    // We should hit an endpoint to get the current rules
-    //const rules = this.mockRules();
     await this.getRules();
   }
 
@@ -77,7 +76,7 @@ export default class Rules extends React.Component {
   }
 
   mockRules() {
-    this.setState({ max_id: 3 });
+    this.setState({ max_index: 3 });
     return [
       { id: 0, index: 0, contagionRisk: 'Alto', durationValue: 60, durationCmp: '>', m2Value: 30, m2Cmp: '<', spaceValue: 'Cerrado' },
       { id: 1, index: 1, contagionRisk: 'Medio', durationValue: 60, durationCmp: '<', m2Value: 50, m2Cmp: '>', spaceValue: 'Abierto' },
@@ -87,24 +86,45 @@ export default class Rules extends React.Component {
   }
 
   async getRules() {
+    console.log("LLAMO A /RULES");
     fetch(process.env.REACT_APP_USER_API_URL + '/rules')
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         for (let rule of data) {
           rule['id'] = rule['_id'];
         }
+        data.sort(function (a, b) {
+          return a.index - b.index;
+        });
         console.log(data);
-        this.setState({ max_id: data.length - 1, rules: data });
+        this.setState({ max_index: data.length - 1, rules: data, savedRules: JSON.parse(JSON.stringify(data)) });
       })
       .catch(err => console.log('Error at fetch: ', err));
+  }
+
+  calculateChanges() {
+    console.log(this.state.savedRules);
+    console.log(this.state.rules);
+
+    console.log(this.state.rules === this.state.savedChanges);
+  }
+
+  async saveChanges() {
+    console.log(this.state.rules);
+    this.calculateChanges();
   }
 
   render() {
     return (
       <div>
         <AppBar loggedIn={true} />
-        <RulesContainer rules={this.state.rules} onDragEnd={this.onDragEnd} deleteRule={this.deleteRule} addRule={this.addRule} />;
+        <RulesContainer 
+          rules={this.state.rules}
+          onDragEnd={this.onDragEnd}
+          deleteRule={this.deleteRule}
+          addRule={this.addRule}
+          saveChanges={this.saveChanges}
+          canSaveChanges={this.state.canSaveChanges} />
       </div>
     );
   }

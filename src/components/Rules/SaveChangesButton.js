@@ -15,7 +15,7 @@ export default function AddRuleButton(props) {
   const classes = useStyles();
   return (
     <div>
-      <Button className={classes.addButton} size="large" variant="outlined" color="primary" onClick={props.saveChanges} disabled={props.canSaveChanges}>
+      <Button className={classes.addButton} size="large" variant="outlined" color="primary" onClick={props.saveChanges} disabled={!props.canSaveChanges}>
         <SaveIcon /> Guardar Cambios
       </Button>
     </div>

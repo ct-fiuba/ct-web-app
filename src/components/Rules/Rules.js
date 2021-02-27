@@ -9,7 +9,7 @@ export default class Rules extends React.Component {
     this.deleteRule = this.deleteRule.bind(this);
     this.addRule = this.addRule.bind(this);
     this.saveChanges = this.saveChanges.bind(this);
-    this.state = { rules: [], max_index: 0, savedRules: [] };
+    this.state = { rules: [], max_index: 0, savedRules: [], canSaveChanges: false};
   }
 
   async componentDidMount() {
@@ -23,6 +23,7 @@ export default class Rules extends React.Component {
     this.setState({
       rules: new_rules
     });
+    this.calculateChanges(new_rules);
   }
 
   updateIndexes(new_rules) {
@@ -52,6 +53,7 @@ export default class Rules extends React.Component {
     this.setState({
       rules: new_rules
     });
+    this.calculateChanges(new_rules);
   }
 
   async getCurrentRules() {
@@ -78,12 +80,13 @@ export default class Rules extends React.Component {
     if (result.destination.index === result.source.index) {
       return;
     }
-    const newRules = this.reorder(
+    const new_rules = this.reorder(
       this.state.rules,
       result.source.index,
       result.destination.index
     );
-    this.setState({ rules: newRules });
+    this.setState({ rules: new_rules });
+    this.calculateChanges(new_rules);
   }
 
   mockRules() {
@@ -111,13 +114,13 @@ export default class Rules extends React.Component {
       .catch(err => console.log('Error at fetch: ', err));
   }
 
-  areEqual() {
-    if (this.state.rules.length !== this.state.savedRules.length) {
+  areEqual(new_rules) {
+    if (new_rules.length !== this.state.savedRules.length) {
       return false;
     }
 
     for (const savedRule of this.state.savedRules) {
-      const currentRule = this.state.rules.filter(rule => rule['id'] === savedRule.id)
+      const currentRule = new_rules.filter(rule => rule['id'] === savedRule.id)
       if (currentRule.length === 0) {
         // deleted
         return false;
@@ -130,18 +133,17 @@ export default class Rules extends React.Component {
     return true;
   }
 
-  calculateChanges() {
+  calculateChanges(new_rules) {
     console.log(this.state.savedRules);
-    console.log(this.state.rules);
+    console.log(new_rules);
 
     this.setState({
-      canSaveChanges: !this.areEqual()
+      canSaveChanges: !this.areEqual(new_rules)
     });
   }
 
   async saveChanges() {
-    console.log(this.state.rules);
-    this.calculateChanges();
+    this.calculateChanges(this.state.rules);
   }
 
   render() {

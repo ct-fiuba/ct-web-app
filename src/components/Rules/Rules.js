@@ -23,7 +23,7 @@ export default class Rules extends React.Component {
     this.setState({
       rules: new_rules
     });
-    this.calculateChanges(new_rules);
+    this.updateSavingButton(new_rules);
   }
 
   updateIndexes(new_rules) {
@@ -53,7 +53,7 @@ export default class Rules extends React.Component {
     this.setState({
       rules: new_rules
     });
-    this.calculateChanges(new_rules);
+    this.updateSavingButton(new_rules);
   }
 
   async getCurrentRules() {
@@ -86,7 +86,7 @@ export default class Rules extends React.Component {
       result.destination.index
     );
     this.setState({ rules: new_rules });
-    this.calculateChanges(new_rules);
+    this.updateSavingButton(new_rules);
   }
 
   mockRules() {
@@ -114,7 +114,7 @@ export default class Rules extends React.Component {
       .catch(err => console.log('Error at fetch: ', err));
   }
 
-  areEqual(new_rules) {
+  areRulesEqual(new_rules) {
     if (new_rules.length !== this.state.savedRules.length) {
       return false;
     }
@@ -133,17 +133,32 @@ export default class Rules extends React.Component {
     return true;
   }
 
-  calculateChanges(new_rules) {
-    console.log(this.state.savedRules);
-    console.log(new_rules);
-
+  updateSavingButton(new_rules) {
     this.setState({
-      canSaveChanges: !this.areEqual(new_rules)
+      canSaveChanges: !this.areRulesEqual(new_rules)
     });
   }
 
+  calculateChanges() {
+    let changes = {'deleted': [], 'updated': [], 'added': []};
+
+    for (const savedRule of this.state.savedRules) {
+      const currentRule = this.state.rules.filter(rule => rule['id'] === savedRule.id)
+      if (currentRule.length === 0) {
+        changes['deleted'].push(savedRule.id);
+        continue;
+      }
+      if (currentRule[0].index !== savedRule.index) {
+        changes['updated'].push(currentRule[0]);
+      }
+    }
+    changes['added'] = this.state.rules.filter(rule => rule['created'] === true)
+    return changes;
+  }
+
   async saveChanges() {
-    this.calculateChanges(this.state.rules);
+    let changes = this.calculateChanges(this.state.rules);
+    console.log(changes);
   }
 
   render() {

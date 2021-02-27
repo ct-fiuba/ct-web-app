@@ -17,15 +17,26 @@ export default class Rules extends React.Component {
   }
 
   deleteRule(id) {
-    const rules = this.state.rules.filter(rule => rule['id'] !== id);
+    const deletedRule = this.state.rules.filter(rule => rule['id'] === id)[0];
+    let new_rules = this.state.rules.filter(rule => rule['id'] !== id);
+    new_rules = this.updateIndexesFromDeletion(new_rules, deletedRule['index']);
     this.setState({
-      rules: rules
+      rules: new_rules
     });
   }
 
   updateIndexes(new_rules) {
     for (let rule of new_rules) {
       rule['index'] = rule['index'] + 1;
+    }
+    return new_rules;
+  }
+
+  updateIndexesFromDeletion(new_rules, indexDeleted) {
+    for (let rule of new_rules) {
+      if (rule['index'] > indexDeleted) {
+        rule['index'] = rule['index'] - 1;
+      }
     }
     return new_rules;
   }
@@ -86,7 +97,6 @@ export default class Rules extends React.Component {
   }
 
   async getRules() {
-    console.log("LLAMO A /RULES");
     fetch(process.env.REACT_APP_USER_API_URL + '/rules')
       .then(response => response.json())
       .then(data => {
@@ -96,17 +106,37 @@ export default class Rules extends React.Component {
         data.sort(function (a, b) {
           return a.index - b.index;
         });
-        console.log(data);
-        this.setState({ max_index: data.length - 1, rules: data, savedRules: JSON.parse(JSON.stringify(data)) });
+        this.setState({ max_index: data.length, rules: data, savedRules: JSON.parse(JSON.stringify(data)) });
       })
       .catch(err => console.log('Error at fetch: ', err));
+  }
+
+  areEqual() {
+    if (this.state.rules.length !== this.state.savedRules.length) {
+      return false;
+    }
+
+    for (const savedRule of this.state.savedRules) {
+      const currentRule = this.state.rules.filter(rule => rule['id'] === savedRule.id)
+      if (currentRule.length === 0) {
+        // deleted
+        return false;
+      }
+      if (currentRule[0].index !== savedRule.index) {
+        // updated
+        return false;
+      }
+    }
+    return true;
   }
 
   calculateChanges() {
     console.log(this.state.savedRules);
     console.log(this.state.rules);
 
-    console.log(this.state.rules === this.state.savedChanges);
+    this.setState({
+      canSaveChanges: !this.areEqual()
+    });
   }
 
   async saveChanges() {

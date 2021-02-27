@@ -1,6 +1,7 @@
 import React from 'react';
 import RulesContainer from './RulesContainer'
 import AppBar from '../Shared/AppBar';
+import * as rulesUtils from '../../utils/rulesUtils';
 
 export default class Rules extends React.Component {
   constructor(props) {
@@ -19,27 +20,11 @@ export default class Rules extends React.Component {
   deleteRule(id) {
     const deletedRule = this.state.rules.filter(rule => rule['id'] === id)[0];
     let new_rules = this.state.rules.filter(rule => rule['id'] !== id);
-    new_rules = this.updateIndexesFromDeletion(new_rules, deletedRule['index']);
+    new_rules = rulesUtils.updateIndexesFromDeletion(new_rules, deletedRule['index']);
     this.setState({
       rules: new_rules
     });
     this.updateSavingButton(new_rules);
-  }
-
-  updateIndexes(new_rules) {
-    for (let rule of new_rules) {
-      rule['index'] = rule['index'] + 1;
-    }
-    return new_rules;
-  }
-
-  updateIndexesFromDeletion(new_rules, indexDeleted) {
-    for (let rule of new_rules) {
-      if (rule['index'] > indexDeleted) {
-        rule['index'] = rule['index'] - 1;
-      }
-    }
-    return new_rules;
   }
 
   addRule(rule) {
@@ -48,7 +33,7 @@ export default class Rules extends React.Component {
     rule['index'] = 0;
     rule['created'] = true;
     let new_rules = JSON.parse(JSON.stringify(this.state.rules)); //deep clone to update changes
-    new_rules = this.updateIndexes(new_rules);
+    new_rules = rulesUtils.updateIndexesFromAddition(new_rules);
     new_rules.unshift(rule);
     this.setState({
       rules: new_rules
@@ -57,19 +42,8 @@ export default class Rules extends React.Component {
   }
 
   async getCurrentRules() {
-    await this.getRules();
-  }
-
-  reorder(list, startIndex, endIndex) {
-    const result = Array.from(list);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-
-    result.forEach(function (rule, i) {
-      rule.index = i;
-    });
-
-    return result;
+    const rules = await rulesUtils.getRules();
+    this.setState({ max_index: rules.length, rules: rules, savedRules: JSON.parse(JSON.stringify(rules)) });
   }
 
   onDragEnd(result) {
@@ -80,7 +54,7 @@ export default class Rules extends React.Component {
     if (result.destination.index === result.source.index) {
       return;
     }
-    const new_rules = this.reorder(
+    const new_rules = rulesUtils.reorder(
       this.state.rules,
       result.source.index,
       result.destination.index
@@ -89,53 +63,9 @@ export default class Rules extends React.Component {
     this.updateSavingButton(new_rules);
   }
 
-  mockRules() {
-    this.setState({ max_index: 3 });
-    return [
-      { id: 0, index: 0, contagionRisk: 'Alto', durationValue: 60, durationCmp: '>', m2Value: 30, m2Cmp: '<', spaceValue: 'Cerrado' },
-      { id: 1, index: 1, contagionRisk: 'Medio', durationValue: 60, durationCmp: '<', m2Value: 50, m2Cmp: '>', spaceValue: 'Abierto' },
-      { id: 2, index: 2, contagionRisk: 'Alto', durationValue: 120, durationCmp: '>' },
-      { id: 3, index: 3, contagionRisk: 'Bajo', m2Value: 100, m2Cmp: '>', spaceValue: 'Abierto' }
-    ];
-  }
-
-  async getRules() {
-    fetch(process.env.REACT_APP_USER_API_URL + '/rules')
-      .then(response => response.json())
-      .then(data => {
-        for (let rule of data) {
-          rule['id'] = rule['_id'];
-        }
-        data.sort(function (a, b) {
-          return a.index - b.index;
-        });
-        this.setState({ max_index: data.length, rules: data, savedRules: JSON.parse(JSON.stringify(data)) });
-      })
-      .catch(err => console.log('Error at fetch: ', err));
-  }
-
-  areRulesEqual(new_rules) {
-    if (new_rules.length !== this.state.savedRules.length) {
-      return false;
-    }
-
-    for (const savedRule of this.state.savedRules) {
-      const currentRule = new_rules.filter(rule => rule['id'] === savedRule.id)
-      if (currentRule.length === 0) {
-        // deleted
-        return false;
-      }
-      if (currentRule[0].index !== savedRule.index) {
-        // updated
-        return false;
-      }
-    }
-    return true;
-  }
-
   updateSavingButton(new_rules) {
     this.setState({
-      canSaveChanges: !this.areRulesEqual(new_rules)
+      canSaveChanges: !rulesUtils.areRulesEqual(new_rules, this.state.savedRules)
     });
   }
 
@@ -156,43 +86,16 @@ export default class Rules extends React.Component {
     return changes;
   }
 
-  async addNewRules(new_rules) {
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(new_rules)
-    };
-    return fetch(process.env.REACT_APP_USER_API_URL + '/rules', requestOptions)
-  }
-
-  async deleteRules(deleted_rules) {
-    const requestOptions = {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(deleted_rules)
-    };
-    return fetch(process.env.REACT_APP_USER_API_URL + '/rules', requestOptions)
-  }
-
-  async updateRules(updated_rules) {
-    const requestOptions = {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(updated_rules)
-    };
-    return fetch(process.env.REACT_APP_USER_API_URL + '/rules', requestOptions)
-  }
-
   async saveChanges() {
     let changes = this.calculateChanges(this.state.rules);
     if (changes['added'].length > 0) {
-      const addRes = await this.addNewRules({ rules: changes['added'] });
+      await rulesUtils.addNewRules({ rules: changes['added'] });
     }
     if (changes['updated'].length > 0) {
-      const updateRes = await this.updateRules({ rules: changes['updated'] });
+      await rulesUtils.updateRules({ rules: changes['updated'] });
     }
     if (changes['deleted'].length > 0) {
-      const deleteRes = await this.deleteRules({ ruleIds: changes['deleted'] });
+      await rulesUtils.deleteRules({ ruleIds: changes['deleted'] });
     }
 		window.location.replace("/reglas");
   }

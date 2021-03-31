@@ -2,6 +2,7 @@ import React from 'react';
 import RulesContainer from './RulesContainer'
 import AppBar from '../Shared/AppBar';
 import * as rulesUtils from '../../utils/rulesUtils';
+import * as rulesService from '../../services/rulesService';
 
 export default class Rules extends React.Component {
   constructor(props) {
@@ -42,7 +43,7 @@ export default class Rules extends React.Component {
   }
 
   async getCurrentRules() {
-    const rules = await rulesUtils.getRules();
+    const rules = await rulesService.getRules();
     this.setState({ max_index: rules.length, rules: rules, savedRules: JSON.parse(JSON.stringify(rules)) });
   }
 
@@ -89,13 +90,13 @@ export default class Rules extends React.Component {
   async saveChanges() {
     let changes = this.calculateChanges(this.state.rules);
     if (changes['added'].length > 0) {
-      await rulesUtils.addNewRules({ rules: changes['added'] });
+      await rulesService.addNewRules({ rules: changes['added'] });
     }
     if (changes['updated'].length > 0) {
-      await rulesUtils.updateRules({ rules: changes['updated'] });
+      await rulesService.updateRules({ rules: changes['updated'] });
     }
     if (changes['deleted'].length > 0) {
-      await rulesUtils.deleteRules({ ruleIds: changes['deleted'] });
+      await rulesService.deleteRules({ ruleIds: changes['deleted'] });
     }
 		window.location.replace("/reglas");
   }

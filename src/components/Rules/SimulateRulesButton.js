@@ -1,31 +1,12 @@
 import React from 'react';
 import SimulateRulesForm from './SimulateRulesForm';
-import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import SimulateRulesResult from './SimulateRulesResult';
-
-const useStyles = makeStyles((theme) => ({
-  simulateRulesButton: {
-    fontWeight: 'bold',
-    width: '-webkit-fill-available',
-    marginLeft: '5px',
-    marginRight: '5px',
-  },
-  dialogTitle: {
-    marginTop: '40px',
-    marginLeft: '40px',
-    marginRight: '40px',
-  },
-  dialogContent: {
-    marginBottom: '40px',
-    marginLeft: '40px',
-    marginRight: '40px',
-  },
-}));
+import useStyles from '../../styles/SimulateRulesButton.style';
 
 export default function SimulateRulesButton(props) {
   const classes = useStyles();

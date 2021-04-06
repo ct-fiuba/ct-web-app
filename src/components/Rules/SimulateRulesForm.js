@@ -1,54 +1,22 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Slider from '@material-ui/core/Slider';
 import Tooltip from '@material-ui/core/Tooltip';
 import HelpIcon from '@material-ui/icons/Help';
-
-const useStyles = makeStyles((theme) => ({
-  buttonsGrid: {
-    marginTop: '15px',
-    textAlign: 'right',
-  },
-  titles: {
-    marginTop: '5px',
-    textAlign: 'center',
-  },
-  sliderGrids: {
-    marginTop: '15px'
-  },
-  firstSliderGrid: {
-    marginTop: '25px'
-  },
-  tooltipsText: {
-    fontSize: '14px'
-  },
-  tooltips: {
-    marginLeft: '5px'
-  }
-}));
+import useStyles from '../../styles/SimulateRulesForm.style';
+import * as Constants from '../../constants/SimulateRulesForm.constants';
 
 export default function SimulateRulesForm(props) {
   const classes = useStyles();
 
-  const defaultValueUsers = 200;
-  const defaultValueInfectedUsers = defaultValueUsers / 10;
-  const defaultValueEstablishments = 10;
-  const defaultValueMobility = 3;
-  const defaultValueDays = 60;
+  const [usersValue, setUsersValue] = React.useState(Constants.defaultValueUsers);
+  const [infectedUsersValue, setInfectedUsersValue] = React.useState(Constants.defaultValueInfectedUsers);
+  const [establishmentsValue, setEstablishmentsValue] = React.useState(Constants.defaultValueEstablishments);
+  const [mobilityValue, setMobilityValue] = React.useState(Constants.defaultValueMobility);
+  const [daysValue, setDaysValue] = React.useState(Constants.defaultValueDays);
 
-  const [usersValue, setUsersValue] = React.useState(defaultValueUsers);
-  const [infectedUsersValue, setInfectedUsersValue] = React.useState(defaultValueInfectedUsers);
-  const [establishmentsValue, setEstablishmentsValue] = React.useState(defaultValueEstablishments);
-  const [mobilityValue, setMobilityValue] = React.useState(defaultValueMobility);
-  const [daysValue, setDaysValue] = React.useState(defaultValueDays);
-
-  const maxValueUsers = 500;
   let maxValueInfectedUsers = usersValue;
-  const maxValueEstablishments = 50;
-  const maxValueMobility = 25;
-  const maxValueDays = 180;
 
   const handleUsersValueChange = (event, newValue) => {
     setUsersValue(parseInt(newValue));
@@ -87,8 +55,8 @@ export default function SimulateRulesForm(props) {
       label: '0',
     },
     {
-      value: maxValueUsers,
-      label: `${maxValueUsers}`,
+      value: Constants.maxValueUsers,
+      label: `${Constants.maxValueUsers}`,
     },
   ];
 
@@ -109,8 +77,8 @@ export default function SimulateRulesForm(props) {
       label: '0',
     },
     {
-      value: maxValueEstablishments,
-      label: `${maxValueEstablishments}`,
+      value: Constants.maxValueEstablishments,
+      label: `${Constants.maxValueEstablishments}`,
     },
   ];
 
@@ -120,8 +88,8 @@ export default function SimulateRulesForm(props) {
       label: '0',
     },
     {
-      value: maxValueMobility,
-      label: `${maxValueMobility}`,
+      value: Constants.maxValueMobility,
+      label: `${Constants.maxValueMobility}`,
     },
   ];
 
@@ -131,8 +99,8 @@ export default function SimulateRulesForm(props) {
       label: '0',
     },
     {
-      value: maxValueDays,
-      label: `${maxValueDays}`,
+      value: Constants.maxValueDays,
+      label: `${Constants.maxValueDays}`,
     },
   ];
 
@@ -150,7 +118,7 @@ export default function SimulateRulesForm(props) {
           value={usersValue}
           aria-labelledby="discrete-slider-always"
           step={1}
-          max={maxValueUsers}
+          max={Constants.maxValueUsers}
           marks={usersMarks}
           onChange={handleUsersValueChange}
           valueLabelDisplay="on"
@@ -188,7 +156,7 @@ export default function SimulateRulesForm(props) {
           value={establishmentsValue}
           aria-labelledby="discrete-slider-always"
           step={1}
-          max={maxValueEstablishments}
+          max={Constants.maxValueEstablishments}
           marks={establishmentsMarks}
           onChange={handleEstablishmentsValueChange}
           valueLabelDisplay="on"
@@ -207,7 +175,7 @@ export default function SimulateRulesForm(props) {
           value={mobilityValue}
           aria-labelledby="discrete-slider-always"
           step={1}
-          max={maxValueMobility}
+          max={Constants.maxValueMobility}
           marks={mobilityMarks}
           onChange={handleMobilityValueChange}
           valueLabelDisplay="on"
@@ -226,7 +194,7 @@ export default function SimulateRulesForm(props) {
           value={daysValue}
           aria-labelledby="discrete-slider-always"
           step={1}
-          max={maxValueDays}
+          max={Constants.maxValueDays}
           marks={daysMarks}
           onChange={handleDaysValueChange}
           valueLabelDisplay="on"

@@ -1,11 +1,7 @@
 import React from 'react';
 import AddRuleForm from '../AddRuleForm';
-import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import { Button, Dialog, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import useStyles from './styles';
 
 export default function AddRuleButton(props) {

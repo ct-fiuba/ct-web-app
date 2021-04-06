@@ -1,9 +1,5 @@
 import React from 'react';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import { Card, CardContent, CircularProgress, Grid, Typography} from '@material-ui/core';
 import useStyles from './styles';
 
 export default function SimulateRulesResult(props) {

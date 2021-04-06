@@ -1,6 +1,6 @@
 import React from 'react';
 import { Alert, AlertTitle } from '@material-ui/lab';
-import Snackbar from '@material-ui/core/Snackbar';
+import { Snackbar } from '@material-ui/core';
 
 export default function TestRulesFormErrors(props) {
   return (

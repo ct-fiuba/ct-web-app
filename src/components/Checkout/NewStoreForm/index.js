@@ -1,11 +1,5 @@
 import React, { useEffect } from 'react';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
+import { Grid, Typography, TextField, Select, MenuItem, FormControl, InputLabel} from '@material-ui/core';
 
 export default function NewStoreForm(props) {
   useEffect(() => {

@@ -1,10 +1,6 @@
 import React from 'react';
 import TestRulesForm from '../TestRulesForm';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import { Button, Dialog, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import TestRulesResult from '../TestRulesResult';
 import useStyles from './styles';
 

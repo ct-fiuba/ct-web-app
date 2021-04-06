@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import covidIcon from '../../images/covid.svg';
 import '../../css/home.css';
-import Button from '@material-ui/core/Button';
+import { Button } from '@material-ui/core';
 
 class Home extends Component {
     render(){

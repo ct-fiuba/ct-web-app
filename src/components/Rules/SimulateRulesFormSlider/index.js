@@ -1,7 +1,5 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import Slider from '@material-ui/core/Slider';
-import Tooltip from '@material-ui/core/Tooltip';
+import { Grid, Slider, Tooltip } from '@material-ui/core';
 import HelpIcon from '@material-ui/icons/Help';
 import useStyles from './styles';
 

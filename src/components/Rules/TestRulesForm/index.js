@@ -1,11 +1,5 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import { Grid, FormControl, Select, MenuItem, InputLabel, Button, TextField } from '@material-ui/core';
 import TestRulesFormErrors from '../TestRulesFormErrors';
 import DateFnsUtils from '@date-io/date-fns';
 import {

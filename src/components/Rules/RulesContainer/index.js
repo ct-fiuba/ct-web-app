@@ -5,7 +5,7 @@ import AddRuleButton from '../AddRuleButton';
 import SaveChangesButton from '../SaveChangesButton'
 import TestRulesButton from '../TestRulesButton'
 import SimulateRulesButton from '../SimulateRulesButton'
-import Grid from '@material-ui/core/Grid';
+import { Grid } from '@material-ui/core';
 import useStyles from './styles';
 
 function Rule({ rule, deleteRule }) {

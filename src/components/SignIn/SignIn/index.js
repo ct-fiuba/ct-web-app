@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Avatar, Button, CssBaseline, TextField, Link, Grid, Typography, Container } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import SignInAlerts from '../SignInAlerts';
@@ -7,12 +7,12 @@ import useStyles from './styles';
 
 export default function SignIn() {
 	const classes = useStyles();
-	const [email, setEmail] = React.useState("");
-	const [password, setPassword] = React.useState("");
-	const [invalidEmailError, setInvalidEmailError] = React.useState(false);
-	const [emailNotFoundError, setEmailNotFoundError] = React.useState(false);
-	const [invalidPasswordError, setInvalidPasswordError] = React.useState(false);
-	const [notAdminError, setNotAdminError] = React.useState(false);
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [invalidEmailError, setInvalidEmailError] = useState(false);
+	const [emailNotFoundError, setEmailNotFoundError] = useState(false);
+	const [invalidPasswordError, setInvalidPasswordError] = useState(false);
+	const [notAdminError, setNotAdminError] = useState(false);
 
 	const handleCloseInvalidEmail = () => {
 		setInvalidEmailError(false);

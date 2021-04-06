@@ -1,10 +1,10 @@
-import React, {} from 'react';
+import React, { useState } from 'react';
 import { Grid, TextField, FormControlLabel, Checkbox, Select, MenuItem, FormControl, InputLabel, Card, CardContent } from '@material-ui/core';
 import useStyles from './styles';
 
 export default function SingleQRForm(props) {
   const classes = useStyles();
-  const [state, setState] = React.useState(props.initialState);
+  const [state, setState] = useState(props.initialState);
 
   const handleChange = (event) => {
     const name = event.target.name;

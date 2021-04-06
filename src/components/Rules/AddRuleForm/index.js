@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, FormHelperText, FormControl, Select, MenuItem, InputLabel, Button, TextField, Checkbox } from '@material-ui/core';
 import AddRuleFormErrors from '../AddRuleFormErrors';
 import useStyles from './styles';
@@ -6,21 +6,21 @@ import useStyles from './styles';
 export default function AddRuleForm(props) {
   const classes = useStyles();
 
-  const [contagionRisk, setContagionRisk] = React.useState('');
-  const [durationCmp, setDurationCmp] = React.useState('');
-  const [durationValue, setDurationValue] = React.useState('');
-  const [m2Cmp, setM2Cmp] = React.useState('');
-  const [m2Value, setM2Value] = React.useState('');
-  const [spaceValue, setSpaceValue] = React.useState('');
-  const [checkboxDuration, setCheckboxDuration] = React.useState(true);
-  const [checkboxM2, setCheckboxM2] = React.useState(true);
-  const [checkboxSpace, setCheckboxSpace] = React.useState(true);
+  const [contagionRisk, setContagionRisk] = useState('');
+  const [durationCmp, setDurationCmp] = useState('');
+  const [durationValue, setDurationValue] = useState('');
+  const [m2Cmp, setM2Cmp] = useState('');
+  const [m2Value, setM2Value] = useState('');
+  const [spaceValue, setSpaceValue] = useState('');
+  const [checkboxDuration, setCheckboxDuration] = useState(true);
+  const [checkboxM2, setCheckboxM2] = useState(true);
+  const [checkboxSpace, setCheckboxSpace] = useState(true);
 
-  const [durationMissing, setDurationMissing] = React.useState(false);
-  const [m2Missing, setM2Missing] = React.useState(false);
-  const [spaceMissing, setSpaceMissing] = React.useState(false);
-  const [riskMissing, setRiskMissing] = React.useState(false);
-  const [noCheckbox, setNoCheckbox] = React.useState(false);
+  const [durationMissing, setDurationMissing] = useState(false);
+  const [m2Missing, setM2Missing] = useState(false);
+  const [spaceMissing, setSpaceMissing] = useState(false);
+  const [riskMissing, setRiskMissing] = useState(false);
+  const [noCheckbox, setNoCheckbox] = useState(false);
 
   const handleContagionRiskChange = (event) => {
     setContagionRisk(event.target.value);

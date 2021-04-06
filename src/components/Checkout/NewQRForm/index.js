@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import SingleQRForm from '../SingleQRForm'
 import { Button } from '@material-ui/core';
 import useStyles from './styles';
@@ -17,7 +17,7 @@ export default function NewQRForm(props) {
 		return {QRs: result};
 	}
 
-	const [state, setState] = React.useState(transformInitialState());
+	const [state, setState] = useState(transformInitialState());
 
 	useEffect(() => {
     checkCompleteness();

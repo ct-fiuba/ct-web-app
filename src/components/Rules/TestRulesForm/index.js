@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, FormControl, Select, MenuItem, InputLabel, Button, TextField } from '@material-ui/core';
 import TestRulesFormErrors from '../TestRulesFormErrors';
 import DateFnsUtils from '@date-io/date-fns';
@@ -11,16 +11,16 @@ import useStyles from './styles';
 export default function TestRulesForm(props) {
   const classes = useStyles();
 
-  const [m2Value, setM2Value] = React.useState('');
-  const [spaceValue, setSpaceValue] = React.useState('');
-  const [m2Missing, setM2Missing] = React.useState(false);
-  const [spaceMissing, setSpaceMissing] = React.useState(false);
-  const [infectedTimeMissing, setInfectedTimeMissing] = React.useState(false);
-  const [healthyTimeMissing, setHealthyTimeMissing] = React.useState(false);
-  const [infectedStartDate, setInfectedStartDate] = React.useState(new Date('2014-08-18T14:00:00'));
-  const [infectedEndDate, setInfectedEndDate] = React.useState(new Date('2014-08-18T14:30:00'));
-  const [healthyStartDate, setHealthyStartDate] = React.useState(new Date('2014-08-18T14:10:00'));
-  const [healthyEndDate, setHealthyEndDate] = React.useState(new Date('2014-08-18T14:50:00'));
+  const [m2Value, setM2Value] = useState('');
+  const [spaceValue, setSpaceValue] = useState('');
+  const [m2Missing, setM2Missing] = useState(false);
+  const [spaceMissing, setSpaceMissing] = useState(false);
+  const [infectedTimeMissing, setInfectedTimeMissing] = useState(false);
+  const [healthyTimeMissing, setHealthyTimeMissing] = useState(false);
+  const [infectedStartDate, setInfectedStartDate] = useState(new Date('2014-08-18T14:00:00'));
+  const [infectedEndDate, setInfectedEndDate] = useState(new Date('2014-08-18T14:30:00'));
+  const [healthyStartDate, setHealthyStartDate] = useState(new Date('2014-08-18T14:10:00'));
+  const [healthyEndDate, setHealthyEndDate] = useState(new Date('2014-08-18T14:50:00'));
 
   const handleInfectedStartDateChange = (date) => {
     setInfectedStartDate(date);

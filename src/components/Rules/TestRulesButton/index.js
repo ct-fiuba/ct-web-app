@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TestRulesForm from '../TestRulesForm';
 import { Button, Dialog, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import TestRulesResult from '../TestRulesResult';
@@ -7,9 +7,9 @@ import useStyles from './styles';
 export default function TestRulesButton(props) {
   const classes = useStyles();
 
-  const [open, setOpen] = React.useState(false);
-  const [testRuleResult, setTestRuleResult] = React.useState(null);
-  const [notMatch, setNotMatch] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [testRuleResult, setTestRuleResult] = useState(null);
+  const [notMatch, setNotMatch] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);

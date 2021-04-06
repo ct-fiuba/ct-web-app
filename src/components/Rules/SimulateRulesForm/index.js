@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, Button } from '@material-ui/core';
 import SimulateRulesFormSlider from '../SimulateRulesFormSlider';
 import useStyles from './styles';
@@ -7,11 +7,11 @@ import * as Constants from './constants';
 export default function SimulateRulesForm(props) {
   const classes = useStyles();
 
-  const [usersValue, setUsersValue] = React.useState(Constants.defaultValueUsers);
-  const [infectedUsersValue, setInfectedUsersValue] = React.useState(Constants.defaultValueInfectedUsers);
-  const [establishmentsValue, setEstablishmentsValue] = React.useState(Constants.defaultValueEstablishments);
-  const [mobilityValue, setMobilityValue] = React.useState(Constants.defaultValueMobility);
-  const [daysValue, setDaysValue] = React.useState(Constants.defaultValueDays);
+  const [usersValue, setUsersValue] = useState(Constants.defaultValueUsers);
+  const [infectedUsersValue, setInfectedUsersValue] = useState(Constants.defaultValueInfectedUsers);
+  const [establishmentsValue, setEstablishmentsValue] = useState(Constants.defaultValueEstablishments);
+  const [mobilityValue, setMobilityValue] = useState(Constants.defaultValueMobility);
+  const [daysValue, setDaysValue] = useState(Constants.defaultValueDays);
 
   let maxValueInfectedUsers = usersValue;
 

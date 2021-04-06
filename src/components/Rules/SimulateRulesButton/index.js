@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SimulateRulesForm from '../SimulateRulesForm';
 import { Button, Dialog, DialogContent, DialogContentText, DialogTitle} from '@material-ui/core';
 import SimulateRulesResult from '../SimulateRulesResult';
@@ -7,9 +7,9 @@ import useStyles from './styles';
 export default function SimulateRulesButton(props) {
   const classes = useStyles();
 
-  const [open, setOpen] = React.useState(false);
-  const [simulateRuleResult, setSimulateRuleResult] = React.useState(null);
-  const [loading, setLoading] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [simulateRuleResult, setSimulateRuleResult] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);

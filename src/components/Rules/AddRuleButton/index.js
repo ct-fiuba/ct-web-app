@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AddRuleForm from '../AddRuleForm';
 import AddIcon from '@material-ui/icons/Add';
 import { Button, Dialog, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
@@ -7,7 +7,7 @@ import useStyles from './styles';
 export default function AddRuleButton(props) {
   const classes = useStyles();
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);

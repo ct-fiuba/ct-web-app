@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppBar from '../../Shared/AppBar';
 import { CssBaseline, Paper, Stepper, Step, StepLabel, Button, Link, Typography } from '@material-ui/core';
 import NewStoreForm from '../NewStoreForm';
@@ -20,7 +20,7 @@ function Copyright() {
 }
 
 export default function Checkout() {
-	const [state, setState] = React.useState({
+	const [state, setState] = useState({
     firstStepInfo: {
     type: '',
     name: '',
@@ -40,9 +40,9 @@ export default function Checkout() {
   }],
   });
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [firstStepComplete, setFirstStepComplete] = React.useState(false);
-  const [secondStepComplete, setSecondStepComplete] = React.useState(false);
+  const [activeStep, setActiveStep] = useState(0);
+  const [firstStepComplete, setFirstStepComplete] = useState(false);
+  const [secondStepComplete, setSecondStepComplete] = useState(false);
 	const steps = ['Registro del establecimiento', 'Generación de QRs', 'Confirmación'];
 
   const handleNext = () => {

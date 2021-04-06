@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid, Typography, TextField, Select, MenuItem, FormControl, InputLabel} from '@material-ui/core';
 
 export default function NewStoreForm(props) {
@@ -6,7 +6,7 @@ export default function NewStoreForm(props) {
     checkCompleteness();
   });
 
-	const [state, setState] = React.useState(props.initialState);
+	const [state, setState] = useState(props.initialState);
 
 	const allFieldsCompleted = () => {
 		return (state.type !== '' &&

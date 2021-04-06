@@ -1,30 +1,12 @@
 import React, { useState } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import RuleCard from "../RuleCard";
+import RulesList from "../RulesList";
 import AddRuleButton from '../AddRuleButton';
 import SaveChangesButton from '../SaveChangesButton'
 import TestRulesButton from '../TestRulesButton'
 import SimulateRulesButton from '../SimulateRulesButton'
 import { Grid } from '@material-ui/core';
 import useStyles from './styles';
-
-function Rule({ rule, deleteRule }) {
-	return (<RuleCard id={rule.id}
-		contagionRisk={rule.contagionRisk}
-		durationValue={rule.durationValue}
-		durationCmp={rule.durationCmp}
-		m2Value={rule.m2Value}
-		m2Cmp={rule.m2Cmp}
-		spaceValue={rule.spaceValue}
-		index={rule.index}
-		deleteRule={deleteRule} />);
-}
-
-const RulesList = React.memo(function RulesList({ rules, deleteRule }) {
-	return rules.map((rule) => (
-		<Rule rule={rule} key={rule.id} deleteRule={deleteRule} />
-	));
-});
 
 export default function RulesContainer({rules, addRule, saveChanges, canSaveChanges, onDragEnd, deleteRule}) {
 	const [state, setState] = useState({ rules: rules || [] });

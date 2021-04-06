@@ -4,6 +4,7 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import RuleCard from "./RuleCard";
 import AddRuleButton from './AddRuleButton'
 import TestRulesButton from './TestRulesButton'
+import SimulateRulesButton from './SimulateRulesButton'
 import Grid from '@material-ui/core/Grid';
 
 function Rule({ rule, index, deleteRule }) {
@@ -67,6 +68,9 @@ export default function RulesContainer(props) {
 			<Grid container>
 				<Grid item xs={6}>
 					<TestRulesButton rules={state.rules} />
+				</Grid>
+				<Grid item xs={6}>
+					<SimulateRulesButton rules={state.rules} />
 				</Grid>
 			</Grid>
 			<Grid container className={classes.container}>

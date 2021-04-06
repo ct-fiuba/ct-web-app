@@ -3,11 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import RuleCard from "./RuleCard";
 import AddRuleButton from './AddRuleButton'
+import SaveChangesButton from './SaveChangesButton'
 import TestRulesButton from './TestRulesButton'
 import SimulateRulesButton from './SimulateRulesButton'
 import Grid from '@material-ui/core/Grid';
 
-function Rule({ rule, index, deleteRule }) {
+function Rule({ rule, deleteRule }) {
 	return (<RuleCard id={rule.id}
 		contagionRisk={rule.contagionRisk}
 		durationValue={rule.durationValue}
@@ -15,13 +16,13 @@ function Rule({ rule, index, deleteRule }) {
 		m2Value={rule.m2Value}
 		m2Cmp={rule.m2Cmp}
 		spaceValue={rule.spaceValue}
-		index={index}
+		index={rule.index}
 		deleteRule={deleteRule} />);
 }
 
 const RulesList = React.memo(function RulesList({ rules, deleteRule }) {
-	return rules.map((rule, index) => (
-		<Rule rule={rule} index={index} key={rule.id} deleteRule={deleteRule} />
+	return rules.map((rule) => (
+		<Rule rule={rule} key={rule.id} deleteRule={deleteRule} />
 	));
 });
 
@@ -74,8 +75,11 @@ export default function RulesContainer(props) {
 				</Grid>
 			</Grid>
 			<Grid container className={classes.container}>
-				<Grid item xs={12}>
+				<Grid item xs={6}>
 					<AddRuleButton addRule={props.addRule} />
+				</Grid>
+				<Grid item xs={6}>
+					<SaveChangesButton saveChanges={props.saveChanges} canSaveChanges={props.canSaveChanges} />
 				</Grid>
 				<Grid item xs={12}>
 					<DragDropContext onDragEnd={props.onDragEnd}>

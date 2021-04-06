@@ -10,10 +10,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 const useStyles = makeStyles((theme) => ({
   addButton: {
-    color: '#39893c',
     fontWeight: 'bold',
-    float: 'right',
-    border: 'none',
+    width: '-webkit-fill-available',
+    margin: '5px',
   },
   dialogTitle: {
     marginTop: '40px',
@@ -42,8 +41,8 @@ export default function AddRuleButton(props) {
 
   return (
     <div>
-      <Button className={classes.addButton} size="large" variant="outlined" color="primary" onClick={handleClickOpen}>
-        <AddIcon fontSize="large" style={{ color: '#39893c' }} /> Crear nueva regla
+      <Button className={classes.addButton} size="large" variant="contained" color="primary" onClick={handleClickOpen}>
+        <AddIcon /> Crear nueva regla
       </Button>
       <Dialog maxWidth={'md'} open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle className={classes.dialogTitle} id="form-dialog-title">Crear regla de contagio</DialogTitle>

@@ -1,6 +1,8 @@
 import React from 'react';
 import RulesContainer from './RulesContainer'
 import AppBar from '../Shared/AppBar';
+import * as rulesUtils from '../../utils/rulesUtils';
+import * as rulesService from '../../services/rulesService';
 
 export default class Rules extends React.Component {
   constructor(props) {
@@ -8,58 +10,41 @@ export default class Rules extends React.Component {
     this.onDragEnd = this.onDragEnd.bind(this);
     this.deleteRule = this.deleteRule.bind(this);
     this.addRule = this.addRule.bind(this);
-    this.state = { rules: [], max_id: 0};
+    this.saveChanges = this.saveChanges.bind(this);
+    this.state = { rules: [], max_index: 0, savedRules: [], canSaveChanges: false};
   }
 
-  componentDidMount() {
-    this.getCurrentRules();
+  async componentDidMount() {
+    await this.getCurrentRules();
   }
 
   deleteRule(id) {
-    const rules = this.state.rules.filter(rule => rule['id'] !== id);
+    const deletedRule = this.state.rules.filter(rule => rule['id'] === id)[0];
+    let new_rules = this.state.rules.filter(rule => rule['id'] !== id);
+    new_rules = rulesUtils.updateIndexesFromDeletion(new_rules, deletedRule['index']);
     this.setState({
-      rules: rules
+      rules: new_rules
     });
-  }
-
-  updateIndexes(new_rules) {
-    for (let rule of new_rules) {
-      rule['index'] = rule['index'] + 1;
-    }
-    return new_rules;
+    this.updateSavingButton(new_rules);
   }
 
   addRule(rule) {
-    rule['id'] = this.state.max_id + 1;
-    this.setState({max_id: this.state.max_id + 1})
+    rule['id'] = this.state.max_index + 1;
+    this.setState({max_index: this.state.max_index + 1})
     rule['index'] = 0;
     rule['created'] = true;
     let new_rules = JSON.parse(JSON.stringify(this.state.rules)); //deep clone to update changes
-    new_rules = this.updateIndexes(new_rules);
+    new_rules = rulesUtils.updateIndexesFromAddition(new_rules);
     new_rules.unshift(rule);
     this.setState({
       rules: new_rules
     });
+    this.updateSavingButton(new_rules);
   }
 
-  getCurrentRules() {
-    // We should hit an endpoint to get the current rules
-    const rules = this.mockRules();
-    this.setState({
-      rules: rules
-    });
-  }
-
-  reorder(list, startIndex, endIndex) {
-    const result = Array.from(list);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-
-    result.forEach(function (rule, i) {
-      rule.index = i;
-    });
-
-    return result;
+  async getCurrentRules() {
+    const rules = await rulesService.getRules();
+    this.setState({ max_index: rules.length, rules: rules, savedRules: JSON.parse(JSON.stringify(rules)) });
   }
 
   onDragEnd(result) {
@@ -70,29 +55,63 @@ export default class Rules extends React.Component {
     if (result.destination.index === result.source.index) {
       return;
     }
-    const newRules = this.reorder(
+    const new_rules = rulesUtils.reorder(
       this.state.rules,
       result.source.index,
       result.destination.index
     );
-    this.setState({ rules: newRules });
+    this.setState({ rules: new_rules });
+    this.updateSavingButton(new_rules);
   }
 
-  mockRules() {
-    this.setState({ max_id: 3 });
-    return [
-      { id: 0, index: 0, contagionRisk: 'Alto', durationValue: 60, durationCmp: '>', m2Value: 30, m2Cmp: '<', spaceValue: 'Cerrado' },
-      { id: 1, index: 1, contagionRisk: 'Medio', durationValue: 60, durationCmp: '<', m2Value: 50, m2Cmp: '>', spaceValue: 'Abierto' },
-      { id: 2, index: 2, contagionRisk: 'Alto', durationValue: 120, durationCmp: '>' },
-      { id: 3, index: 3, contagionRisk: 'Bajo', m2Value: 100, m2Cmp: '>', spaceValue: 'Abierto' }
-    ];
+  updateSavingButton(new_rules) {
+    this.setState({
+      canSaveChanges: !rulesUtils.areRulesEqual(new_rules, this.state.savedRules)
+    });
+  }
+
+  calculateChanges() {
+    let changes = {'deleted': [], 'updated': [], 'added': []};
+
+    for (const savedRule of this.state.savedRules) {
+      const currentRule = this.state.rules.filter(rule => rule['id'] === savedRule.id)
+      if (currentRule.length === 0) {
+        changes['deleted'].push(savedRule.id);
+        continue;
+      }
+      if (currentRule[0].index !== savedRule.index) {
+        changes['updated'].push(currentRule[0]);
+      }
+    }
+    changes['added'] = this.state.rules.filter(rule => rule['created'] === true)
+    return changes;
+  }
+
+  async saveChanges() {
+    let changes = this.calculateChanges(this.state.rules);
+    if (changes['added'].length > 0) {
+      await rulesService.addNewRules({ rules: changes['added'] });
+    }
+    if (changes['updated'].length > 0) {
+      await rulesService.updateRules({ rules: changes['updated'] });
+    }
+    if (changes['deleted'].length > 0) {
+      await rulesService.deleteRules({ ruleIds: changes['deleted'] });
+    }
+		window.location.replace("/reglas");
   }
 
   render() {
     return (
       <div>
         <AppBar loggedIn={true} />
-        <RulesContainer rules={this.state.rules} onDragEnd={this.onDragEnd} deleteRule={this.deleteRule} addRule={this.addRule} />;
+        <RulesContainer 
+          rules={this.state.rules}
+          onDragEnd={this.onDragEnd}
+          deleteRule={this.deleteRule}
+          addRule={this.addRule}
+          saveChanges={this.saveChanges}
+          canSaveChanges={this.state.canSaveChanges} />
       </div>
     );
   }

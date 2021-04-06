@@ -41,10 +41,15 @@ export function reorder(list, startIndex, endIndex) {
 }
 
 function cmpRulesRisk(r1, r2) {
+	const riskPriorities = {
+		'Alto': 1,
+		'Medio': 2,
+		'Bajo': 3
+	}
 	if (r1.contagionRisk === r2.contagionRisk) {
 		return r1.index < r2.index ? -1 : 1;
 	}
-	return (r1.contagionRisk === 'Alto' || r2.contagionRisk === 'Bajo') ? -1 : 1;
+	return riskPriorities[r1.contagionRisk] < riskPriorities[r2.contagionRisk] ? -1 : 1;
 }
 
 export function forceHighMidLowOrder(rules) {

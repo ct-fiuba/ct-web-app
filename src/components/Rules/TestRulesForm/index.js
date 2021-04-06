@@ -8,7 +8,7 @@ import {
 } from '@material-ui/pickers';
 import useStyles from './styles';
 
-export default function TestRulesForm(props) {
+export default function TestRulesForm({testRules, handleClose}) {
   const classes = useStyles();
 
   const [m2Value, setM2Value] = useState('');
@@ -107,9 +107,9 @@ export default function TestRulesForm(props) {
 
   const handleConfirm = () => {
     if (fieldsValidation()) {
-      props.testRules(buildTestEnv());
+      testRules(buildTestEnv());
     } else {
-      props.testRules(null);
+      testRules(null);
     }
   }
 
@@ -221,7 +221,7 @@ export default function TestRulesForm(props) {
 
 
       <Grid item xs={12} className={classes.buttonsGrid}>
-        <Button onClick={props.handleClose} color="primary">
+        <Button onClick={handleClose} color="primary">
           Cancelar
         </Button>
         <Button onClick={handleConfirm} color="primary">

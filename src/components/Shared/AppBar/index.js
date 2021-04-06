@@ -3,7 +3,7 @@ import { AppBar, Toolbar, Typography, Button, IconButton} from '@material-ui/cor
 import HomeIcon from '@material-ui/icons/Home';
 import useStyles from './styles';
 
-export default function SimpleAppBar(props) {
+export default function SimpleAppBar({loggedIn}) {
 	const classes = useStyles();
 
 	const signOut = () => {
@@ -25,7 +25,7 @@ export default function SimpleAppBar(props) {
 				<Typography variant="h6" className={classes.title}>
 					Control de Pandemias
     		</Typography>
-				{props.loggedIn ? (<Button onClick={signOut} color="inherit">Cerrar sesión</Button>) : null}
+				{loggedIn ? (<Button onClick={signOut} color="inherit">Cerrar sesión</Button>) : null}
 			</Toolbar>
 		</AppBar>
 	);

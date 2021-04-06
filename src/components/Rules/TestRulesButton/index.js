@@ -4,7 +4,7 @@ import { Button, Dialog, DialogContent, DialogContentText, DialogTitle } from '@
 import TestRulesResult from '../TestRulesResult';
 import useStyles from './styles';
 
-export default function TestRulesButton(props) {
+export default function TestRulesButton({rules}) {
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
@@ -53,8 +53,8 @@ export default function TestRulesButton(props) {
     setTestRuleResult(null);
     setNotMatch(false);
     if (!env) return;
-    props.rules.sort((r1, r2) => { return r1.index < r2.index ? -1 : 1 });
-    for (let rule of props.rules) {
+    rules.sort((r1, r2) => { return r1.index < r2.index ? -1 : 1 });
+    for (let rule of rules) {
       const result = evaluateRule(env, rule);
       if (result) {
         setTestRuleResult(rule);

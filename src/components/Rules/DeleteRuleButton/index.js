@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-export default function DeleteRuleButton(props) {
+export default function DeleteRuleButton({id, deleteRule}) {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -14,7 +14,7 @@ export default function DeleteRuleButton(props) {
   };
 
   const confirmDeletion = () => {
-    props.deleteRule(props.id);
+    deleteRule(id);
     setOpen(false);
   };
 

@@ -10,10 +10,10 @@ const typeTranslation = {
 	other: 'Otros'
 }
 
-export default function ConfirmationForm(props) {
+export default function ConfirmationForm({firstStepInfo, secondStepInfo}) {
   const classes = useStyles();
-	const establecimiento = props.firstStepInfo;
-	const QRs = props.secondStepInfo;
+	const establecimiento = firstStepInfo;
+	const QRs = secondStepInfo;
 
   return (
     <React.Fragment>

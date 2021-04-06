@@ -26,13 +26,13 @@ const RulesList = React.memo(function RulesList({ rules, deleteRule }) {
 	));
 });
 
-export default function RulesContainer(props) {
-	const [state, setState] = useState({ rules: props.rules || [] });
+export default function RulesContainer({rules, addRule, saveChanges, canSaveChanges, onDragEnd, deleteRule}) {
+	const [state, setState] = useState({ rules: rules || [] });
 	const classes = useStyles();
 
 	React.useEffect(() => {
-		setState({ rules: props.rules });
-	}, [props.rules])
+		setState({ rules: rules });
+	}, [rules])
 
 	return (
 		<div className={classes.divContainer}>
@@ -46,17 +46,17 @@ export default function RulesContainer(props) {
 			</Grid>
 			<Grid container className={classes.container}>
 				<Grid item xs={6}>
-					<AddRuleButton addRule={props.addRule} />
+					<AddRuleButton addRule={addRule} />
 				</Grid>
 				<Grid item xs={6}>
-					<SaveChangesButton saveChanges={props.saveChanges} canSaveChanges={props.canSaveChanges} />
+					<SaveChangesButton saveChanges={saveChanges} canSaveChanges={canSaveChanges} />
 				</Grid>
 				<Grid item xs={12}>
-					<DragDropContext onDragEnd={props.onDragEnd}>
+					<DragDropContext onDragEnd={onDragEnd}>
 						<Droppable droppableId="list">
 							{provided => (
 								<div ref={provided.innerRef} {...provided.droppableProps}>
-									<RulesList rules={state.rules} deleteRule={props.deleteRule} />
+									<RulesList rules={state.rules} deleteRule={deleteRule} />
 									{provided.placeholder}
 								</div>
 							)}

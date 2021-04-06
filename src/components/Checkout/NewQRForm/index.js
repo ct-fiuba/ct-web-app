@@ -3,12 +3,12 @@ import SingleQRForm from '../SingleQRForm'
 import { Button } from '@material-ui/core';
 import useStyles from './styles';
 
-export default function NewQRForm(props) {
+export default function NewQRForm({initialState, completeFunction, obtainInfo}) {
   const classes = useStyles();
 
 	const transformInitialState = () => {
 		let result = []
-		props.initialState.forEach((value, i) => {
+		initialState.forEach((value, i) => {
 			result.push({
 				key: i,
 				data: value
@@ -54,13 +54,13 @@ export default function NewQRForm(props) {
 	}
 
 	const checkCompleteness = () => {
-		props.completeFunction(isAllCompleted(state.QRs));
+		completeFunction(isAllCompleted(state.QRs));
 	}
 
 	const reportInfo = (newQRs) => {
 		let result = [];
 		newQRs.forEach(qr => result.push(qr.data));
-		props.obtainInfo(result);
+		obtainInfo(result);
 	}
 
 	const obtainInfoSingleQr = (key, info) => {

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Typography, TextField, Select, MenuItem, FormControl, InputLabel} from '@material-ui/core';
 
-export default function NewStoreForm(props) {
+export default function NewStoreForm({initialState, obtainInfo, completeFunction}) {
   useEffect(() => {
     checkCompleteness();
   });
 
-	const [state, setState] = useState(props.initialState);
+	const [state, setState] = useState(initialState);
 
 	const allFieldsCompleted = () => {
 		return (state.type !== '' &&
@@ -27,7 +27,7 @@ export default function NewStoreForm(props) {
     });
 
 		if (allFieldsCompleted()) {
-			props.obtainInfo({
+			obtainInfo({
 				...state,
 				[name]: event.target.value,
 			});
@@ -35,7 +35,7 @@ export default function NewStoreForm(props) {
   };
 
 	const checkCompleteness = () => {
-		props.completeFunction(allFieldsCompleted());
+		completeFunction(allFieldsCompleted());
 	}
 
   return (

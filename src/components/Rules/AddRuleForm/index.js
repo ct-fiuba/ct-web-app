@@ -3,7 +3,7 @@ import { Grid, FormHelperText, FormControl, Select, MenuItem, InputLabel, Button
 import AddRuleFormErrors from '../AddRuleFormErrors';
 import useStyles from './styles';
 
-export default function AddRuleForm(props) {
+export default function AddRuleForm({addRule, handleClose}) {
   const classes = useStyles();
 
   const [contagionRisk, setContagionRisk] = useState('');
@@ -134,8 +134,8 @@ export default function AddRuleForm(props) {
   const handleConfirm = () => {
     if (fieldsValidation()) {
       const rule = createRule();
-      props.addRule(rule);
-      props.handleClose();
+      addRule(rule);
+      handleClose();
     }
   }
 
@@ -275,7 +275,7 @@ export default function AddRuleForm(props) {
 
 
       <Grid item xs={12} className={classes.buttonsGrid}>
-        <Button onClick={props.handleClose} color="primary">
+        <Button onClick={handleClose} color="primary">
           Cancelar
         </Button>
         <Button onClick={handleConfirm} color="primary">

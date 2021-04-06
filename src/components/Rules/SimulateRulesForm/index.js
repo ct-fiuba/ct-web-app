@@ -4,7 +4,7 @@ import SimulateRulesFormSlider from '../SimulateRulesFormSlider';
 import useStyles from './styles';
 import * as Constants from './constants';
 
-export default function SimulateRulesForm(props) {
+export default function SimulateRulesForm({simulateRules, handleClose}) {
   const classes = useStyles();
 
   const [usersValue, setUsersValue] = useState(Constants.defaultValueUsers);
@@ -43,7 +43,7 @@ export default function SimulateRulesForm(props) {
       mobility: mobilityValue,
       days: daysValue,
     }
-    props.simulateRules(config);
+    simulateRules(config);
   }
 
   return (
@@ -89,7 +89,7 @@ export default function SimulateRulesForm(props) {
       />
 
       <Grid item xs={12} className={classes.buttonsGrid}>
-        <Button onClick={props.handleClose} color="primary">
+        <Button onClick={handleClose} color="primary">
           Cancelar
         </Button>
         <Button onClick={handleConfirm} color="primary">

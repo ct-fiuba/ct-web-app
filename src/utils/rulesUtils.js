@@ -1,16 +1,16 @@
 export function updateIndexesFromAddition(new_rules) {
-	for (let rule of new_rules) {
+	new_rules.forEach(rule => {
 		rule['index'] = rule['index'] + 1;
-	}
+	});
 	return new_rules;
 }
 
 export function updateIndexesFromDeletion(new_rules, indexDeleted) {
-	for (let rule of new_rules) {
+	new_rules.forEach(rule => {
 		if (rule['index'] > indexDeleted) {
 			rule['index'] = rule['index'] - 1;
 		}
-	}
+	});
 	return new_rules;
 }
 

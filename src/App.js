@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import './App.css';
-import Checkout from './components/Checkout/Checkout.js';
-import Rules from './components/Rules/Rules.js';
-import SignIn from './components/SignIn/SignIn.js';
-import Home from './components/Home/Home.js';
+import Checkout from './components/Checkout/Checkout';
+import Rules from './components/Rules/Rules';
+import SignIn from './components/SignIn/SignIn';
+import Home from './components/Home';
 import {
   BrowserRouter as Router,
   Switch,

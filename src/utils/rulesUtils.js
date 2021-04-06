@@ -1,6 +1,9 @@
 export function calculateNewRuleIndex(new_rules, contagionRisk) {
+	if (contagionRisk === 'Alto') {
+		return 0;
+	}
 	for (var i = 0; i < new_rules.length; i++) {
-		if (new_rules[i].contagionRisk === contagionRisk){
+		if (new_rules[i].contagionRisk === contagionRisk || (contagionRisk === 'Medio' && new_rules[i].contagionRisk === 'Bajo')){
 			return i;
 		}
 	}
@@ -37,27 +40,15 @@ export function reorder(list, startIndex, endIndex) {
 	return result;
 }
 
+function cmpRulesRisk(r1, r2) {
+	if (r1.contagionRisk === r2.contagionRisk) {
+		return r1.index < r2.index ? -1 : 1;
+	}
+	return (r1.contagionRisk === 'Alto' || r2.contagionRisk === 'Bajo') ? -1 : 1;
+}
+
 export function forceHighMidLowOrder(rules) {
-	const q_per_risk = {'Alto': 0, 'Medio': 0, 'Bajo': 0};
-	rules.forEach(rule => {
-		q_per_risk[rule.contagionRisk] += 1;
-	});
-	const current_index_per_risk = {'Alto': 0, 'Medio': q_per_risk['Alto'], 'Bajo': q_per_risk['Alto'] + q_per_risk['Medio']};
-	rules.forEach(rule => {
-		if (rule['contagionRisk'] === 'Alto') {
-			rule['index'] = current_index_per_risk['Alto'];
-			current_index_per_risk['Alto'] += 1;
-		}
-		if (rule['contagionRisk'] === 'Medio') {
-			rule['index'] = current_index_per_risk['Medio'];
-			current_index_per_risk['Medio'] += 1;
-		}
-		if (rule['contagionRisk'] === 'Bajo') {
-			rule['index'] = current_index_per_risk['Bajo'];
-			current_index_per_risk['Bajo'] += 1;
-		}
-	});
-	return rules.sort((r1, r2) => {return r1.index < r2.index ? -1 : 1});
+	return rules.sort(cmpRulesRisk);
 }
 
 export function areRulesEqual(new_rules, saved_rules) {

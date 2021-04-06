@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import RuleCard from "./RuleCard";
 import AddRuleButton from './AddRuleButton'
+import TestRulesButton from './TestRulesButton'
 import Grid from '@material-ui/core/Grid';
 
 function Rule({ rule, index, deleteRule }) {
@@ -30,12 +31,26 @@ const useStyles = makeStyles((theme) => ({
 		paddingBottom: '1px',
 		marginLeft: theme.spacing(2),
 		marginRight: theme.spacing(2),
+		marginTop: '20px',
 		[theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
 			width: 600,
 			marginLeft: 'auto',
 			marginRight: 'auto',
 		},
-		backgroundColor: '#dbdbdb',
+		backgroundColor: '#edf4ff',
+	},
+	divContainer: {
+		width: 'auto',
+		paddingTop: '1px',
+		paddingBottom: '1px',
+		marginLeft: theme.spacing(2),
+		marginRight: theme.spacing(2),
+		marginTop: '20px',
+		[theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
+			width: 600,
+			marginLeft: 'auto',
+			marginRight: 'auto',
+		}
 	}
 }));
 
@@ -48,22 +63,29 @@ export default function RulesContainer(props) {
 	}, [props.rules])
 
 	return (
-		<Grid container className={classes.container}>
-			<Grid item xs={12}>
-				<AddRuleButton addRule={props.addRule}/>
+		<div className={classes.divContainer}>
+			<Grid container>
+				<Grid item xs={6}>
+					<TestRulesButton rules={state.rules} />
+				</Grid>
 			</Grid>
-			<Grid item xs={12}>
-				<DragDropContext onDragEnd={props.onDragEnd}>
-					<Droppable droppableId="list">
-						{provided => (
-							<div ref={provided.innerRef} {...provided.droppableProps}>
-								<RulesList rules={state.rules} deleteRule={props.deleteRule} />
-								{provided.placeholder}
-							</div>
-						)}
-					</Droppable>
-				</DragDropContext>
+			<Grid container className={classes.container}>
+				<Grid item xs={12}>
+					<AddRuleButton addRule={props.addRule} />
+				</Grid>
+				<Grid item xs={12}>
+					<DragDropContext onDragEnd={props.onDragEnd}>
+						<Droppable droppableId="list">
+							{provided => (
+								<div ref={provided.innerRef} {...provided.droppableProps}>
+									<RulesList rules={state.rules} deleteRule={props.deleteRule} />
+									{provided.placeholder}
+								</div>
+							)}
+						</Droppable>
+					</DragDropContext>
+				</Grid>
 			</Grid>
-		</Grid>
+		</div>
 	);
 }

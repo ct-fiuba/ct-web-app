@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     color: '#39893c',
     fontWeight: 'bold',
     float: 'right',
+    border: 'none',
   },
   dialogTitle: {
     marginTop: '40px',
@@ -41,7 +42,7 @@ export default function AddRuleButton(props) {
 
   return (
     <div>
-      <Button className={classes.addButton} size="large" variant="filled" color="primary" onClick={handleClickOpen}>
+      <Button className={classes.addButton} size="large" variant="outlined" color="primary" onClick={handleClickOpen}>
         <AddIcon fontSize="large" style={{ color: '#39893c' }} /> Crear nueva regla
       </Button>
       <Dialog maxWidth={'md'} open={open} onClose={handleClose} aria-labelledby="form-dialog-title">

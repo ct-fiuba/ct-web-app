@@ -1,5 +1,6 @@
 import React from 'react';
 import RulesContainer from './RulesContainer'
+import AppBar from '../Shared/AppBar';
 
 export default class Rules extends React.Component {
   constructor(props) {
@@ -90,6 +91,7 @@ export default class Rules extends React.Component {
   render() {
     return (
       <div>
+        <AppBar loggedIn={true} />
         <RulesContainer rules={this.state.rules} onDragEnd={this.onDragEnd} deleteRule={this.deleteRule} addRule={this.addRule} />;
       </div>
     );

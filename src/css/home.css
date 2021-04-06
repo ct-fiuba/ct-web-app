@@ -1,0 +1,42 @@
+.home-page{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-page a{
+    color: rgb(33, 76, 156);
+    font-size: 15px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.home-title {
+    font-size: 5em;
+    letter-spacing: 2px;
+}
+
+.home-stitle {
+    font-size: 15px;
+    letter-spacing: 2px;
+}
+
+.covid {
+  display: inline;
+  width: 10em;
+}
+
+.rotate {
+    animation: rotation 8s infinite linear;
+}
+  
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}

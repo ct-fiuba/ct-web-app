@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { Grid, TextField, FormControlLabel, Checkbox, Select, MenuItem, FormControl, InputLabel, Card, CardContent } from '@material-ui/core';
 import useStyles from './styles';
 
-export default function SingleQRForm({initialState, index, obtainInfo}) {
+export default function SingleQRForm({initialState, index, obtainInfo, storeType}) {
   const classes = useStyles();
   const [state, setState] = useState(initialState);
 
   const handleChange = (event) => {
     const name = event.target.name;
     let value = event.target.value;
-    if (name === 'hasExit') {
+    if (name === 'hasExit' || name === 'n95Mandatory') {
       value = event.target.checked;
     }
     setState({
@@ -31,7 +31,7 @@ export default function SingleQRForm({initialState, index, obtainInfo}) {
             <Grid item xs={12}>
               <TextField required name="name" value={state.name} onChange={handleChange} label="Identificador del QR" fullWidth />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12}>
               <TextField required type="number" name="m2"  value={state.m2} onChange={handleChange} label="Metros cuadrados" fullWidth />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -53,6 +53,15 @@ export default function SingleQRForm({initialState, index, obtainInfo}) {
                 </Select>
               </FormControl>
             </Grid>
+            {
+              storeType === 'hospital' &&
+              <Grid item xs={12} md={6}>
+                <FormControlLabel
+                  control={<Checkbox color="secondary" name="n95Mandatory" checked={state.n95Mandatory} onChange={handleChange} />}
+                  label="Uso de N95 obligatorio"
+                />
+              </Grid>
+            }
             <Grid item xs={12} md={6}>
               <FormControlLabel
                 control={<Checkbox color="secondary" name="hasExit" checked={state.hasExit} onChange={handleChange} />}

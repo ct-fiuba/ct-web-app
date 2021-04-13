@@ -20,30 +20,31 @@ function Copyright() {
 }
 
 export default function Checkout() {
-	const [state, setState] = useState({
+  const [state, setState] = useState({
     firstStepInfo: {
-    type: '',
-    name: '',
-    email: '',
-    address: '',
-    city: '',
-    state: '',
-    zip: '',
-    country: '',
-  },
+      type: '',
+      name: '',
+      email: '',
+      address: '',
+      city: '',
+      state: '',
+      zip: '',
+      country: '',
+    },
     secondStepInfo: [{
-    name: '',
-    m2: '',
-    estimatedVisitDuration: '',
-    openPlace: '',
-    hasExit: false,
-  }],
+      name: '',
+      m2: '',
+      estimatedVisitDuration: '',
+      openPlace: '',
+      n95Mandatory: false,
+      hasExit: false,
+    }],
   });
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
   const [firstStepComplete, setFirstStepComplete] = useState(false);
   const [secondStepComplete, setSecondStepComplete] = useState(false);
-	const steps = ['Registro del establecimiento', 'Generación de QRs', 'Confirmación'];
+  const steps = ['Registro del establecimiento', 'Generación de QRs', 'Confirmación'];
 
   const handleNext = () => {
     if (activeStep === 2) {
@@ -61,7 +62,7 @@ export default function Checkout() {
   };
 
   const obtainFirstStepInfo = (info) => {
-    setState({...state, firstStepInfo: info});
+    setState({ ...state, firstStepInfo: info });
   };
 
   const changeSecondStepState = (value) => {
@@ -69,7 +70,7 @@ export default function Checkout() {
   };
 
   const obtainSecondStepInfo = (info) => {
-    setState({...state, secondStepInfo: info});
+    setState({ ...state, secondStepInfo: info });
   };
 
   const isNextButtonEnabled = () => {
@@ -81,38 +82,41 @@ export default function Checkout() {
   };
 
   const constructBody = () => {
-    let body = {...state.firstStepInfo, spaces: state.secondStepInfo};
+    let body = { ...state.firstStepInfo, spaces: state.secondStepInfo };
     body['openPlace'] = body['openPlace'] === 'no' ? false : true;
+    if (body['type'] !== 'hospital') {
+		  body.spaces.forEach(space => space['n95Mandatory'] = false);
+    }
     return body;
   };
 
   const sendDataToServer = () => {
     const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(constructBody())
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(constructBody())
     };
     fetch(process.env.REACT_APP_USER_API_URL + '/establishments', requestOptions)
-        .then(response => response.json())
-        .then(data => {
-          const establishment_id = data['_id'];
-          window.open(process.env.REACT_APP_USER_API_URL + '/establishments/PDF/' + establishment_id, '_blank');
-        })
-        .catch(err => console.log('Error at fetch: ', err));
+      .then(response => response.json())
+      .then(data => {
+        const establishment_id = data['_id'];
+        window.open(process.env.REACT_APP_USER_API_URL + '/establishments/PDF/' + establishment_id, '_blank');
+      })
+      .catch(err => console.log('Error at fetch: ', err));
   };
 
-	const getStepContent = (step) => {
-		switch (step) {
-			case 0:
-				return <NewStoreForm initialState={{...state.firstStepInfo}} completeFunction={changeFirstStepState} obtainInfo={obtainFirstStepInfo} />;
-			case 1:
-				return <NewQRForm initialState={state.secondStepInfo} completeFunction={changeSecondStepState} obtainInfo={obtainSecondStepInfo} />;
-			case 2:
-				  return <ConfirmationForm firstStepInfo={{...state.firstStepInfo}} secondStepInfo={state.secondStepInfo}/>;
-			default:
-				throw new Error('Unknown step');
-		}
-	};
+  const getStepContent = (step) => {
+    switch (step) {
+      case 0:
+        return <NewStoreForm initialState={{ ...state.firstStepInfo }} completeFunction={changeFirstStepState} obtainInfo={obtainFirstStepInfo} />;
+      case 1:
+        return <NewQRForm initialState={state.secondStepInfo} completeFunction={changeSecondStepState} obtainInfo={obtainSecondStepInfo} storeType={state.firstStepInfo.type}/>;
+      case 2:
+        return <ConfirmationForm firstStepInfo={{ ...state.firstStepInfo }} secondStepInfo={state.secondStepInfo} />;
+      default:
+        throw new Error('Unknown step');
+    }
+  };
 
   return (
     <React.Fragment>

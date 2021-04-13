@@ -3,6 +3,7 @@ import { Typography, List, ListItem, ListItemText, Grid } from '@material-ui/cor
 import useStyles from './styles';
 
 const typeTranslation = {
+  hospital: 'Hospital',
 	food: 'Gastronómico',
 	supermarket: 'Supermercado',
 	clothing: 'Venta de Ropa',
@@ -14,6 +15,17 @@ export default function ConfirmationForm({firstStepInfo, secondStepInfo}) {
   const classes = useStyles();
 	const establecimiento = firstStepInfo;
 	const QRs = secondStepInfo;
+
+  const buildQRListItem = (qr) => {
+    let primary_text = qr.hasExit ? qr.name + " (x2)" : qr.name;
+    let secondary_text = `Espacio ${qr.openPlace === "yes" ? 'Abierto. ' : 'Cerrado. '}`;
+    secondary_text = secondary_text.concat(`Tamaño: ${qr.m2} m2. `);
+    secondary_text = secondary_text.concat(qr.estimatedVisitDuration ? `Visita estimada: ${qr.estimatedVisitDuration} minutos. ` : '');
+    secondary_text = secondary_text.concat(firstStepInfo.type === 'hospital' ? `Uso de N95 ${!qr.n95Mandatory ? 'no' : ''} obligatorio.` : '');
+    console.log(primary_text);
+    console.log(secondary_text);
+    return <ListItemText primary={primary_text} secondary={secondary_text}/>
+  }
 
   return (
     <React.Fragment>
@@ -41,12 +53,7 @@ export default function ConfirmationForm({firstStepInfo, secondStepInfo}) {
       <List disablePadding>
         {QRs.map((qr) => (
           <ListItem className={classes.listItem} key={qr.name}>
-            <ListItemText primary={qr.hasExit ? qr.name + " (x2)" : qr.name} secondary={qr.openPlace === "yes" ? "Espacio Abierto" : "Espacio Cerrado"}/>
-            <Typography variant="body2">{
-              qr.estimatedVisitDuration ?
-                `Espacio: ${qr.m2} m2. Visita estimada: ${qr.estimatedVisitDuration} minutos.`:
-                `Espacio: ${qr.m2} m2.`
-              }</Typography>
+            {buildQRListItem(qr)}
           </ListItem>
         ))}
       </List>

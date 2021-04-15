@@ -12,13 +12,16 @@ export default function AddRuleForm({addRule, handleClose}) {
   const [m2Cmp, setM2Cmp] = useState('');
   const [m2Value, setM2Value] = useState('');
   const [spaceValue, setSpaceValue] = useState('');
-  const [checkboxDuration, setCheckboxDuration] = useState(true);
-  const [checkboxM2, setCheckboxM2] = useState(true);
-  const [checkboxSpace, setCheckboxSpace] = useState(true);
+  const [n95MandatoryValue, setN95MandatoryValue] = useState('');
+  const [checkboxDuration, setCheckboxDuration] = useState(false);
+  const [checkboxM2, setCheckboxM2] = useState(false);
+  const [checkboxSpace, setCheckboxSpace] = useState(false);
+  const [checkboxN95Mandatory, setCheckboxN95Mandatory] = useState(false);
 
   const [durationMissing, setDurationMissing] = useState(false);
   const [m2Missing, setM2Missing] = useState(false);
   const [spaceMissing, setSpaceMissing] = useState(false);
+  const [n95MandatoryMissing, setN95MandatoryMissing] = useState(false);
   const [riskMissing, setRiskMissing] = useState(false);
   const [noCheckbox, setNoCheckbox] = useState(false);
 
@@ -46,6 +49,10 @@ export default function AddRuleForm({addRule, handleClose}) {
     setSpaceValue(event.target.value);
   }
 
+  const handleN95MandatoryValueChange = (event) => {
+    setN95MandatoryValue(event.target.value);
+  }
+
   const handleChangeCheckboxDuration = () => {
     setCheckboxDuration(!checkboxDuration);
   }
@@ -58,6 +65,10 @@ export default function AddRuleForm({addRule, handleClose}) {
     setCheckboxSpace(!checkboxSpace);
   }
 
+  const handleChangeCheckboxN95Mandatory = () => {
+    setCheckboxN95Mandatory(!checkboxN95Mandatory);
+  }
+
   const handleCloseDurationMissing = () => {
     setDurationMissing(false);
   }
@@ -68,6 +79,10 @@ export default function AddRuleForm({addRule, handleClose}) {
 
   const handleCloseSpaceMissing = () => {
     setSpaceMissing(false);
+  }
+
+  const handleCloseN95MandatoryMissing = () => {
+    setN95MandatoryMissing(false);
   }
 
   const handleCloseRiskMissing = () => {
@@ -105,7 +120,14 @@ export default function AddRuleForm({addRule, handleClose}) {
       }
     }
 
-    if (!checkboxDuration && !checkboxM2 && !checkboxSpace) {
+    if (checkboxN95Mandatory) {
+      if (n95MandatoryValue === '') {
+        setN95MandatoryMissing(true);
+        return false;
+      }
+    }
+
+    if (!checkboxDuration && !checkboxM2 && !checkboxSpace && !checkboxN95Mandatory) {
       setNoCheckbox(true);
       return false;
     }
@@ -159,7 +181,9 @@ export default function AddRuleForm({addRule, handleClose}) {
         </FormControl>
       </Grid>
 
-
+      <Grid item xs={12}>
+        <h4 className={classes.internalTitles}>Condiciones sobre la duración y espacio del contacto</h4>
+      </Grid>
 
       <Grid item xs={1}>
         <Checkbox
@@ -272,6 +296,38 @@ export default function AddRuleForm({addRule, handleClose}) {
         </FormControl>
       </Grid>
 
+      <Grid item xs={1}>
+        <Checkbox
+          className={classes.checkboxes}
+          checked={checkboxN95Mandatory}
+          color="primary"
+          inputProps={{ 'aria-label': 'secondary checkbox' }}
+          onChange={handleChangeCheckboxN95Mandatory}
+        />
+      </Grid>
+      <Grid item xs={3}>
+        <h4 className={classes.titleN95Mandatory}>Uso de N95 obligatorio</h4>
+      </Grid>
+      <Grid item xs={8}>
+        <FormControl className={classes.formControlN95MandatoryValue}>
+          <InputLabel className={classes.labelN95MandatoryValue}>Si o No</InputLabel>
+          <Select
+            labelId="n95MandatoryValue-label"
+            id="n95MandatoryValue"
+            value={n95MandatoryValue}
+            onChange={handleN95MandatoryValueChange}
+            variant="outlined"
+            disabled={!checkboxN95Mandatory}
+          >
+            <MenuItem value={true}>{'Si'}</MenuItem>
+            <MenuItem value={false}>{'No'}</MenuItem>
+          </Select>
+        </FormControl>
+      </Grid>
+
+      <Grid item xs={12}>
+        <h4 className={classes.internalTitles}>Condiciones la persona involucrada en el contacto</h4>
+      </Grid>
 
 
       <Grid item xs={12} className={classes.buttonsGrid}>
@@ -290,6 +346,8 @@ export default function AddRuleForm({addRule, handleClose}) {
         handleCloseM2Missing={handleCloseM2Missing}
         spaceMissing={spaceMissing}
         handleCloseSpaceMissing={handleCloseSpaceMissing}
+        n95MandatoryMissing={n95MandatoryMissing}
+        handleCloseN95MandatoryMissing={handleCloseN95MandatoryMissing}
         riskMissing={riskMissing}
         handleCloseRiskMissing={handleCloseRiskMissing}
         noCheckbox={noCheckbox}

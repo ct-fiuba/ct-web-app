@@ -2,7 +2,7 @@ import React from 'react';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { Snackbar } from '@material-ui/core';
 
-export default function AddRuleFormErrors({durationMissing, m2Missing, riskMissing, spaceMissing, handleCloseM2Missing, handleCloseRiskMissing, handleCloseSpaceMissing, handleCloseDurationMissing, noCheckbox, handleCloseNoCheckbox}) {
+export default function AddRuleFormErrors({durationMissing, m2Missing, riskMissing, spaceMissing, n95MandatoryMissing, handleCloseM2Missing, handleCloseRiskMissing, handleCloseSpaceMissing, handleCloseN95MandatoryMissing, handleCloseDurationMissing, noCheckbox, handleCloseNoCheckbox}) {
   return (
     <div>
       <Snackbar open={durationMissing} autoHideDuration={5000} onClose={handleCloseDurationMissing}>
@@ -23,6 +23,13 @@ export default function AddRuleFormErrors({durationMissing, m2Missing, riskMissi
         <Alert severity="error" onClose={handleCloseSpaceMissing}>
           <AlertTitle>Error</AlertTitle>
           Falta definir la <strong>ventilación</strong>
+        </Alert>
+      </Snackbar>
+
+      <Snackbar open={n95MandatoryMissing} autoHideDuration={5000} onClose={handleCloseN95MandatoryMissing}>
+        <Alert severity="error" onClose={handleCloseN95MandatoryMissing}>
+          <AlertTitle>Error</AlertTitle>
+          Falta definir la obligatoriedad del uso del <strong>N95</strong>
         </Alert>
       </Snackbar>
 

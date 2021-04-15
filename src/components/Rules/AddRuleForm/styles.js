@@ -54,13 +54,28 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '28px',
     textAlign: 'center',
   },
+  titleN95Mandatory: {
+    marginTop: '28px',
+    textAlign: 'center',
+  },
   formControlSpaceValue: {
+    margin: theme.spacing(1),
+    marginRight: '0px',
+    width: '-webkit-fill-available',
+  },
+  formControlN95MandatoryValue: {
     margin: theme.spacing(1),
     marginRight: '0px',
     width: '-webkit-fill-available',
   },
   labelSpaceValue: {
     marginLeft: '10px',
+  },
+  labelN95MandatoryValue: {
+    marginLeft: '10px',
+  },
+  internalTitles: {
+    textAlign: 'center',
   }
 }));
 

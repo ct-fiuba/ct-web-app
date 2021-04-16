@@ -24,6 +24,10 @@ const useStyles = makeStyles((theme) => ({
   checkboxes: {
     marginTop: '16px',
   },
+  checkboxesSecondary: {
+    marginTop: '16px',
+    marginLeft: '40px',
+  },
   durationValue: {
     marginTop: '8px',
     width: '-webkit-fill-available',
@@ -58,6 +62,14 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '28px',
     textAlign: 'center',
   },
+  titleVaccinated: {
+    marginTop: '28px',
+    textAlign: 'center',
+  },
+  titleVaccineReceived: {
+    marginTop: '28px',
+    textAlign: 'center',
+  },
   formControlSpaceValue: {
     margin: theme.spacing(1),
     marginRight: '0px',
@@ -68,10 +80,26 @@ const useStyles = makeStyles((theme) => ({
     marginRight: '0px',
     width: '-webkit-fill-available',
   },
+  formControlVaccinatedValue: {
+    margin: theme.spacing(1),
+    marginRight: '0px',
+    width: '-webkit-fill-available',
+  },
+  formControlVaccineReceivedValue: {
+    margin: theme.spacing(1),
+    marginRight: '50px',
+    width: '-webkit-fill-available',
+  },
   labelSpaceValue: {
     marginLeft: '10px',
   },
   labelN95MandatoryValue: {
+    marginLeft: '10px',
+  },
+  labelVaccinatedValue: {
+    marginLeft: '10px',
+  },
+  labelVaccineReceivedValue: {
     marginLeft: '10px',
   },
   internalTitles: {

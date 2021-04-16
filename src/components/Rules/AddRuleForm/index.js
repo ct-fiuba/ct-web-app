@@ -13,15 +13,22 @@ export default function AddRuleForm({addRule, handleClose}) {
   const [m2Value, setM2Value] = useState('');
   const [spaceValue, setSpaceValue] = useState('');
   const [n95MandatoryValue, setN95MandatoryValue] = useState('');
+  const [vaccinatedValue, setVaccinatedValue] = useState('');
+  const [vaccineReceivedValue, setVaccineReceivedValue] = useState('');
   const [checkboxDuration, setCheckboxDuration] = useState(false);
   const [checkboxM2, setCheckboxM2] = useState(false);
   const [checkboxSpace, setCheckboxSpace] = useState(false);
   const [checkboxN95Mandatory, setCheckboxN95Mandatory] = useState(false);
+  const [checkboxVaccinated, setCheckboxVaccinated] = useState(false);
+  const [checkboxVaccineReceived, setCheckboxVaccineReceived] = useState(false);
+  const [vaccineDetailsVisible, setVaccineDetailsVisible] = useState(false);
 
   const [durationMissing, setDurationMissing] = useState(false);
   const [m2Missing, setM2Missing] = useState(false);
   const [spaceMissing, setSpaceMissing] = useState(false);
   const [n95MandatoryMissing, setN95MandatoryMissing] = useState(false);
+  const [vaccinatedMissing, setVaccinatedMissing] = useState(false);
+  const [vaccineReceivedMissing, setVaccineReceivedMissing] = useState(false);
   const [riskMissing, setRiskMissing] = useState(false);
   const [noCheckbox, setNoCheckbox] = useState(false);
 
@@ -53,20 +60,60 @@ export default function AddRuleForm({addRule, handleClose}) {
     setN95MandatoryValue(event.target.value);
   }
 
+  const handleVaccinatedValueChange = (event) => {
+    setVaccinatedValue(event.target.value);
+    setVaccineDetailsVisible(event.target.value > 0);
+  }
+
+  const handleVaccineReceivedValueChange = (event) => {
+    setVaccineReceivedValue(event.target.value);
+  }
+
   const handleChangeCheckboxDuration = () => {
+    if (checkboxDuration) {
+      setDurationCmp('');
+      setDurationValue('');
+    }
     setCheckboxDuration(!checkboxDuration);
   }
 
   const handleChangeCheckboxM2 = () => {
+    if (checkboxM2) {
+      setM2Cmp('');
+      setM2Value('');
+    }
     setCheckboxM2(!checkboxM2);
   }
 
   const handleChangeCheckboxSpace = () => {
+    if (checkboxSpace) {
+      setSpaceValue('');
+    }
     setCheckboxSpace(!checkboxSpace);
   }
 
   const handleChangeCheckboxN95Mandatory = () => {
+    if (checkboxN95Mandatory) {
+      setN95MandatoryValue('');
+    }
     setCheckboxN95Mandatory(!checkboxN95Mandatory);
+  }
+
+  const handleChangeCheckboxVaccinated = () => {
+    if (checkboxVaccinated) {
+      setVaccinatedValue('');
+      setVaccineReceivedValue('');
+      setVaccineDetailsVisible(false);
+      setCheckboxVaccineReceived(false);
+    }
+    setCheckboxVaccinated(!checkboxVaccinated);
+  }
+
+  const handleChangeCheckboxVaccineReceived = () => {
+    if (checkboxVaccineReceived) {
+      setVaccineReceivedValue('');
+    }
+    setCheckboxVaccineReceived(!checkboxVaccineReceived);
   }
 
   const handleCloseDurationMissing = () => {
@@ -83,6 +130,14 @@ export default function AddRuleForm({addRule, handleClose}) {
 
   const handleCloseN95MandatoryMissing = () => {
     setN95MandatoryMissing(false);
+  }
+
+  const handleCloseVaccinatedMissing = () => {
+    setVaccinatedMissing(false);
+  }
+
+  const handleCloseVaccineReceivedMissing = () => {
+    setVaccineReceivedMissing(false);
   }
 
   const handleCloseRiskMissing = () => {
@@ -127,7 +182,21 @@ export default function AddRuleForm({addRule, handleClose}) {
       }
     }
 
-    if (!checkboxDuration && !checkboxM2 && !checkboxSpace && !checkboxN95Mandatory) {
+    if (checkboxVaccinated) {
+      if (vaccinatedValue === '') {
+        setVaccinatedMissing(true);
+        return false;
+      }
+    }
+
+    if (checkboxVaccineReceived) {
+      if (vaccineReceivedValue === '') {
+        setVaccineReceivedMissing(true);
+        return false;
+      }
+    }
+
+    if (!checkboxDuration && !checkboxM2 && !checkboxSpace && !checkboxN95Mandatory && !checkboxVaccinated) {
       setNoCheckbox(true);
       return false;
     }
@@ -220,6 +289,7 @@ export default function AddRuleForm({addRule, handleClose}) {
             helperText="en minutos"
             variant="outlined"
             onChange={handleDurationValueChange}
+            value={durationValue}
             className={classes.durationValue}
             disabled={!checkboxDuration}
           />
@@ -261,6 +331,7 @@ export default function AddRuleForm({addRule, handleClose}) {
             helperText="en metros cuadrados (m2)"
             variant="outlined"
             onChange={handleM2ValueChange}
+            value={m2Value}
             className={classes.m2Value}
             disabled={!checkboxM2}
           />
@@ -326,9 +397,74 @@ export default function AddRuleForm({addRule, handleClose}) {
       </Grid>
 
       <Grid item xs={12}>
-        <h4 className={classes.internalTitles}>Condiciones la persona involucrada en el contacto</h4>
+        <h4 className={classes.internalTitles}>Condiciones sobre la persona involucrada en el contacto</h4>
       </Grid>
 
+      <Grid item xs={1}>
+        <Checkbox
+          className={classes.checkboxes}
+          checked={checkboxVaccinated}
+          color="primary"
+          inputProps={{ 'aria-label': 'secondary checkbox' }}
+          onChange={handleChangeCheckboxVaccinated}
+        />
+      </Grid>
+      <Grid item xs={3}>
+        <h4 className={classes.titleVaccinated}>Vacunado</h4>
+      </Grid>
+      <Grid item xs={8}>
+        <FormControl className={classes.formControlVaccinatedValue}>
+          <InputLabel className={classes.labelVaccinatedValue}>No, parcial o completamente vacunado</InputLabel>
+          <Select
+            labelId="vaccinatedValue-label"
+            id="vaccinatedValue"
+            value={vaccinatedValue}
+            onChange={handleVaccinatedValueChange}
+            variant="outlined"
+            disabled={!checkboxVaccinated}
+          >
+            <MenuItem value={0}>{'No vacunado'}</MenuItem>
+            <MenuItem value={1}>{'Parcialmente vacunado'}</MenuItem>
+            <MenuItem value={2}>{'Completamente vacunado'}</MenuItem>
+          </Select>
+        </FormControl>
+      </Grid>
+
+      {
+        vaccineDetailsVisible &&
+        <>
+          <Grid item xs={1}>
+            <Checkbox
+              className={classes.checkboxesSecondary}
+              checked={checkboxVaccineReceived}
+              color="primary"
+              inputProps={{ 'aria-label': 'secondary checkbox' }}
+              onChange={handleChangeCheckboxVaccineReceived}
+            />
+          </Grid>
+          <Grid item xs={3}>
+            <h4 className={classes.titleVaccineReceived}>Vacuna recibida</h4>
+          </Grid>
+          <Grid item xs={8}>
+            <FormControl className={classes.formControlVaccineReceivedValue}>
+              <InputLabel className={classes.labelVaccineReceivedValue}>Nombre de la vacuna</InputLabel>
+              <Select
+                labelId="vaccineReceivedValue-label"
+                id="vaccineReceivedValue"
+                value={vaccineReceivedValue}
+                onChange={handleVaccineReceivedValueChange}
+                variant="outlined"
+                disabled={!checkboxVaccineReceived}
+              >
+                <MenuItem value={'Sputnik V'}>{'Sputnik V'}</MenuItem>
+                <MenuItem value={'AstraZeneca'}>{'AstraZeneca'}</MenuItem>
+                <MenuItem value={'Covishield'}>{'Covishield'}</MenuItem>
+                <MenuItem value={'Sinopharm'}>{'Sinopharm'}</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+        </>
+      }
 
       <Grid item xs={12} className={classes.buttonsGrid}>
         <Button onClick={handleClose} color="primary">
@@ -348,6 +484,10 @@ export default function AddRuleForm({addRule, handleClose}) {
         handleCloseSpaceMissing={handleCloseSpaceMissing}
         n95MandatoryMissing={n95MandatoryMissing}
         handleCloseN95MandatoryMissing={handleCloseN95MandatoryMissing}
+        vaccinatedMissing={vaccinatedMissing}
+        handleCloseVaccinatedMissing={handleCloseVaccinatedMissing}
+        vaccineReceivedMissing={vaccineReceivedMissing}
+        handleCloseVaccineReceivedMissing={handleCloseVaccineReceivedMissing}
         riskMissing={riskMissing}
         handleCloseRiskMissing={handleCloseRiskMissing}
         noCheckbox={noCheckbox}

@@ -15,12 +15,14 @@ export default function AddRuleForm({addRule, handleClose}) {
   const [n95MandatoryValue, setN95MandatoryValue] = useState('');
   const [vaccinatedValue, setVaccinatedValue] = useState('');
   const [vaccineReceivedValue, setVaccineReceivedValue] = useState('');
+  const [vaccinatedDaysValue, setVaccinatedDaysValue] = useState('');
   const [checkboxDuration, setCheckboxDuration] = useState(false);
   const [checkboxM2, setCheckboxM2] = useState(false);
   const [checkboxSpace, setCheckboxSpace] = useState(false);
   const [checkboxN95Mandatory, setCheckboxN95Mandatory] = useState(false);
   const [checkboxVaccinated, setCheckboxVaccinated] = useState(false);
   const [checkboxVaccineReceived, setCheckboxVaccineReceived] = useState(false);
+  const [checkboxVaccinatedDays, setCheckboxVaccinatedDays] = useState(false);
   const [vaccineDetailsVisible, setVaccineDetailsVisible] = useState(false);
 
   const [durationMissing, setDurationMissing] = useState(false);
@@ -29,6 +31,7 @@ export default function AddRuleForm({addRule, handleClose}) {
   const [n95MandatoryMissing, setN95MandatoryMissing] = useState(false);
   const [vaccinatedMissing, setVaccinatedMissing] = useState(false);
   const [vaccineReceivedMissing, setVaccineReceivedMissing] = useState(false);
+  const [vaccinatedDaysMissing, setVaccinatedDaysMissing] = useState(false);
   const [riskMissing, setRiskMissing] = useState(false);
   const [noCheckbox, setNoCheckbox] = useState(false);
 
@@ -69,6 +72,10 @@ export default function AddRuleForm({addRule, handleClose}) {
     setVaccineReceivedValue(event.target.value);
   }
 
+  const handleVaccinatedDaysValueChange = (event) => {
+    setVaccinatedDaysValue(event.target.value);
+  }
+
   const handleChangeCheckboxDuration = () => {
     if (checkboxDuration) {
       setDurationCmp('');
@@ -103,8 +110,10 @@ export default function AddRuleForm({addRule, handleClose}) {
     if (checkboxVaccinated) {
       setVaccinatedValue('');
       setVaccineReceivedValue('');
+      setVaccinatedDaysValue('');
       setVaccineDetailsVisible(false);
       setCheckboxVaccineReceived(false);
+      setCheckboxVaccinatedDays(false);
     }
     setCheckboxVaccinated(!checkboxVaccinated);
   }
@@ -114,6 +123,13 @@ export default function AddRuleForm({addRule, handleClose}) {
       setVaccineReceivedValue('');
     }
     setCheckboxVaccineReceived(!checkboxVaccineReceived);
+  }
+
+  const handleChangeCheckboxVaccinatedDays = () => {
+    if (checkboxVaccinatedDays) {
+      setVaccinatedDaysValue('');
+    }
+    setCheckboxVaccinatedDays(!checkboxVaccinatedDays);
   }
 
   const handleCloseDurationMissing = () => {
@@ -138,6 +154,10 @@ export default function AddRuleForm({addRule, handleClose}) {
 
   const handleCloseVaccineReceivedMissing = () => {
     setVaccineReceivedMissing(false);
+  }
+
+  const handleCloseVaccinatedDaysMissing = () => {
+    setVaccinatedDaysMissing(false);
   }
 
   const handleCloseRiskMissing = () => {
@@ -192,6 +212,13 @@ export default function AddRuleForm({addRule, handleClose}) {
     if (checkboxVaccineReceived) {
       if (vaccineReceivedValue === '') {
         setVaccineReceivedMissing(true);
+        return false;
+      }
+    }
+
+    if (checkboxVaccinatedDays) {
+      if (vaccinatedDaysValue === '') {
+        setVaccinatedDaysMissing(true);
         return false;
       }
     }
@@ -463,6 +490,31 @@ export default function AddRuleForm({addRule, handleClose}) {
               </Select>
             </FormControl>
           </Grid>
+
+          <Grid item xs={1}>
+            <Checkbox
+              className={classes.checkboxesSecondary}
+              checked={checkboxVaccinatedDays}
+              color="primary"
+              inputProps={{ 'aria-label': 'secondary checkbox' }}
+              onChange={handleChangeCheckboxVaccinatedDays}
+            />
+          </Grid>
+          <Grid item xs={3}>
+            <h4 className={classes.titleVaccinatedDays}>Vacuna recibida hace más de (en días)</h4>
+          </Grid>
+          <Grid item xs={8}>
+            <TextField
+              id="vaccinatedDaysValue"
+              type="number"
+              helperText="en días"
+              variant="outlined"
+              onChange={handleVaccinatedDaysValueChange}
+              value={vaccinatedDaysValue}
+              className={classes.vaccinatedDaysValue}
+              disabled={!checkboxVaccinatedDays}
+            />
+          </Grid>
         </>
       }
 
@@ -488,6 +540,8 @@ export default function AddRuleForm({addRule, handleClose}) {
         handleCloseVaccinatedMissing={handleCloseVaccinatedMissing}
         vaccineReceivedMissing={vaccineReceivedMissing}
         handleCloseVaccineReceivedMissing={handleCloseVaccineReceivedMissing}
+        vaccinatedDaysMissing={vaccinatedDaysMissing}
+        handleCloseVaccinatedDaysMissing={handleCloseVaccinatedDaysMissing}
         riskMissing={riskMissing}
         handleCloseRiskMissing={handleCloseRiskMissing}
         noCheckbox={noCheckbox}

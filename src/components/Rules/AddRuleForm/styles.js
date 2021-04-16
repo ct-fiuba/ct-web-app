@@ -70,6 +70,12 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '28px',
     textAlign: 'center',
   },
+  titleVaccinatedDays: {
+    marginTop: '20px',
+    marginLeft: '10px',
+    marginRight: '5px',
+    textAlign: 'center',
+  },
   formControlSpaceValue: {
     margin: theme.spacing(1),
     marginRight: '0px',
@@ -101,6 +107,12 @@ const useStyles = makeStyles((theme) => ({
   },
   labelVaccineReceivedValue: {
     marginLeft: '10px',
+  },
+  vaccinatedDaysValue: {
+    marginTop: '8px',
+    margin: theme.spacing(1),
+    marginRight: '50px',
+    width: '-webkit-fill-available',
   },
   internalTitles: {
     textAlign: 'center',

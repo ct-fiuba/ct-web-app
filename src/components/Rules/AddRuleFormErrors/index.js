@@ -2,7 +2,7 @@ import React from 'react';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { Snackbar } from '@material-ui/core';
 
-export default function AddRuleFormErrors({durationMissing, m2Missing, riskMissing, spaceMissing, n95MandatoryMissing, vaccinatedMissing, vaccineReceivedMissing, handleCloseM2Missing, handleCloseVaccinatedMissing, handleCloseVaccineReceivedMissing, handleCloseRiskMissing, handleCloseSpaceMissing, handleCloseN95MandatoryMissing, handleCloseDurationMissing, noCheckbox, handleCloseNoCheckbox}) {
+export default function AddRuleFormErrors({durationMissing, m2Missing, riskMissing, spaceMissing, n95MandatoryMissing, vaccinatedMissing, vaccineReceivedMissing, vaccinatedDaysMissing, handleCloseM2Missing, handleCloseVaccinatedMissing, handleCloseVaccineReceivedMissing, handleCloseVaccinatedDaysMissing, handleCloseRiskMissing, handleCloseSpaceMissing, handleCloseN95MandatoryMissing, handleCloseDurationMissing, noCheckbox, handleCloseNoCheckbox}) {
   return (
     <div>
       <Snackbar open={durationMissing} autoHideDuration={5000} onClose={handleCloseDurationMissing}>
@@ -51,6 +51,13 @@ export default function AddRuleFormErrors({durationMissing, m2Missing, riskMissi
         <Alert severity="error" onClose={handleCloseRiskMissing}>
           <AlertTitle>Error</AlertTitle>
           Falta definir el <strong>riesgo de contagio</strong>
+        </Alert>
+      </Snackbar>
+
+      <Snackbar open={vaccinatedDaysMissing} autoHideDuration={5000} onClose={handleCloseVaccinatedDaysMissing}>
+        <Alert severity="error" onClose={handleCloseVaccinatedDaysMissing}>
+          <AlertTitle>Error</AlertTitle>
+          Falta definir cuantos <strong>días pasaron (como mínimo) desde la vacunación</strong>
         </Alert>
       </Snackbar>
 

@@ -16,6 +16,9 @@ export default function AddRuleForm({addRule, handleClose}) {
   const [vaccinatedValue, setVaccinatedValue] = useState('');
   const [vaccineReceivedValue, setVaccineReceivedValue] = useState('');
   const [vaccinatedDaysValue, setVaccinatedDaysValue] = useState('');
+  const [covidRecoveredValue, setCovidRecoveredValue] = useState('');
+  const [covidRecoveredDaysValue, setCovidRecoveredDaysValue] = useState('');
+
   const [checkboxDuration, setCheckboxDuration] = useState(false);
   const [checkboxM2, setCheckboxM2] = useState(false);
   const [checkboxSpace, setCheckboxSpace] = useState(false);
@@ -23,7 +26,11 @@ export default function AddRuleForm({addRule, handleClose}) {
   const [checkboxVaccinated, setCheckboxVaccinated] = useState(false);
   const [checkboxVaccineReceived, setCheckboxVaccineReceived] = useState(false);
   const [checkboxVaccinatedDays, setCheckboxVaccinatedDays] = useState(false);
+  const [checkboxCovidRecovered, setCheckboxCovidRecovered] = useState(false);
+  const [checkboxCovidRecoveredDays, setCheckboxCovidRecoveredDays] = useState(false);
+
   const [vaccineDetailsVisible, setVaccineDetailsVisible] = useState(false);
+  const [covidRecoveredDetailsVisible, setCovidRecoveredDetailsVisible] = useState(false);
 
   const [durationMissing, setDurationMissing] = useState(false);
   const [m2Missing, setM2Missing] = useState(false);
@@ -32,6 +39,8 @@ export default function AddRuleForm({addRule, handleClose}) {
   const [vaccinatedMissing, setVaccinatedMissing] = useState(false);
   const [vaccineReceivedMissing, setVaccineReceivedMissing] = useState(false);
   const [vaccinatedDaysMissing, setVaccinatedDaysMissing] = useState(false);
+  const [covidRecoveredMissing, setCovidRecoveredMissing] = useState(false);
+  const [covidRecoveredDaysMissing, setCovidRecoveredDaysMissing] = useState(false);
   const [riskMissing, setRiskMissing] = useState(false);
   const [noCheckbox, setNoCheckbox] = useState(false);
 
@@ -74,6 +83,15 @@ export default function AddRuleForm({addRule, handleClose}) {
 
   const handleVaccinatedDaysValueChange = (event) => {
     setVaccinatedDaysValue(event.target.value);
+  }
+
+  const handleCovidRecoveredValueChange = (event) => {
+    setCovidRecoveredValue(event.target.value);
+    setCovidRecoveredDetailsVisible(event.target.value);
+  }
+
+  const handleCovidRecoveredDaysValueChange = (event) => {
+    setCovidRecoveredDaysValue(event.target.value);
   }
 
   const handleChangeCheckboxDuration = () => {
@@ -132,6 +150,23 @@ export default function AddRuleForm({addRule, handleClose}) {
     setCheckboxVaccinatedDays(!checkboxVaccinatedDays);
   }
 
+  const handleChangeCheckboxCovidRecovered = () => {
+    if (checkboxCovidRecovered) {
+      setCovidRecoveredValue('');
+      setCovidRecoveredDaysValue('');
+      setCovidRecoveredDetailsVisible(false);
+      setCheckboxCovidRecoveredDays(false);
+    }
+    setCheckboxCovidRecovered(!checkboxCovidRecovered);
+  }
+
+  const handleChangeCheckboxCovidRecoveredDays = () => {
+    if (checkboxCovidRecoveredDays) {
+      setCovidRecoveredDaysValue('');
+    }
+    setCheckboxCovidRecoveredDays(!checkboxCovidRecoveredDays);
+  }
+
   const handleCloseDurationMissing = () => {
     setDurationMissing(false);
   }
@@ -158,6 +193,14 @@ export default function AddRuleForm({addRule, handleClose}) {
 
   const handleCloseVaccinatedDaysMissing = () => {
     setVaccinatedDaysMissing(false);
+  }
+
+  const handleCloseCovidRecoveredMissing = () => {
+    setCovidRecoveredMissing(false);
+  }
+
+  const handleCloseCovidRecoveredDaysMissing = () => {
+    setCovidRecoveredDaysMissing(false);
   }
 
   const handleCloseRiskMissing = () => {
@@ -217,13 +260,28 @@ export default function AddRuleForm({addRule, handleClose}) {
     }
 
     if (checkboxVaccinatedDays) {
-      if (vaccinatedDaysValue === '') {
+      if (vaccinatedDaysValue === '' || vaccinatedDaysValue <= 0) {
         setVaccinatedDaysMissing(true);
         return false;
       }
     }
 
-    if (!checkboxDuration && !checkboxM2 && !checkboxSpace && !checkboxN95Mandatory && !checkboxVaccinated) {
+    if (checkboxCovidRecovered) {
+      if (covidRecoveredValue === '') {
+        setCovidRecoveredMissing(true);
+        return false;
+      }
+    }
+
+    if (checkboxCovidRecoveredDays) {
+      if (covidRecoveredDaysValue === '' || covidRecoveredDaysValue <= 0) {
+        setCovidRecoveredDaysMissing(true);
+        return false;
+      }
+    }
+
+
+    if (!checkboxDuration && !checkboxM2 && !checkboxSpace && !checkboxN95Mandatory && !checkboxVaccinated && !checkboxCovidRecovered) {
       setNoCheckbox(true);
       return false;
     }
@@ -437,11 +495,11 @@ export default function AddRuleForm({addRule, handleClose}) {
         />
       </Grid>
       <Grid item xs={3}>
-        <h4 className={classes.titleVaccinated}>Vacunado</h4>
+        <h4 className={classes.titleVaccinated}>Vacunada</h4>
       </Grid>
       <Grid item xs={8}>
         <FormControl className={classes.formControlVaccinatedValue}>
-          <InputLabel className={classes.labelVaccinatedValue}>No, parcial o completamente vacunado</InputLabel>
+          <InputLabel className={classes.labelVaccinatedValue}>No, parcial o completamente vacunada</InputLabel>
           <Select
             labelId="vaccinatedValue-label"
             id="vaccinatedValue"
@@ -450,9 +508,9 @@ export default function AddRuleForm({addRule, handleClose}) {
             variant="outlined"
             disabled={!checkboxVaccinated}
           >
-            <MenuItem value={0}>{'No vacunado'}</MenuItem>
-            <MenuItem value={1}>{'Parcialmente vacunado'}</MenuItem>
-            <MenuItem value={2}>{'Completamente vacunado'}</MenuItem>
+            <MenuItem value={0}>{'No vacunada'}</MenuItem>
+            <MenuItem value={1}>{'Parcialmente vacunada'}</MenuItem>
+            <MenuItem value={2}>{'Completamente vacunada'}</MenuItem>
           </Select>
         </FormControl>
       </Grid>
@@ -518,6 +576,65 @@ export default function AddRuleForm({addRule, handleClose}) {
         </>
       }
 
+      <Grid item xs={1}>
+        <Checkbox
+          className={classes.checkboxes}
+          checked={checkboxCovidRecovered}
+          color="primary"
+          inputProps={{ 'aria-label': 'secondary checkbox' }}
+          onChange={handleChangeCheckboxCovidRecovered}
+        />
+      </Grid>
+      <Grid item xs={3}>
+        <h4 className={classes.titleCovidRecovered}>Recuperada de COVID-19</h4>
+      </Grid>
+      <Grid item xs={8}>
+        <FormControl className={classes.formControlCovidRecoveredValue}>
+          <InputLabel className={classes.labelCovidRecoveredValue}>Si o No</InputLabel>
+          <Select
+            labelId="covidRecoveredValue-label"
+            id="covidRecoveredValue"
+            value={covidRecoveredValue}
+            onChange={handleCovidRecoveredValueChange}
+            variant="outlined"
+            disabled={!checkboxCovidRecovered}
+          >
+            <MenuItem value={true}>{'Si'}</MenuItem>
+            <MenuItem value={false}>{'No'}</MenuItem>
+          </Select>
+        </FormControl>
+      </Grid>
+
+      {
+        covidRecoveredDetailsVisible &&
+        <>
+          <Grid item xs={1}>
+            <Checkbox
+              className={classes.checkboxesSecondary}
+              checked={checkboxCovidRecoveredDays}
+              color="primary"
+              inputProps={{ 'aria-label': 'secondary checkbox' }}
+              onChange={handleChangeCheckboxCovidRecoveredDays}
+            />
+          </Grid>
+          <Grid item xs={3}>
+            <h4 className={classes.titleCovidRecoveredDays}>Recuperada hace menos de (en días)</h4>
+          </Grid>
+          <Grid item xs={8}>
+            <TextField
+              id="covidRecoveredDaysValue"
+              type="number"
+              helperText="en días"
+              variant="outlined"
+              onChange={handleCovidRecoveredDaysValueChange}
+              value={covidRecoveredDaysValue}
+              className={classes.covidRecoveredDaysValue}
+              disabled={!checkboxCovidRecoveredDays}
+            />
+          </Grid>
+        </>
+      }
+
       <Grid item xs={12} className={classes.buttonsGrid}>
         <Button onClick={handleClose} color="primary">
           Cancelar
@@ -542,6 +659,10 @@ export default function AddRuleForm({addRule, handleClose}) {
         handleCloseVaccineReceivedMissing={handleCloseVaccineReceivedMissing}
         vaccinatedDaysMissing={vaccinatedDaysMissing}
         handleCloseVaccinatedDaysMissing={handleCloseVaccinatedDaysMissing}
+        covidRecoveredMissing={covidRecoveredMissing}
+        handleCloseCovidRecoveredMissing={handleCloseCovidRecoveredMissing}
+        covidRecoveredDaysMissing={covidRecoveredDaysMissing}
+        handleCloseCovidRecoveredDaysMissing={handleCloseCovidRecoveredDaysMissing}
         riskMissing={riskMissing}
         handleCloseRiskMissing={handleCloseRiskMissing}
         noCheckbox={noCheckbox}

@@ -66,11 +66,21 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '28px',
     textAlign: 'center',
   },
+  titleCovidRecovered: {
+    marginTop: '28px',
+    textAlign: 'center',
+  },
   titleVaccineReceived: {
     marginTop: '28px',
     textAlign: 'center',
   },
   titleVaccinatedDays: {
+    marginTop: '20px',
+    marginLeft: '10px',
+    marginRight: '5px',
+    textAlign: 'center',
+  },
+  titleCovidRecoveredDays: {
     marginTop: '20px',
     marginLeft: '10px',
     marginRight: '5px',
@@ -96,6 +106,11 @@ const useStyles = makeStyles((theme) => ({
     marginRight: '50px',
     width: '-webkit-fill-available',
   },
+  formControlCovidRecoveredValue: {
+    margin: theme.spacing(1),
+    marginRight: '0px',
+    width: '-webkit-fill-available',
+  },
   labelSpaceValue: {
     marginLeft: '10px',
   },
@@ -105,10 +120,19 @@ const useStyles = makeStyles((theme) => ({
   labelVaccinatedValue: {
     marginLeft: '10px',
   },
+  labelCovidRecoveredValue: {
+    marginLeft: '10px',
+  },
   labelVaccineReceivedValue: {
     marginLeft: '10px',
   },
   vaccinatedDaysValue: {
+    marginTop: '8px',
+    margin: theme.spacing(1),
+    marginRight: '50px',
+    width: '-webkit-fill-available',
+  },
+  covidRecoveredDaysValue: {
     marginTop: '8px',
     margin: theme.spacing(1),
     marginRight: '50px',

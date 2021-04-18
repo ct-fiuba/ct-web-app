@@ -10,6 +10,7 @@ import VaccinatedInput from './components/VaccinatedInput';
 import VaccineReceivedInput from './components/VaccineReceivedInput';
 import VaccinatedDaysInput from './components/VaccinatedDaysInput';
 import CovidRecoveredInput from './components/CovidRecoveredInput';
+import CovidRecoveredDaysInput from './components/CovidRecoveredDaysInput';
 import useStyles from './styles';
 
 export default function AddRuleForm({addRule, handleClose}) {
@@ -377,32 +378,7 @@ export default function AddRuleForm({addRule, handleClose}) {
       
       {
         covidRecoveredDetailsVisible &&
-        <>
-          <Grid item xs={1}>
-            <Checkbox
-              className={classes.checkboxesSecondary}
-              checked={checkboxCovidRecoveredDays}
-              color="primary"
-              inputProps={{ 'aria-label': 'secondary checkbox' }}
-              onChange={handleChangeCheckboxCovidRecoveredDays}
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <h4 className={classes.titleCovidRecoveredDays}>Recuperada hace menos de (en días)</h4>
-          </Grid>
-          <Grid item xs={8}>
-            <TextField
-              id="covidRecoveredDaysValue"
-              type="number"
-              helperText="en días"
-              variant="outlined"
-              onChange={handleCovidRecoveredDaysValueChange}
-              value={covidRecoveredDaysValue}
-              className={classes.covidRecoveredDaysValue}
-              disabled={!checkboxCovidRecoveredDays}
-            />
-          </Grid>
-        </>
+          <CovidRecoveredDaysInput checkboxCovidRecoveredDays={checkboxCovidRecoveredDays} handleChangeCheckboxCovidRecoveredDays={handleChangeCheckboxCovidRecoveredDays} covidRecoveredDaysValue={covidRecoveredDaysValue} handleCovidRecoveredDaysValueChange={handleCovidRecoveredDaysValueChange}/>  
       }
 
       <Grid item xs={12} className={classes.buttonsGrid}>

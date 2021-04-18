@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Grid, FormHelperText, FormControl, Select, MenuItem, InputLabel, Button, TextField, Checkbox } from '@material-ui/core';
-import AddRuleFormErrors from '../AddRuleFormErrors';
+import AddRuleFormErrors from './components/AddRuleFormErrors';
+import ContagionRiskInput from './components/ContagionRiskInput';
 import useStyles from './styles';
 
 export default function AddRuleForm({addRule, handleClose}) {
@@ -339,23 +340,7 @@ export default function AddRuleForm({addRule, handleClose}) {
 
   return (
     <Grid container>
-      <Grid item xs={12} className={classes.gridContagionRisk}>
-        <FormControl className={classes.formControlContagionRisk}>
-          <InputLabel className={classes.labelContagionRisk} id="contagion-risk-helper-label">Riesgo de contagio</InputLabel>
-          <Select
-            labelId="contagion-risk-label"
-            id="contagion-risk"
-            value={contagionRisk}
-            onChange={handleContagionRiskChange}
-            variant="outlined"
-          >
-            <MenuItem className={classes.optionsContagionRisk} value={'Alto'}>Alto</MenuItem>
-            <MenuItem className={classes.optionsContagionRisk} value={'Medio'}>Medio</MenuItem>
-            <MenuItem className={classes.optionsContagionRisk} value={'Bajo'}>Bajo</MenuItem>
-          </Select>
-          <FormHelperText>Riesgo asociado a la regla</FormHelperText>
-        </FormControl>
-      </Grid>
+      <ContagionRiskInput contagionRisk={contagionRisk} handleContagionRiskChange={handleContagionRiskChange}/>
 
       <Grid item xs={12}>
         <h4 className={classes.internalTitles}>Condiciones sobre la duración y espacio del contacto</h4>

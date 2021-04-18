@@ -9,6 +9,7 @@ import N95MandatoryInput from './components/N95MandatoryInput';
 import VaccinatedInput from './components/VaccinatedInput';
 import VaccineReceivedInput from './components/VaccineReceivedInput';
 import VaccinatedDaysInput from './components/VaccinatedDaysInput';
+import CovidRecoveredInput from './components/CovidRecoveredInput';
 import useStyles from './styles';
 
 export default function AddRuleForm({addRule, handleClose}) {
@@ -372,35 +373,8 @@ export default function AddRuleForm({addRule, handleClose}) {
         </>
       }
 
-      <Grid item xs={1}>
-        <Checkbox
-          className={classes.checkboxes}
-          checked={checkboxCovidRecovered}
-          color="primary"
-          inputProps={{ 'aria-label': 'secondary checkbox' }}
-          onChange={handleChangeCheckboxCovidRecovered}
-        />
-      </Grid>
-      <Grid item xs={3}>
-        <h4 className={classes.titleCovidRecovered}>Recuperada de COVID-19</h4>
-      </Grid>
-      <Grid item xs={8}>
-        <FormControl className={classes.formControlCovidRecoveredValue}>
-          <InputLabel className={classes.labelCovidRecoveredValue}>Si o No</InputLabel>
-          <Select
-            labelId="covidRecoveredValue-label"
-            id="covidRecoveredValue"
-            value={covidRecoveredValue}
-            onChange={handleCovidRecoveredValueChange}
-            variant="outlined"
-            disabled={!checkboxCovidRecovered}
-          >
-            <MenuItem value={true}>{'Si'}</MenuItem>
-            <MenuItem value={false}>{'No'}</MenuItem>
-          </Select>
-        </FormControl>
-      </Grid>
-
+      <CovidRecoveredInput checkboxCovidRecovered={checkboxCovidRecovered} handleChangeCheckboxCovidRecovered={handleChangeCheckboxCovidRecovered} covidRecoveredValue={covidRecoveredValue} handleCovidRecoveredValueChange={handleCovidRecoveredValueChange}/>
+      
       {
         covidRecoveredDetailsVisible &&
         <>

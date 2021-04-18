@@ -7,6 +7,7 @@ import M2Input from './components/M2Input';
 import SpaceInput from './components/SpaceInput';
 import N95MandatoryInput from './components/N95MandatoryInput';
 import VaccinatedInput from './components/VaccinatedInput';
+import VaccineReceivedInput from './components/VaccineReceivedInput';
 import useStyles from './styles';
 
 export default function AddRuleForm({addRule, handleClose}) {
@@ -365,36 +366,8 @@ export default function AddRuleForm({addRule, handleClose}) {
       {
         vaccineDetailsVisible &&
         <>
-          <Grid item xs={1}>
-            <Checkbox
-              className={classes.checkboxesSecondary}
-              checked={checkboxVaccineReceived}
-              color="primary"
-              inputProps={{ 'aria-label': 'secondary checkbox' }}
-              onChange={handleChangeCheckboxVaccineReceived}
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <h4 className={classes.titleVaccineReceived}>Vacuna recibida</h4>
-          </Grid>
-          <Grid item xs={8}>
-            <FormControl className={classes.formControlVaccineReceivedValue}>
-              <InputLabel className={classes.labelVaccineReceivedValue}>Nombre de la vacuna</InputLabel>
-              <Select
-                labelId="vaccineReceivedValue-label"
-                id="vaccineReceivedValue"
-                value={vaccineReceivedValue}
-                onChange={handleVaccineReceivedValueChange}
-                variant="outlined"
-                disabled={!checkboxVaccineReceived}
-              >
-                <MenuItem value={'Sputnik V'}>{'Sputnik V'}</MenuItem>
-                <MenuItem value={'AstraZeneca'}>{'AstraZeneca'}</MenuItem>
-                <MenuItem value={'Covishield'}>{'Covishield'}</MenuItem>
-                <MenuItem value={'Sinopharm'}>{'Sinopharm'}</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid>
+          
+          <VaccineReceivedInput checkboxVaccineReceived={checkboxVaccineReceived} handleChangeCheckboxVaccineReceived={handleChangeCheckboxVaccineReceived} vaccineReceivedValue={vaccineReceivedValue} handleVaccineReceivedValueChange={handleVaccineReceivedValueChange}/>
 
           <Grid item xs={1}>
             <Checkbox

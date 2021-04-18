@@ -304,6 +304,28 @@ export default function AddRuleForm({addRule, handleClose}) {
     if (checkboxSpace) {
       rule['spaceValue'] = spaceValue;
     }
+
+    if (checkboxN95Mandatory) {
+      rule['n95Mandatory'] = n95MandatoryValue;
+    }
+
+    if (checkboxVaccinated) {
+      rule['vaccinated'] = vaccinatedValue;
+      if (checkboxVaccineReceived) {
+        rule['vaccineReceived'] = vaccineReceivedValue;
+      }
+      if (checkboxVaccinatedDays) {
+        rule['vaccinatedDaysAgoMin'] = vaccinatedDaysValue;
+      }
+    }
+
+    if (checkboxCovidRecovered) {
+      rule['covidRecovered'] = covidRecoveredValue;
+      if (checkboxCovidRecoveredDays) {
+        rule['covidRecoveredDaysAgoMax'] = covidRecoveredDaysValue;
+      }
+    }
+
     return rule;
   }
 

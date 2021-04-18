@@ -9,6 +9,12 @@ export default function Rule({ rule, deleteRule }) {
 		m2Value={rule.m2Value}
 		m2Cmp={rule.m2Cmp}
 		spaceValue={rule.spaceValue}
+		n95Mandatory={rule.n95Mandatory}
+		vaccinated={rule.vaccinated}
+		vaccineReceived={rule.vaccineReceived}
+		vaccinatedDaysAgoMin={rule.vaccinatedDaysAgoMin}
+		covidRecovered={rule.covidRecovered}
+		covidRecoveredDaysAgoMax={rule.covidRecoveredDaysAgoMax}
 		index={rule.index}
 		deleteRule={deleteRule} />);
 }

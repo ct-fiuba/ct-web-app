@@ -4,7 +4,7 @@ import { Draggable } from "react-beautiful-dnd";
 import DeleteRuleButton from '../DeleteRuleButton';
 import useStyles from './styles';
 
-export default function RuleCard({id, index, contagionRisk, durationCmp, durationValue, m2Cmp, m2Value, spaceValue, deleteRule}) {
+export default function RuleCard({id, index, contagionRisk, durationCmp, durationValue, m2Cmp, m2Value, spaceValue, n95Mandatory, vaccinated, vaccineReceived, vaccinatedDaysAgoMin, covidRecovered, covidRecoveredDaysAgoMax, deleteRule}) {
   const classes = useStyles();
 
   return (
@@ -33,6 +33,25 @@ export default function RuleCard({id, index, contagionRisk, durationCmp, duratio
                     {m2Cmp ? `Superficie ${m2Cmp === '<' ? "menor a" : "mayor a"} ${m2Value} metros cuadrados` : ''}
                     {m2Cmp ? <br /> : ''}
                     {spaceValue ? `Ventilación del espacio: ${spaceValue}` : ''}
+                    {spaceValue ? <br /> : ''}
+
+                    {n95Mandatory !== undefined ? `Uso del N95 ${n95Mandatory ? '' : 'no'} obligatorio` : ''}
+                    {n95Mandatory !== undefined ? <br /> : ''}
+
+                    {vaccinated === undefined && ''}
+                    {vaccinated === 0 && 'Persona no vacunada'}
+                    {vaccinated === 1 && 'Persona parcialmente vacunada'}
+                    {vaccinated === 2 && 'Persona completamente vacunada'}
+                    {vaccineReceived !== undefined && ` con la vacuna ${vaccineReceived}`}
+                    {vaccinatedDaysAgoMin !== undefined && ` hace no menos de ${vaccinatedDaysAgoMin} días`}
+                    {vaccinated !== undefined && <br />}
+
+                    {covidRecovered === undefined && ''}
+                    {covidRecovered === false && `Persona que no tuvo COVID-19`}
+                    {covidRecovered === true && `Persona recuperada de COVID-19`}
+                    {covidRecoveredDaysAgoMax !== undefined && ` hace no más de ${covidRecoveredDaysAgoMax} días`}
+                    {covidRecovered !== undefined && <br />}
+
                   </Typography>
                 </CardContent>
               </Grid>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Grid, FormHelperText, FormControl, Select, MenuItem, InputLabel, Button, TextField, Checkbox } from '@material-ui/core';
 import AddRuleFormErrors from './components/AddRuleFormErrors';
 import ContagionRiskInput from './components/ContagionRiskInput';
+import DurationInput from './components/DurationInput';
 import useStyles from './styles';
 
 export default function AddRuleForm({addRule, handleClose}) {
@@ -346,46 +347,7 @@ export default function AddRuleForm({addRule, handleClose}) {
         <h4 className={classes.internalTitles}>Condiciones sobre la duración y espacio del contacto</h4>
       </Grid>
 
-      <Grid item xs={1}>
-        <Checkbox
-          className={classes.checkboxes}
-          checked={checkboxDuration}
-          color="primary"
-          inputProps={{ 'aria-label': 'secondary checkbox' }}
-          onChange={handleChangeCheckboxDuration}
-        />
-      </Grid>
-      <Grid item xs={3}>
-        <h4 className={classes.titleDuration}>Duración del contacto</h4>
-      </Grid>
-      <Grid item xs={4}>
-        <FormControl className={classes.formControlDurationCmp}>
-          <InputLabel className={classes.labelDurationCmp}>Mayor o Menor</InputLabel>
-          <Select
-            labelId="durationCmp-label"
-            id="durationCmp"
-            value={durationCmp}
-            onChange={handleDurationCmpChange}
-            variant="outlined"
-            disabled={!checkboxDuration}
-          >
-            <MenuItem value={'>'}>{'Mayor a'}</MenuItem>
-            <MenuItem value={'<'}>{'Menor a'}</MenuItem>
-          </Select>
-        </FormControl>
-      </Grid>
-      <Grid item xs={4}>
-        <TextField
-            id="durationValue"
-            type="number"
-            helperText="en minutos"
-            variant="outlined"
-            onChange={handleDurationValueChange}
-            value={durationValue}
-            className={classes.durationValue}
-            disabled={!checkboxDuration}
-          />
-      </Grid>
+      <DurationInput checkboxDuration={checkboxDuration} handleChangeCheckboxDuration={handleChangeCheckboxDuration} durationCmp={durationCmp} handleDurationCmpChange={handleDurationCmpChange} durationValue={durationValue} handleDurationValueChange={handleDurationValueChange}/>
 
 
       <Grid item xs={1}>

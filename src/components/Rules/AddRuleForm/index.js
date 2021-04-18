@@ -6,6 +6,7 @@ import DurationInput from './components/DurationInput';
 import M2Input from './components/M2Input';
 import SpaceInput from './components/SpaceInput';
 import N95MandatoryInput from './components/N95MandatoryInput';
+import VaccinatedInput from './components/VaccinatedInput';
 import useStyles from './styles';
 
 export default function AddRuleForm({addRule, handleClose}) {
@@ -359,35 +360,7 @@ export default function AddRuleForm({addRule, handleClose}) {
         <h4 className={classes.internalTitles}>Condiciones sobre la persona involucrada en el contacto</h4>
       </Grid>
 
-      <Grid item xs={1}>
-        <Checkbox
-          className={classes.checkboxes}
-          checked={checkboxVaccinated}
-          color="primary"
-          inputProps={{ 'aria-label': 'secondary checkbox' }}
-          onChange={handleChangeCheckboxVaccinated}
-        />
-      </Grid>
-      <Grid item xs={3}>
-        <h4 className={classes.titleVaccinated}>Vacunada</h4>
-      </Grid>
-      <Grid item xs={8}>
-        <FormControl className={classes.formControlVaccinatedValue}>
-          <InputLabel className={classes.labelVaccinatedValue}>No, parcial o completamente vacunada</InputLabel>
-          <Select
-            labelId="vaccinatedValue-label"
-            id="vaccinatedValue"
-            value={vaccinatedValue}
-            onChange={handleVaccinatedValueChange}
-            variant="outlined"
-            disabled={!checkboxVaccinated}
-          >
-            <MenuItem value={0}>{'No vacunada'}</MenuItem>
-            <MenuItem value={1}>{'Parcialmente vacunada'}</MenuItem>
-            <MenuItem value={2}>{'Completamente vacunada'}</MenuItem>
-          </Select>
-        </FormControl>
-      </Grid>
+      <VaccinatedInput checkboxVaccinated={checkboxVaccinated} handleChangeCheckboxVaccinated={handleChangeCheckboxVaccinated} vaccinatedValue={vaccinatedValue} handleVaccinatedValueChange={handleVaccinatedValueChange}/>
 
       {
         vaccineDetailsVisible &&

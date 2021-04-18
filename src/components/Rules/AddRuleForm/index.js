@@ -8,6 +8,7 @@ import SpaceInput from './components/SpaceInput';
 import N95MandatoryInput from './components/N95MandatoryInput';
 import VaccinatedInput from './components/VaccinatedInput';
 import VaccineReceivedInput from './components/VaccineReceivedInput';
+import VaccinatedDaysInput from './components/VaccinatedDaysInput';
 import useStyles from './styles';
 
 export default function AddRuleForm({addRule, handleClose}) {
@@ -366,33 +367,8 @@ export default function AddRuleForm({addRule, handleClose}) {
       {
         vaccineDetailsVisible &&
         <>
-          
           <VaccineReceivedInput checkboxVaccineReceived={checkboxVaccineReceived} handleChangeCheckboxVaccineReceived={handleChangeCheckboxVaccineReceived} vaccineReceivedValue={vaccineReceivedValue} handleVaccineReceivedValueChange={handleVaccineReceivedValueChange}/>
-
-          <Grid item xs={1}>
-            <Checkbox
-              className={classes.checkboxesSecondary}
-              checked={checkboxVaccinatedDays}
-              color="primary"
-              inputProps={{ 'aria-label': 'secondary checkbox' }}
-              onChange={handleChangeCheckboxVaccinatedDays}
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <h4 className={classes.titleVaccinatedDays}>Vacuna recibida hace más de (en días)</h4>
-          </Grid>
-          <Grid item xs={8}>
-            <TextField
-              id="vaccinatedDaysValue"
-              type="number"
-              helperText="en días"
-              variant="outlined"
-              onChange={handleVaccinatedDaysValueChange}
-              value={vaccinatedDaysValue}
-              className={classes.vaccinatedDaysValue}
-              disabled={!checkboxVaccinatedDays}
-            />
-          </Grid>
+          <VaccinatedDaysInput checkboxVaccinatedDays={checkboxVaccinatedDays} handleChangeCheckboxVaccinatedDays={handleChangeCheckboxVaccinatedDays} vaccinatedDaysValue={vaccinatedDaysValue} handleVaccinatedDaysValueChange={handleVaccinatedDaysValueChange}/>
         </>
       }
 

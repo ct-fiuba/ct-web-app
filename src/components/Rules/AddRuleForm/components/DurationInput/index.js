@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, FormControl, Select, MenuItem, InputLabel, TextField, Checkbox } from '@material-ui/core';
 import useStyles from './styles';
 
-export default function Duration({checkboxDuration, handleChangeCheckboxDuration, durationCmp, handleDurationCmpChange, durationValue, handleDurationValueChange}) {
+export default function DurationInput({checkboxDuration, handleChangeCheckboxDuration, durationCmp, handleDurationCmpChange, durationValue, handleDurationValueChange}) {
   const classes = useStyles();
   
   return (

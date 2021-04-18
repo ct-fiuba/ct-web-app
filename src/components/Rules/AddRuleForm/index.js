@@ -4,6 +4,7 @@ import AddRuleFormErrors from './components/AddRuleFormErrors';
 import ContagionRiskInput from './components/ContagionRiskInput';
 import DurationInput from './components/DurationInput';
 import M2Input from './components/M2Input';
+import SpaceInput from './components/SpaceInput';
 import useStyles from './styles';
 
 export default function AddRuleForm({addRule, handleClose}) {
@@ -350,39 +351,7 @@ export default function AddRuleForm({addRule, handleClose}) {
 
       <DurationInput checkboxDuration={checkboxDuration} handleChangeCheckboxDuration={handleChangeCheckboxDuration} durationCmp={durationCmp} handleDurationCmpChange={handleDurationCmpChange} durationValue={durationValue} handleDurationValueChange={handleDurationValueChange}/>
       <M2Input checkboxM2={checkboxM2} handleChangeCheckboxM2={handleChangeCheckboxM2} m2Cmp={m2Cmp} handleM2CmpChange={handleM2CmpChange} m2Value={m2Value} handleM2ValueChange={handleM2ValueChange}/>
-
-
-
-
-
-      <Grid item xs={1}>
-        <Checkbox
-          className={classes.checkboxes}
-          checked={checkboxSpace}
-          color="primary"
-          inputProps={{ 'aria-label': 'secondary checkbox' }}
-          onChange={handleChangeCheckboxSpace}
-        />
-      </Grid>
-      <Grid item xs={3}>
-        <h4 className={classes.titleSpace}>Ventilación del espacio</h4>
-      </Grid>
-      <Grid item xs={8}>
-        <FormControl className={classes.formControlSpaceValue}>
-          <InputLabel className={classes.labelSpaceValue}>Abierto o Cerrado</InputLabel>
-          <Select
-            labelId="spaceValue-label"
-            id="spaceValue"
-            value={spaceValue}
-            onChange={handleSpaceValueChange}
-            variant="outlined"
-            disabled={!checkboxSpace}
-          >
-            <MenuItem value={'Abierto'}>{'Abierto'}</MenuItem>
-            <MenuItem value={'Cerrado'}>{'Cerrado'}</MenuItem>
-          </Select>
-        </FormControl>
-      </Grid>
+      <SpaceInput checkboxSpace={checkboxSpace} handleChangeCheckboxSpace={handleChangeCheckboxSpace} spaceValue={spaceValue} handleSpaceValueChange={handleSpaceValueChange}/>
 
       <Grid item xs={1}>
         <Checkbox

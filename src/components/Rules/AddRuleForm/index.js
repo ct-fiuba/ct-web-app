@@ -5,6 +5,7 @@ import ContagionRiskInput from './components/ContagionRiskInput';
 import DurationInput from './components/DurationInput';
 import M2Input from './components/M2Input';
 import SpaceInput from './components/SpaceInput';
+import N95MandatoryInput from './components/N95MandatoryInput';
 import useStyles from './styles';
 
 export default function AddRuleForm({addRule, handleClose}) {
@@ -352,35 +353,7 @@ export default function AddRuleForm({addRule, handleClose}) {
       <DurationInput checkboxDuration={checkboxDuration} handleChangeCheckboxDuration={handleChangeCheckboxDuration} durationCmp={durationCmp} handleDurationCmpChange={handleDurationCmpChange} durationValue={durationValue} handleDurationValueChange={handleDurationValueChange}/>
       <M2Input checkboxM2={checkboxM2} handleChangeCheckboxM2={handleChangeCheckboxM2} m2Cmp={m2Cmp} handleM2CmpChange={handleM2CmpChange} m2Value={m2Value} handleM2ValueChange={handleM2ValueChange}/>
       <SpaceInput checkboxSpace={checkboxSpace} handleChangeCheckboxSpace={handleChangeCheckboxSpace} spaceValue={spaceValue} handleSpaceValueChange={handleSpaceValueChange}/>
-
-      <Grid item xs={1}>
-        <Checkbox
-          className={classes.checkboxes}
-          checked={checkboxN95Mandatory}
-          color="primary"
-          inputProps={{ 'aria-label': 'secondary checkbox' }}
-          onChange={handleChangeCheckboxN95Mandatory}
-        />
-      </Grid>
-      <Grid item xs={3}>
-        <h4 className={classes.titleN95Mandatory}>Uso de N95 obligatorio</h4>
-      </Grid>
-      <Grid item xs={8}>
-        <FormControl className={classes.formControlN95MandatoryValue}>
-          <InputLabel className={classes.labelN95MandatoryValue}>Si o No</InputLabel>
-          <Select
-            labelId="n95MandatoryValue-label"
-            id="n95MandatoryValue"
-            value={n95MandatoryValue}
-            onChange={handleN95MandatoryValueChange}
-            variant="outlined"
-            disabled={!checkboxN95Mandatory}
-          >
-            <MenuItem value={true}>{'Si'}</MenuItem>
-            <MenuItem value={false}>{'No'}</MenuItem>
-          </Select>
-        </FormControl>
-      </Grid>
+      <N95MandatoryInput checkboxN95Mandatory={checkboxN95Mandatory} handleChangeCheckboxN95Mandatory={handleChangeCheckboxN95Mandatory} n95MandatoryValue={n95MandatoryValue} handleN95MandatoryValueChange={handleN95MandatoryValueChange}/>
 
       <Grid item xs={12}>
         <h4 className={classes.internalTitles}>Condiciones sobre la persona involucrada en el contacto</h4>

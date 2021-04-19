@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Grid, FormControl, Select, MenuItem, InputLabel, Button, TextField } from '@material-ui/core';
-import TestRulesFormErrors from '../TestRulesFormErrors';
+import TestRulesFormErrors from './components/TestRulesFormErrors';
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,

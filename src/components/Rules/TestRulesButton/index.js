@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import TestRulesForm from '../TestRulesForm';
 import { Button, Dialog, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
-import TestRulesResult from '../TestRulesResult';
+import TestRulesResult from '../TestRulesForm/components/TestRulesResult';
 import useStyles from './styles';
 
 export default function TestRulesButton({rules}) {

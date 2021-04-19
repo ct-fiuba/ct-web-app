@@ -9,15 +9,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '8px',
     width: '-webkit-fill-available',
   },
-  titleM2: {
-    marginTop: '28px',
-    textAlign: 'center',
-  },
-  m2Value: {
-    marginTop: '8px',
-    marginLeft: '8px',
-    width: '-webkit-fill-available',
-  },
   titleSpace: {
     marginTop: '28px',
     textAlign: 'center',

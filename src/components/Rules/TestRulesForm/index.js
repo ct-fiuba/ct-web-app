@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, FormControl, Select, MenuItem, InputLabel, Button, TextField } from '@material-ui/core';
+import { Grid, FormControl, Select, MenuItem, InputLabel, Button } from '@material-ui/core';
 import TestRulesFormErrors from './components/TestRulesFormErrors';
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -7,6 +7,7 @@ import {
   KeyboardTimePicker,
 } from '@material-ui/pickers';
 import useStyles from './styles';
+import M2Input from './components/M2Input';
 
 export default function TestRulesForm({testRules, handleClose}) {
   const classes = useStyles();
@@ -115,19 +116,7 @@ export default function TestRulesForm({testRules, handleClose}) {
 
   return (
     <Grid container>
-      <Grid item xs={4}>
-        <h4 className={classes.titleM2}>Superficie del espacio</h4>
-      </Grid>
-      <Grid item xs={8}>
-        <TextField
-          id="m2Value"
-          type="number"
-          helperText="en metros cuadrados (m2)"
-          variant="outlined"
-          onChange={handleM2ValueChange}
-          className={classes.m2Value}
-        />
-      </Grid>
+      <M2Input m2Value={m2Value} handleM2ValueChange={handleM2ValueChange} />
 
 
       <Grid item xs={4}>

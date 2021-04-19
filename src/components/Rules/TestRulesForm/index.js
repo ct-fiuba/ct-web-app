@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
 import { Grid, Button } from '@material-ui/core';
 import TestRulesFormErrors from './components/TestRulesFormErrors';
-import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-} from '@material-ui/pickers';
 import useStyles from './styles';
 import M2Input from './components/M2Input';
 import SpaceInput from './components/SpaceInput';
+import TimePickersInput from './components/TimePickersInput';
 
 export default function TestRulesForm({testRules, handleClose}) {
   const classes = useStyles();
@@ -119,76 +115,8 @@ export default function TestRulesForm({testRules, handleClose}) {
     <Grid container>
       <M2Input m2Value={m2Value} handleM2ValueChange={handleM2ValueChange} />
       <SpaceInput spaceValue={spaceValue} handleSpaceValueChange={handleSpaceValueChange} />
-
-      <Grid item xs={4}>
-        <h4 className={classes.titleSpace}>Visita de la persona contagiada</h4>
-      </Grid>
-      <Grid item xs={4} className={classes.timePickersGrid}>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <KeyboardTimePicker
-            margin="normal"
-            id="infectedStartDate"
-            label="Entrada"
-            value={infectedStartDate}
-            onChange={handleInfectedStartDateChange}
-            KeyboardButtonProps={{
-              'aria-label': 'change time',
-            }}
-            className={classes.timePickers}
-          />
-        </MuiPickersUtilsProvider>
-      </Grid>
-      <Grid item xs={4} className={classes.timePickersGrid}>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <KeyboardTimePicker
-            margin="normal"
-            id="infectedEndDate"
-            label="Salida"
-            value={infectedEndDate}
-            onChange={handleInfectedEndDateChange}
-            KeyboardButtonProps={{
-              'aria-label': 'change time',
-            }}
-            className={classes.timePickers}
-          />
-        </MuiPickersUtilsProvider>
-      </Grid>
-
-
-      <Grid item xs={4}>
-        <h4 className={classes.titleSpace}>Visita de la persona sana</h4>
-      </Grid>
-      <Grid item xs={4} className={classes.timePickersGrid}>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <KeyboardTimePicker
-            margin="normal"
-            id="healthyStartDate"
-            label="Entrada"
-            value={healthyStartDate}
-            onChange={handleHealthyStartDateChange}
-            KeyboardButtonProps={{
-              'aria-label': 'change time',
-            }}
-            className={classes.timePickers}
-          />
-        </MuiPickersUtilsProvider>
-      </Grid>
-      <Grid item xs={4} className={classes.timePickersGrid}>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <KeyboardTimePicker
-            margin="normal"
-            id="healthyEndDate"
-            label="Salida"
-            value={healthyEndDate}
-            onChange={handleHealthyEndDateChange}
-            KeyboardButtonProps={{
-              'aria-label': 'change time',
-            }}
-            className={classes.timePickers}
-          />
-        </MuiPickersUtilsProvider>
-      </Grid>
-
+      <TimePickersInput title={"Visita de la persona contagiada"} startDate={infectedStartDate} handleStartDateChange={handleInfectedStartDateChange} endDate={infectedEndDate} handleEndDateChange={handleInfectedEndDateChange}/>
+      <TimePickersInput title={"Visita de la persona sana"} startDate={healthyStartDate} handleStartDateChange={handleHealthyStartDateChange} endDate={healthyEndDate} handleEndDateChange={handleHealthyEndDateChange}/>
 
       <Grid item xs={12} className={classes.buttonsGrid}>
         <Button onClick={handleClose} color="primary">

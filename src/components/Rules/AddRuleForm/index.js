@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, FormHelperText, FormControl, Select, MenuItem, InputLabel, Button, TextField, Checkbox } from '@material-ui/core';
+import { Grid, Button } from '@material-ui/core';
 import AddRuleFormErrors from './components/AddRuleFormErrors';
 import ContagionRiskInput from './components/ContagionRiskInput';
 import DurationInput from './components/DurationInput';

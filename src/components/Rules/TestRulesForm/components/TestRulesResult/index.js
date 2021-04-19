@@ -25,6 +25,9 @@ export default function TestRulesResult({rule, notMatch}) {
                 {rule.m2Cmp ? `Superficie ${rule.m2Cmp === '<' ? "menor a" : "mayor a"} ${rule.m2Value} metros cuadrados` : ''}
                 {rule.m2Cmp ? <br /> : ''}
                 {rule.spaceValue ? `Ventilación del espacio: ${rule.spaceValue}` : ''}
+
+                {rule.n95Mandatory !== undefined ? `Uso del N95 ${rule.n95Mandatory ? '' : 'no'} obligatorio` : ''}
+                {rule.n95Mandatory !== undefined ? <br /> : ''}
               </Typography>
             </CardContent>
           </Grid>

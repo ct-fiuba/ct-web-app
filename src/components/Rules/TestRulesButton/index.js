@@ -25,6 +25,7 @@ export default function TestRulesButton({rules}) {
     let duration = true;
     let m2 = true;
     let space = true;
+    let n95Mandatory = true;
 
     if (rule.hasOwnProperty('durationValue')) {
       if (rule.durationCmp === '<') {
@@ -46,7 +47,11 @@ export default function TestRulesButton({rules}) {
       space = env.space === rule.spaceValue;
     }
 
-    return duration && m2 && space;
+    if (rule.hasOwnProperty('n95Mandatory')) {
+      n95Mandatory = env.n95Mandatory === rule.n95Mandatory;
+    }
+
+    return duration && m2 && space && n95Mandatory;
   }
 
   const testRules = (env) => {

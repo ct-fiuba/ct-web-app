@@ -4,6 +4,7 @@ import TestRulesFormErrors from './components/TestRulesFormErrors';
 import useStyles from './styles';
 import M2Input from './components/M2Input';
 import SpaceInput from './components/SpaceInput';
+import N95MandatoryInput from './components/N95MandatoryInput';
 import TimePickersInput from './components/TimePickersInput';
 
 export default function TestRulesForm({testRules, handleClose}) {
@@ -11,8 +12,10 @@ export default function TestRulesForm({testRules, handleClose}) {
 
   const [m2Value, setM2Value] = useState('');
   const [spaceValue, setSpaceValue] = useState('');
+  const [n95MandatoryValue, setN95MandatoryValue] = useState('');
   const [m2Missing, setM2Missing] = useState(false);
   const [spaceMissing, setSpaceMissing] = useState(false);
+  const [n95MandatoryMissing, setN95MandatoryMissing] = useState(false);
   const [infectedTimeMissing, setInfectedTimeMissing] = useState(false);
   const [healthyTimeMissing, setHealthyTimeMissing] = useState(false);
   const [infectedStartDate, setInfectedStartDate] = useState(new Date('2014-08-18T14:00:00'));
@@ -44,12 +47,20 @@ export default function TestRulesForm({testRules, handleClose}) {
     setSpaceValue(event.target.value);
   }
 
+  const handleN95MandatoryValueChange = (event) => {
+    setN95MandatoryValue(event.target.value);
+  }
+
   const handleCloseM2Missing = () => {
     setM2Missing(false);
   }
 
   const handleCloseSpaceMissing = () => {
     setSpaceMissing(false);
+  }
+
+  const handleCloseN95MandatoryMissing = () => {
+    setN95MandatoryMissing(false);
   }
 
   const handleCloseInfectedTimeMissing = () => {
@@ -68,6 +79,11 @@ export default function TestRulesForm({testRules, handleClose}) {
 
     if (!spaceValue) {
       setSpaceMissing(true);
+      return false;
+    }
+
+    if (n95MandatoryValue === '') {
+      setN95MandatoryMissing(true);
       return false;
     }
 
@@ -99,7 +115,8 @@ export default function TestRulesForm({testRules, handleClose}) {
     return {
       space: spaceValue,
       m2: m2Value,
-      duration: calculateDuration() / 60 / 1000
+      duration: calculateDuration() / 60 / 1000,
+      n95Mandatory: n95MandatoryValue,
     }
   }
 
@@ -115,6 +132,7 @@ export default function TestRulesForm({testRules, handleClose}) {
     <Grid container>
       <M2Input m2Value={m2Value} handleM2ValueChange={handleM2ValueChange} />
       <SpaceInput spaceValue={spaceValue} handleSpaceValueChange={handleSpaceValueChange} />
+      <N95MandatoryInput n95MandatoryValue={n95MandatoryValue} handleN95MandatoryValueChange={handleN95MandatoryValueChange}/>
       <TimePickersInput title={"Visita de la persona contagiada"} startDate={infectedStartDate} handleStartDateChange={handleInfectedStartDateChange} endDate={infectedEndDate} handleEndDateChange={handleInfectedEndDateChange}/>
       <TimePickersInput title={"Visita de la persona sana"} startDate={healthyStartDate} handleStartDateChange={handleHealthyStartDateChange} endDate={healthyEndDate} handleEndDateChange={handleHealthyEndDateChange}/>
 
@@ -132,6 +150,8 @@ export default function TestRulesForm({testRules, handleClose}) {
         handleCloseM2Missing={handleCloseM2Missing}
         spaceMissing={spaceMissing}
         handleCloseSpaceMissing={handleCloseSpaceMissing}
+        n95MandatoryMissing={n95MandatoryMissing}
+        handleCloseN95MandatoryMissing={handleCloseN95MandatoryMissing}
         infectedTimeMissing={infectedTimeMissing}
         handleCloseInfectedTimeMissing={handleCloseInfectedTimeMissing}
         healthyTimeMissing={healthyTimeMissing}

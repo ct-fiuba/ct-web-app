@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, FormControl, Select, MenuItem, InputLabel, Button } from '@material-ui/core';
+import { Grid, Button } from '@material-ui/core';
 import TestRulesFormErrors from './components/TestRulesFormErrors';
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -8,6 +8,7 @@ import {
 } from '@material-ui/pickers';
 import useStyles from './styles';
 import M2Input from './components/M2Input';
+import SpaceInput from './components/SpaceInput';
 
 export default function TestRulesForm({testRules, handleClose}) {
   const classes = useStyles();
@@ -117,27 +118,7 @@ export default function TestRulesForm({testRules, handleClose}) {
   return (
     <Grid container>
       <M2Input m2Value={m2Value} handleM2ValueChange={handleM2ValueChange} />
-
-
-      <Grid item xs={4}>
-        <h4 className={classes.titleSpace}>Ventilación del espacio</h4>
-      </Grid>
-      <Grid item xs={8}>
-        <FormControl className={classes.formControlSpaceValue}>
-          <InputLabel className={classes.labelSpaceValue}>Abierto o Cerrado</InputLabel>
-          <Select
-            labelId="spaceValue-label"
-            id="spaceValue"
-            value={spaceValue}
-            onChange={handleSpaceValueChange}
-            variant="outlined"
-          >
-            <MenuItem value={'Abierto'}>{'Abierto'}</MenuItem>
-            <MenuItem value={'Cerrado'}>{'Cerrado'}</MenuItem>
-          </Select>
-        </FormControl>
-      </Grid>
-
+      <SpaceInput spaceValue={spaceValue} handleSpaceValueChange={handleSpaceValueChange} />
 
       <Grid item xs={4}>
         <h4 className={classes.titleSpace}>Visita de la persona contagiada</h4>

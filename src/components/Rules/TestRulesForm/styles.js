@@ -9,18 +9,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '8px',
     width: '-webkit-fill-available',
   },
-  titleSpace: {
-    marginTop: '28px',
-    textAlign: 'center',
-  },
-  formControlSpaceValue: {
-    margin: theme.spacing(1),
-    marginRight: '0px',
-    width: '-webkit-fill-available',
-  },
-  labelSpaceValue: {
-    marginLeft: '10px',
-  },
   timePickers: {
     width: '-webkit-fill-available',
   },

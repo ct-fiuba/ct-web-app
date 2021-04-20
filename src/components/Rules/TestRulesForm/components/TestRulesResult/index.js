@@ -28,6 +28,13 @@ export default function TestRulesResult({rule, notMatch}) {
 
                 {rule.n95Mandatory !== undefined ? `Uso del N95 ${rule.n95Mandatory ? '' : 'no'} obligatorio` : ''}
                 {rule.n95Mandatory !== undefined ? <br /> : ''}
+
+                {rule.vaccinated === undefined && ''}
+                {rule.vaccinated === 0 && 'Persona no vacunada'}
+                {rule.vaccinated === 1 && 'Persona parcialmente vacunada'}
+                {rule.vaccinated === 2 && 'Persona completamente vacunada'}
+                {rule.vaccinated !== undefined ? <br /> : ''}
+
               </Typography>
             </CardContent>
           </Grid>

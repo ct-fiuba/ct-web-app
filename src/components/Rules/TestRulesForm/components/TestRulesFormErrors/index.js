@@ -2,7 +2,7 @@ import React from 'react';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { Snackbar } from '@material-ui/core';
 
-export default function TestRulesFormErrors({infectedTimeMissing, m2Missing, n95MandatoryMissing, healthyTimeMissing, spaceMissing, handleCloseM2Missing, handleCloseSpaceMissing, handleCloseN95MandatoryMissing, handleCloseHealthyTimeMissing, handleCloseInfectedTimeMissing}) {
+export default function TestRulesFormErrors({infectedTimeMissing, m2Missing, n95MandatoryMissing, healthyTimeMissing, spaceMissing, vaccinatedMissing, handleCloseM2Missing, handleCloseSpaceMissing, handleCloseN95MandatoryMissing, handleCloseHealthyTimeMissing, handleCloseInfectedTimeMissing, handleCloseVaccinatedMissing}) {
   return (
     <div>
       <Snackbar open={m2Missing} autoHideDuration={5000} onClose={handleCloseM2Missing}>
@@ -23,6 +23,13 @@ export default function TestRulesFormErrors({infectedTimeMissing, m2Missing, n95
         <Alert severity="error" onClose={handleCloseN95MandatoryMissing}>
           <AlertTitle>Error</AlertTitle>
           Falta definir la obligatoriedad del uso del <strong>N95</strong>.
+        </Alert>
+      </Snackbar>
+
+      <Snackbar open={vaccinatedMissing} autoHideDuration={5000} onClose={handleCloseVaccinatedMissing}>
+        <Alert severity="error" onClose={handleCloseVaccinatedMissing}>
+          <AlertTitle>Error</AlertTitle>
+          Falta definir si la persona está <strong>vacunada</strong>.
         </Alert>
       </Snackbar>
 

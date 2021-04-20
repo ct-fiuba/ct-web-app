@@ -6,6 +6,7 @@ import M2Input from './components/M2Input';
 import SpaceInput from './components/SpaceInput';
 import N95MandatoryInput from './components/N95MandatoryInput';
 import TimePickersInput from './components/TimePickersInput';
+import VaccinatedInput from './components/VaccinatedInput';
 
 export default function TestRulesForm({testRules, handleClose}) {
   const classes = useStyles();
@@ -13,9 +14,12 @@ export default function TestRulesForm({testRules, handleClose}) {
   const [m2Value, setM2Value] = useState('');
   const [spaceValue, setSpaceValue] = useState('');
   const [n95MandatoryValue, setN95MandatoryValue] = useState('');
+  const [vaccinatedValue, setVaccinatedValue] = useState('');
+  const [vaccineDetailsVisible, setVaccineDetailsVisible] = useState(false);
   const [m2Missing, setM2Missing] = useState(false);
   const [spaceMissing, setSpaceMissing] = useState(false);
   const [n95MandatoryMissing, setN95MandatoryMissing] = useState(false);
+  const [vaccinatedMissing, setVaccinatedMissing] = useState(false);
   const [infectedTimeMissing, setInfectedTimeMissing] = useState(false);
   const [healthyTimeMissing, setHealthyTimeMissing] = useState(false);
   const [infectedStartDate, setInfectedStartDate] = useState(new Date('2014-08-18T14:00:00'));
@@ -51,6 +55,11 @@ export default function TestRulesForm({testRules, handleClose}) {
     setN95MandatoryValue(event.target.value);
   }
 
+  const handleVaccinatedValueChange = (event) => {
+    setVaccinatedValue(event.target.value);
+    setVaccineDetailsVisible(event.target.value > 0);
+  }
+
   const handleCloseM2Missing = () => {
     setM2Missing(false);
   }
@@ -61,6 +70,10 @@ export default function TestRulesForm({testRules, handleClose}) {
 
   const handleCloseN95MandatoryMissing = () => {
     setN95MandatoryMissing(false);
+  }
+
+  const handleCloseVaccinatedMissing = () => {
+    setVaccinatedMissing(false);
   }
 
   const handleCloseInfectedTimeMissing = () => {
@@ -84,6 +97,11 @@ export default function TestRulesForm({testRules, handleClose}) {
 
     if (n95MandatoryValue === '') {
       setN95MandatoryMissing(true);
+      return false;
+    }
+
+    if (vaccinatedValue === '') {
+      setVaccinatedMissing(true);
       return false;
     }
 
@@ -117,6 +135,7 @@ export default function TestRulesForm({testRules, handleClose}) {
       m2: m2Value,
       duration: calculateDuration() / 60 / 1000,
       n95Mandatory: n95MandatoryValue,
+      vaccinated: vaccinatedValue,
     }
   }
 
@@ -135,7 +154,8 @@ export default function TestRulesForm({testRules, handleClose}) {
       <N95MandatoryInput n95MandatoryValue={n95MandatoryValue} handleN95MandatoryValueChange={handleN95MandatoryValueChange}/>
       <TimePickersInput title={"Visita de la persona contagiada"} startDate={infectedStartDate} handleStartDateChange={handleInfectedStartDateChange} endDate={infectedEndDate} handleEndDateChange={handleInfectedEndDateChange}/>
       <TimePickersInput title={"Visita de la persona sana"} startDate={healthyStartDate} handleStartDateChange={handleHealthyStartDateChange} endDate={healthyEndDate} handleEndDateChange={handleHealthyEndDateChange}/>
-
+      <VaccinatedInput vaccinatedValue={vaccinatedValue} handleVaccinatedValueChange={handleVaccinatedValueChange} />
+      
       <Grid item xs={12} className={classes.buttonsGrid}>
         <Button onClick={handleClose} color="primary">
           Cancelar
@@ -152,6 +172,8 @@ export default function TestRulesForm({testRules, handleClose}) {
         handleCloseSpaceMissing={handleCloseSpaceMissing}
         n95MandatoryMissing={n95MandatoryMissing}
         handleCloseN95MandatoryMissing={handleCloseN95MandatoryMissing}
+        vaccinatedMissing={vaccinatedMissing}
+        handleCloseVaccinatedMissing={handleCloseVaccinatedMissing}
         infectedTimeMissing={infectedTimeMissing}
         handleCloseInfectedTimeMissing={handleCloseInfectedTimeMissing}
         healthyTimeMissing={healthyTimeMissing}

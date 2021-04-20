@@ -33,6 +33,7 @@ export default function TestRulesResult({rule, notMatch}) {
                 {rule.vaccinated === 0 && 'Persona no vacunada'}
                 {rule.vaccinated === 1 && 'Persona parcialmente vacunada'}
                 {rule.vaccinated === 2 && 'Persona completamente vacunada'}
+                {rule.vaccineReceived !== undefined && ` con la vacuna ${rule.vaccineReceived}`}
                 {rule.vaccinated !== undefined ? <br /> : ''}
 
               </Typography>

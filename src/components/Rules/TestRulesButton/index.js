@@ -27,6 +27,7 @@ export default function TestRulesButton({rules}) {
     let space = true;
     let n95Mandatory = true;
     let vaccinated = true;
+    let vaccineReceived = true;
 
     if (rule.hasOwnProperty('durationValue')) {
       if (rule.durationCmp === '<') {
@@ -56,7 +57,11 @@ export default function TestRulesButton({rules}) {
       vaccinated = env.vaccinated === rule.vaccinated;
     }
 
-    return duration && m2 && space && n95Mandatory && vaccinated;
+    if (rule.hasOwnProperty('vaccineReceived')) {
+      vaccineReceived = env.vaccineReceived === rule.vaccineReceived;
+    }
+
+    return duration && m2 && space && n95Mandatory && vaccinated && vaccineReceived;
   }
 
   const testRules = (env) => {

@@ -22,8 +22,6 @@ export default function ConfirmationForm({firstStepInfo, secondStepInfo}) {
     secondary_text = secondary_text.concat(`Tamaño: ${qr.m2} m2. `);
     secondary_text = secondary_text.concat(qr.estimatedVisitDuration ? `Visita estimada: ${qr.estimatedVisitDuration} minutos. ` : '');
     secondary_text = secondary_text.concat(firstStepInfo.type === 'hospital' ? `Uso de N95 ${!qr.n95Mandatory ? 'no' : ''} obligatorio.` : '');
-    console.log(primary_text);
-    console.log(secondary_text);
     return <ListItemText primary={primary_text} secondary={secondary_text}/>
   }
 

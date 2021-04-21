@@ -9,6 +9,8 @@ import TimePickersInput from './components/TimePickersInput';
 import VaccinatedInput from './components/VaccinatedInput';
 import VaccineReceivedInput from './components/VaccineReceivedInput';
 import VaccinatedDaysInput from './components/VaccinatedDaysInput';
+import CovidRecoveredInput from './components/CovidRecoveredInput';
+import CovidRecoveredDaysInput from './components/CovidRecoveredDaysInput';
 
 export default function TestRulesForm({testRules, handleClose}) {
   const classes = useStyles();
@@ -19,13 +21,20 @@ export default function TestRulesForm({testRules, handleClose}) {
   const [vaccinatedValue, setVaccinatedValue] = useState('');
   const [vaccineReceivedValue, setVaccineReceivedValue] = useState('');
   const [vaccinatedDaysValue, setVaccinatedDaysValue] = useState('');
+  const [covidRecoveredValue, setCovidRecoveredValue] = useState('');
+  const [covidRecoveredDaysValue, setCovidRecoveredDaysValue] = useState('');
+
   const [vaccineDetailsVisible, setVaccineDetailsVisible] = useState(false);
+  const [covidRecoveredDetailsVisible, setCovidRecoveredDetailsVisible] = useState(false);
+  
   const [m2Missing, setM2Missing] = useState(false);
   const [spaceMissing, setSpaceMissing] = useState(false);
   const [n95MandatoryMissing, setN95MandatoryMissing] = useState(false);
   const [vaccinatedMissing, setVaccinatedMissing] = useState(false);
   const [vaccineReceivedMissing, setVaccineReceivedMissing] = useState(false);
   const [vaccinatedDaysMissing, setVaccinatedDaysMissing] = useState(false);
+  const [covidRecoveredMissing, setCovidRecoveredMissing] = useState(false);
+  const [covidRecoveredDaysMissing, setCovidRecoveredDaysMissing] = useState(false);
   const [infectedTimeMissing, setInfectedTimeMissing] = useState(false);
   const [healthyTimeMissing, setHealthyTimeMissing] = useState(false);
   const [infectedStartDate, setInfectedStartDate] = useState(new Date('2014-08-18T14:00:00'));
@@ -78,6 +87,20 @@ export default function TestRulesForm({testRules, handleClose}) {
     setVaccinatedDaysValue(event.target.value);
   }
 
+  const handleCovidRecoveredValueChange = (event) => {
+    setCovidRecoveredValue(event.target.value);
+    if (!event.target.value) {
+      setCovidRecoveredDaysValue('');
+      setCovidRecoveredDetailsVisible(false);
+    } else {
+      setCovidRecoveredDetailsVisible(true);
+    }
+  }
+
+  const handleCovidRecoveredDaysValueChange = (event) => {
+    setCovidRecoveredDaysValue(event.target.value);
+  }
+
   const handleCloseM2Missing = () => {
     setM2Missing(false);
   }
@@ -100,6 +123,14 @@ export default function TestRulesForm({testRules, handleClose}) {
 
   const handleCloseVaccinatedDaysMissing = () => {
     setVaccinatedDaysMissing(false);
+  }
+
+  const handleCloseCovidRecoveredMissing = () => {
+    setCovidRecoveredMissing(false);
+  }
+
+  const handleCloseCovidRecoveredDaysMissing = () => {
+    setCovidRecoveredDaysMissing(false);
   }
 
   const handleCloseInfectedTimeMissing = () => {
@@ -136,8 +167,18 @@ export default function TestRulesForm({testRules, handleClose}) {
       return false;
     }
 
-    if ((vaccinatedValue > 0 && vaccinatedDaysValue === '') || (vaccinatedDaysValue <= 0)) {
+    if ((vaccinatedValue > 0 && vaccinatedDaysValue === '') || (vaccinatedDaysValue !== '' && vaccinatedDaysValue <= 0)) {
       setVaccinatedDaysMissing(true);
+      return false;
+    }
+
+    if (covidRecoveredValue === '') {
+      setCovidRecoveredMissing(true);
+      return false;
+    }
+
+    if ((covidRecoveredValue === true && covidRecoveredDaysValue === '') || (covidRecoveredDaysValue !== '' && covidRecoveredDaysValue <= 0)) {
+      setCovidRecoveredDaysMissing(true);
       return false;
     }
 
@@ -174,6 +215,8 @@ export default function TestRulesForm({testRules, handleClose}) {
       vaccinated: vaccinatedValue,
       vaccineReceived: vaccineReceivedValue,
       vaccinatedDays: vaccinatedDaysValue,
+      covidRecovered: covidRecoveredValue,
+      covidRecoveredDays: covidRecoveredDaysValue,
     }
   }
 
@@ -193,13 +236,17 @@ export default function TestRulesForm({testRules, handleClose}) {
       <TimePickersInput title={"Visita de la persona contagiada"} startDate={infectedStartDate} handleStartDateChange={handleInfectedStartDateChange} endDate={infectedEndDate} handleEndDateChange={handleInfectedEndDateChange}/>
       <TimePickersInput title={"Visita de la persona sana"} startDate={healthyStartDate} handleStartDateChange={handleHealthyStartDateChange} endDate={healthyEndDate} handleEndDateChange={handleHealthyEndDateChange}/>
       <VaccinatedInput vaccinatedValue={vaccinatedValue} handleVaccinatedValueChange={handleVaccinatedValueChange} />
-      
       {
         vaccineDetailsVisible &&
           <>
             <VaccineReceivedInput vaccineReceivedValue={vaccineReceivedValue} handleVaccineReceivedValueChange={handleVaccineReceivedValueChange}/>
             <VaccinatedDaysInput vaccinatedDaysValue={vaccinatedDaysValue} handleVaccinatedDaysValueChange={handleVaccinatedDaysValueChange}/>
           </>
+      }
+      <CovidRecoveredInput covidRecoveredValue={covidRecoveredValue} handleCovidRecoveredValueChange={handleCovidRecoveredValueChange} />
+      {
+        covidRecoveredDetailsVisible &&
+          <CovidRecoveredDaysInput covidRecoveredDaysValue={covidRecoveredDaysValue} handleCovidRecoveredDaysValueChange={handleCovidRecoveredDaysValueChange} />
       }
 
       <Grid item xs={12} className={classes.buttonsGrid}>
@@ -224,6 +271,10 @@ export default function TestRulesForm({testRules, handleClose}) {
         handleCloseVaccineReceivedMissing={handleCloseVaccineReceivedMissing}
         vaccinatedDaysMissing={vaccinatedDaysMissing}
         handleCloseVaccinatedDaysMissing={handleCloseVaccinatedDaysMissing}
+        covidRecoveredMissing={covidRecoveredMissing}
+        handleCloseCovidRecoveredMissing={handleCloseCovidRecoveredMissing}
+        covidRecoveredDaysMissing={covidRecoveredDaysMissing}
+        handleCloseCovidRecoveredDaysMissing={handleCloseCovidRecoveredDaysMissing}
         infectedTimeMissing={infectedTimeMissing}
         handleCloseInfectedTimeMissing={handleCloseInfectedTimeMissing}
         healthyTimeMissing={healthyTimeMissing}

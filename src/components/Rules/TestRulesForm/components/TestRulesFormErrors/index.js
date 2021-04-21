@@ -2,7 +2,7 @@ import React from 'react';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { Snackbar } from '@material-ui/core';
 
-export default function TestRulesFormErrors({infectedTimeMissing, m2Missing, n95MandatoryMissing, healthyTimeMissing, spaceMissing, vaccinatedMissing, vaccineReceivedMissing, vaccinatedDaysMissing, handleCloseM2Missing, handleCloseSpaceMissing, handleCloseN95MandatoryMissing, handleCloseHealthyTimeMissing, handleCloseInfectedTimeMissing, handleCloseVaccinatedMissing, handleCloseVaccineReceivedMissing, handleCloseVaccinatedDaysMissing}) {
+export default function TestRulesFormErrors({infectedTimeMissing, m2Missing, n95MandatoryMissing, healthyTimeMissing, spaceMissing, vaccinatedMissing, vaccineReceivedMissing, vaccinatedDaysMissing, covidRecoveredMissing, covidRecoveredDaysMissing, handleCloseM2Missing, handleCloseSpaceMissing, handleCloseN95MandatoryMissing, handleCloseHealthyTimeMissing, handleCloseInfectedTimeMissing, handleCloseVaccinatedMissing, handleCloseVaccineReceivedMissing, handleCloseVaccinatedDaysMissing, handleCloseCovidRecoveredMissing, handleCloseCovidRecoveredDaysMissing}) {
   return (
     <div>
       <Snackbar open={m2Missing} autoHideDuration={5000} onClose={handleCloseM2Missing}>
@@ -44,6 +44,20 @@ export default function TestRulesFormErrors({infectedTimeMissing, m2Missing, n95
         <Alert severity="error" onClose={handleCloseVaccinatedDaysMissing}>
           <AlertTitle>Error</AlertTitle>
           Falta definir hace <strong>cuantos días</strong> se recibió la vacuna. El valor debe ser mayor a 0.
+        </Alert>
+      </Snackbar>
+
+      <Snackbar open={covidRecoveredMissing} autoHideDuration={5000} onClose={handleCloseCovidRecoveredMissing}>
+        <Alert severity="error" onClose={handleCloseCovidRecoveredMissing}>
+          <AlertTitle>Error</AlertTitle>
+          Falta definir si la persona está <strong>recuperada de COVID-19</strong>
+        </Alert>
+      </Snackbar>
+
+      <Snackbar open={covidRecoveredDaysMissing} autoHideDuration={5000} onClose={handleCloseCovidRecoveredDaysMissing}>
+        <Alert severity="error" onClose={handleCloseCovidRecoveredDaysMissing}>
+          <AlertTitle>Error</AlertTitle>
+          Falta definir cuantos <strong>días pasaron desde la recuperación</strong>. El valor debe ser mayor a 0.
         </Alert>
       </Snackbar>
 

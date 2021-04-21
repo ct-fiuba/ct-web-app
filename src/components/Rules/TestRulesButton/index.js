@@ -105,7 +105,7 @@ export default function TestRulesButton({rules}) {
         <DialogTitle className={classes.dialogTitle} id="form-dialog-title">Probar reglas de contagio</DialogTitle>
         <DialogContent className={classes.dialogContent}>
           <DialogContentText>
-            Ingrese las características de un espacio, los horarios de entrada y salida de una persona contagiada, y los de una persona sana. Presioná en "Correr Prueba" para validar con qué regla coincidirá ese contacto y qué riesgo tendra la persona sana.
+            Ingrese las características de un espacio, los horarios de entrada y salida de una persona contagiada, los de una persona sana, y si ésta está vacunada o recuperada de COVID-19. Presioná en "Correr Prueba" para validar con qué regla coincidirá ese contacto y qué riesgo tendra la persona sana.
           </DialogContentText>
           <TestRulesForm handleClose={handleClose} testRules={testRules} />
           <TestRulesResult rule={testRuleResult} notMatch={notMatch} />

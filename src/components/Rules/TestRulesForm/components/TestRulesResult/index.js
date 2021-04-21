@@ -34,6 +34,7 @@ export default function TestRulesResult({rule, notMatch}) {
                 {rule.vaccinated === 1 && 'Persona parcialmente vacunada'}
                 {rule.vaccinated === 2 && 'Persona completamente vacunada'}
                 {rule.vaccineReceived !== undefined && ` con la vacuna ${rule.vaccineReceived}`}
+                {rule.vaccinatedDaysAgoMin !== undefined && ` hace no menos de ${rule.vaccinatedDaysAgoMin} días`}
                 {rule.vaccinated !== undefined ? <br /> : ''}
 
               </Typography>

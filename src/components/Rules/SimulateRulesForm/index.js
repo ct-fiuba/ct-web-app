@@ -9,14 +9,26 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
 
   const [usersValue, setUsersValue] = useState(Constants.defaultValueUsers);
   const [infectedUsersValue, setInfectedUsersValue] = useState(Constants.defaultValueInfectedUsers);
+  const [partiallyVaccinatedUsersValue, setPartiallyVaccinatedUsersValue] = useState(0);
+  const [fullyVaccinatedUsersValue, setFullyVaccinatedUsersValue] = useState(0);
   const [establishmentsValue, setEstablishmentsValue] = useState(Constants.defaultValueEstablishments);
   const [mobilityValue, setMobilityValue] = useState(Constants.defaultValueMobility);
   const [daysValue, setDaysValue] = useState(Constants.defaultValueDays);
 
   let maxValueInfectedUsers = usersValue;
+  let maxValuePartiallyVaccinatedUsers = 100 - fullyVaccinatedUsersValue;
+  let maxValueFullyVaccinatedUsers = 100 - partiallyVaccinatedUsersValue;
 
   const handleUsersValueChange = (event, newValue) => {
     setUsersValue(parseInt(newValue));
+  }
+
+  const handlePartiallyVaccinatedUsersValueChange = (event, newValue) => {
+    setPartiallyVaccinatedUsersValue(parseInt(newValue));
+  }
+
+  const handleFullyVaccinatedUsersValueChange = (event, newValue) => {
+    setFullyVaccinatedUsersValue(parseInt(newValue));
   }
 
   const handleInfectedUsersValueChange = (event, newValue) => {
@@ -38,6 +50,8 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
   const handleConfirm = () => {
     const config = {
       users: usersValue,
+      partiallyVaccinatedUsers: usersValue * partiallyVaccinatedUsersValue / 100,
+      fullyVaccinatedUsers: usersValue * fullyVaccinatedUsersValue / 100,
       infectedUsers: infectedUsersValue,
       establishments: establishmentsValue,
       mobility: mobilityValue,
@@ -54,6 +68,22 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
         tooltip={"Cantidad de usuarios en la simulación."}
         value={usersValue}
         handleValueChange={handleUsersValueChange}
+      />
+
+      <SimulateRulesFormSlider 
+        max={maxValuePartiallyVaccinatedUsers}
+        title={"% usuarios parcialmente vacunados"}
+        tooltip={"Porcentaje de usuarios que ha recibido una sola dosis. Se asumirá que la vacuna es la Sputnik V."}
+        value={partiallyVaccinatedUsersValue}
+        handleValueChange={handlePartiallyVaccinatedUsersValueChange}
+      />
+
+      <SimulateRulesFormSlider 
+        max={maxValueFullyVaccinatedUsers}
+        title={"% usuarios completamente vacunados"}
+        tooltip={"Porcentaje de usuarios que ha recibido las dos dosis. Se asumirá que la vacuna es la Sputnik V."}
+        value={fullyVaccinatedUsersValue}
+        handleValueChange={handleFullyVaccinatedUsersValueChange}
       />
 
       <SimulateRulesFormSlider 

@@ -29,14 +29,13 @@ export default class Rules extends React.Component {
   }
 
   addRule(rule) {
-    let new_rules = JSON.parse(JSON.stringify(this.state.rules)); //deep clone to update changes
     rule['id'] = this.state.max_index + 1;
     this.setState({max_index: this.state.max_index + 1})
-    rule['index'] = rulesUtils.calculateNewRuleIndex(new_rules, rule.contagionRisk);
+    rule['index'] = 0;
     rule['created'] = true;
-    new_rules = rulesUtils.updateIndexesFromAddition(new_rules, rule.index);
+    let new_rules = JSON.parse(JSON.stringify(this.state.rules)); //deep clone to update changes
+    new_rules = rulesUtils.updateIndexesFromAddition(new_rules);
     new_rules.unshift(rule);
-    new_rules = rulesUtils.forceHighMidLowOrder(new_rules);
     this.setState({
       rules: new_rules
     });
@@ -56,12 +55,11 @@ export default class Rules extends React.Component {
     if (result.destination.index === result.source.index) {
       return;
     }
-    let new_rules = rulesUtils.reorder(
+    const new_rules = rulesUtils.reorder(
       this.state.rules,
       result.source.index,
       result.destination.index
     );
-    new_rules = rulesUtils.forceHighMidLowOrder(new_rules);
     this.setState({ rules: new_rules });
     this.updateSavingButton(new_rules);
   }

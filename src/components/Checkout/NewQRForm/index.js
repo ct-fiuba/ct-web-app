@@ -3,8 +3,8 @@ import SingleQRForm from '../SingleQRForm'
 import { Button } from '@material-ui/core';
 import useStyles from './styles';
 
-export default function NewQRForm({initialState, completeFunction, obtainInfo}) {
-  const classes = useStyles();
+export default function NewQRForm({ initialState, completeFunction, obtainInfo, storeType }) {
+	const classes = useStyles();
 
 	const transformInitialState = () => {
 		let result = []
@@ -14,14 +14,14 @@ export default function NewQRForm({initialState, completeFunction, obtainInfo}) 
 				data: value
 			});
 		});
-		return {QRs: result};
+		return { QRs: result };
 	}
 
 	const [state, setState] = useState(transformInitialState());
 
 	useEffect(() => {
-    checkCompleteness();
-  });
+		checkCompleteness();
+	});
 
 	const isAllCompleted = (newQRs) => {
 		let result = true;
@@ -29,10 +29,10 @@ export default function NewQRForm({initialState, completeFunction, obtainInfo}) 
 		return result;
 	}
 
-  const allFieldsCompleted = (qr) => {
+	const allFieldsCompleted = (qr) => {
 		return (qr.name !== '' &&
 			qr.m2 !== '' &&
-      		qr.openPlace !== '');
+			qr.openPlace !== '');
 	}
 
 	const addNewQR = () => {
@@ -45,12 +45,13 @@ export default function NewQRForm({initialState, completeFunction, obtainInfo}) 
 				m2: '',
 				estimatedVisitDuration: '',
 				openPlace: '',
+				n95Mandatory: false,
 				hasExit: false,
 			}
 		}
 		let newQRs = JSON.parse(JSON.stringify(state.QRs));
 		newQRs.push(newQR);
-		setState({...state, QRs: newQRs});
+		setState({ ...state, QRs: newQRs });
 	}
 
 	const checkCompleteness = () => {
@@ -68,11 +69,11 @@ export default function NewQRForm({initialState, completeFunction, obtainInfo}) 
 		newQRs[key].data = info;
 		isAllCompleted(newQRs);
 		reportInfo(newQRs);
-		setState({...state, QRs: newQRs});
+		setState({ ...state, QRs: newQRs });
 	}
 
-  return (
-    <React.Fragment>
+	return (
+		<React.Fragment>
 			<Button
 				variant="contained"
 				color="primary"
@@ -83,8 +84,8 @@ export default function NewQRForm({initialState, completeFunction, obtainInfo}) 
 				Añadir QR
 			</Button>
 			{state.QRs.map((qr) => (
-      	<SingleQRForm key={qr.key} index={qr.key} initialState={qr.data} obtainInfo={obtainInfoSingleQr}/>
+				<SingleQRForm key={qr.key} index={qr.key} initialState={qr.data} obtainInfo={obtainInfoSingleQr} storeType={storeType} />
 			))}
-    </React.Fragment>
-  );
+		</React.Fragment>
+	);
 }

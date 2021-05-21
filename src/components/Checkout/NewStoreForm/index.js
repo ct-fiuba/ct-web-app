@@ -56,6 +56,7 @@ export default function NewStoreForm({initialState, obtainInfo, completeFunction
 							fullWidth
 						>
 							<MenuItem aria-label="None" value=""></MenuItem>
+							<MenuItem value={'hospital'}>Hospital</MenuItem>
 							<MenuItem value={'food'}>Gastronómico</MenuItem>
 							<MenuItem value={'supermarket'}>Supermercado</MenuItem>
 							<MenuItem value={'clothing'}>Venta de Ropa</MenuItem>

@@ -7,12 +7,12 @@ const useStyles = makeStyles((theme) => ({
     margin: '5px',
   },
   dialogTitle: {
-    marginTop: '40px',
+    marginTop: '20px',
     marginLeft: '40px',
     marginRight: '40px',
   },
   dialogContent: {
-    marginBottom: '40px',
+    marginBottom: '20px',
     marginLeft: '40px',
     marginRight: '40px',
   },

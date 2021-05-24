@@ -38,27 +38,7 @@ export default function RulesContainer({rules, addRule, saveChanges, canSaveChan
 						<Droppable droppableId="list">
 							{provided => (
 								<div ref={provided.innerRef} {...provided.droppableProps}>
-									<RulesList rules={state.rules.filter(rule => rule.contagionRisk === 'Alto')} deleteRule={deleteRule} />
-									{provided.placeholder}
-								</div>
-							)}
-						</Droppable>
-					</DragDropContext>
-					<DragDropContext onDragEnd={onDragEnd}>
-						<Droppable droppableId="list">
-							{provided => (
-								<div ref={provided.innerRef} {...provided.droppableProps}>
-									<RulesList rules={state.rules.filter(rule => rule.contagionRisk === 'Medio')} deleteRule={deleteRule} />
-									{provided.placeholder}
-								</div>
-							)}
-						</Droppable>
-					</DragDropContext>
-					<DragDropContext onDragEnd={onDragEnd}>
-						<Droppable droppableId="list">
-							{provided => (
-								<div ref={provided.innerRef} {...provided.droppableProps}>
-									<RulesList rules={state.rules.filter(rule => rule.contagionRisk === 'Bajo')} deleteRule={deleteRule} />
+									<RulesList rules={state.rules} deleteRule={deleteRule} />
 									{provided.placeholder}
 								</div>
 							)}

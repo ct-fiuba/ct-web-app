@@ -25,6 +25,23 @@ export default function TestRulesResult({rule, notMatch}) {
                 {rule.m2Cmp ? `Superficie ${rule.m2Cmp === '<' ? "menor a" : "mayor a"} ${rule.m2Value} metros cuadrados` : ''}
                 {rule.m2Cmp ? <br /> : ''}
                 {rule.spaceValue ? `Ventilación del espacio: ${rule.spaceValue}` : ''}
+
+                {rule.n95Mandatory !== undefined ? `Uso del N95 ${rule.n95Mandatory ? '' : 'no'} obligatorio` : ''}
+                {rule.n95Mandatory !== undefined ? <br /> : ''}
+
+                {rule.vaccinated === undefined && ''}
+                {rule.vaccinated === 0 && 'Persona no vacunada'}
+                {rule.vaccinated === 1 && 'Persona parcialmente vacunada'}
+                {rule.vaccinated === 2 && 'Persona completamente vacunada'}
+                {rule.vaccineReceived !== undefined && ` con la vacuna ${rule.vaccineReceived}`}
+                {rule.vaccinatedDaysAgoMin !== undefined && ` hace no menos de ${rule.vaccinatedDaysAgoMin} días`}
+                {rule.vaccinated !== undefined ? <br /> : ''}
+
+                {rule.covidRecovered === undefined && ''}
+                {rule.covidRecovered === false && `Persona que no tuvo COVID-19`}
+                {rule.covidRecovered === true && `Persona recuperada de COVID-19`}
+                {rule.covidRecoveredDaysAgoMax !== undefined && ` hace no más de ${rule.covidRecoveredDaysAgoMax} días`}
+                {rule.covidRecovered !== undefined && <br />}
               </Typography>
             </CardContent>
           </Grid>

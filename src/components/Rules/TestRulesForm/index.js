@@ -1,20 +1,40 @@
 import React, { useState } from 'react';
-import { Grid, FormControl, Select, MenuItem, InputLabel, Button, TextField } from '@material-ui/core';
-import TestRulesFormErrors from '../TestRulesFormErrors';
-import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-} from '@material-ui/pickers';
+import { Grid, Button } from '@material-ui/core';
+import TestRulesFormErrors from './components/TestRulesFormErrors';
 import useStyles from './styles';
+import M2Input from './components/M2Input';
+import SpaceInput from './components/SpaceInput';
+import N95MandatoryInput from './components/N95MandatoryInput';
+import TimePickersInput from './components/TimePickersInput';
+import VaccinatedInput from './components/VaccinatedInput';
+import VaccineReceivedInput from './components/VaccineReceivedInput';
+import VaccinatedDaysInput from './components/VaccinatedDaysInput';
+import CovidRecoveredInput from './components/CovidRecoveredInput';
+import CovidRecoveredDaysInput from './components/CovidRecoveredDaysInput';
 
 export default function TestRulesForm({testRules, handleClose}) {
   const classes = useStyles();
 
   const [m2Value, setM2Value] = useState('');
   const [spaceValue, setSpaceValue] = useState('');
+  const [n95MandatoryValue, setN95MandatoryValue] = useState('');
+  const [vaccinatedValue, setVaccinatedValue] = useState('');
+  const [vaccineReceivedValue, setVaccineReceivedValue] = useState('');
+  const [vaccinatedDaysValue, setVaccinatedDaysValue] = useState('');
+  const [covidRecoveredValue, setCovidRecoveredValue] = useState('');
+  const [covidRecoveredDaysValue, setCovidRecoveredDaysValue] = useState('');
+
+  const [vaccineDetailsVisible, setVaccineDetailsVisible] = useState(false);
+  const [covidRecoveredDetailsVisible, setCovidRecoveredDetailsVisible] = useState(false);
+  
   const [m2Missing, setM2Missing] = useState(false);
   const [spaceMissing, setSpaceMissing] = useState(false);
+  const [n95MandatoryMissing, setN95MandatoryMissing] = useState(false);
+  const [vaccinatedMissing, setVaccinatedMissing] = useState(false);
+  const [vaccineReceivedMissing, setVaccineReceivedMissing] = useState(false);
+  const [vaccinatedDaysMissing, setVaccinatedDaysMissing] = useState(false);
+  const [covidRecoveredMissing, setCovidRecoveredMissing] = useState(false);
+  const [covidRecoveredDaysMissing, setCovidRecoveredDaysMissing] = useState(false);
   const [infectedTimeMissing, setInfectedTimeMissing] = useState(false);
   const [healthyTimeMissing, setHealthyTimeMissing] = useState(false);
   const [infectedStartDate, setInfectedStartDate] = useState(new Date('2014-08-18T14:00:00'));
@@ -46,12 +66,71 @@ export default function TestRulesForm({testRules, handleClose}) {
     setSpaceValue(event.target.value);
   }
 
+  const handleN95MandatoryValueChange = (event) => {
+    setN95MandatoryValue(event.target.value);
+  }
+
+  const handleVaccinatedValueChange = (event) => {
+    setVaccinatedValue(event.target.value);
+    setVaccineDetailsVisible(event.target.value > 0);
+    if (event.target.value === 0) {
+      setVaccineReceivedValue('');
+      setVaccinatedDaysValue('');
+    }
+  }
+
+  const handleVaccineReceivedValueChange = (event) => {
+    setVaccineReceivedValue(event.target.value);
+  }
+
+  const handleVaccinatedDaysValueChange = (event) => {
+    setVaccinatedDaysValue(event.target.value);
+  }
+
+  const handleCovidRecoveredValueChange = (event) => {
+    setCovidRecoveredValue(event.target.value);
+    if (!event.target.value) {
+      setCovidRecoveredDaysValue('');
+      setCovidRecoveredDetailsVisible(false);
+    } else {
+      setCovidRecoveredDetailsVisible(true);
+    }
+  }
+
+  const handleCovidRecoveredDaysValueChange = (event) => {
+    setCovidRecoveredDaysValue(event.target.value);
+  }
+
   const handleCloseM2Missing = () => {
     setM2Missing(false);
   }
 
   const handleCloseSpaceMissing = () => {
     setSpaceMissing(false);
+  }
+
+  const handleCloseN95MandatoryMissing = () => {
+    setN95MandatoryMissing(false);
+  }
+
+  const handleCloseVaccinatedMissing = () => {
+    setVaccinatedMissing(false);
+  }
+
+  const handleCloseVaccineReceivedMissing = () => {
+    setVaccineReceivedMissing(false);
+  }
+
+  const handleCloseVaccinatedDaysMissing = () => {
+    setVaccinatedDaysMissing(false);
+  }
+
+  const handleCloseCovidRecoveredMissing = () => {
+    setCovidRecoveredMissing(false);
+  }
+
+  const handleCloseCovidRecoveredDaysMissing = () => {
+    setCovidRecoveredDaysMissing(false);
   }
 
   const handleCloseInfectedTimeMissing = () => {
@@ -70,6 +149,36 @@ export default function TestRulesForm({testRules, handleClose}) {
 
     if (!spaceValue) {
       setSpaceMissing(true);
+      return false;
+    }
+
+    if (n95MandatoryValue === '') {
+      setN95MandatoryMissing(true);
+      return false;
+    }
+
+    if (vaccinatedValue === '') {
+      setVaccinatedMissing(true);
+      return false;
+    }
+
+    if (vaccinatedValue > 0 && vaccineReceivedValue === '') {
+      setVaccineReceivedMissing(true);
+      return false;
+    }
+
+    if ((vaccinatedValue > 0 && vaccinatedDaysValue === '') || (vaccinatedDaysValue !== '' && vaccinatedDaysValue <= 0)) {
+      setVaccinatedDaysMissing(true);
+      return false;
+    }
+
+    if (covidRecoveredValue === '') {
+      setCovidRecoveredMissing(true);
+      return false;
+    }
+
+    if ((covidRecoveredValue === true && covidRecoveredDaysValue === '') || (covidRecoveredDaysValue !== '' && covidRecoveredDaysValue <= 0)) {
+      setCovidRecoveredDaysMissing(true);
       return false;
     }
 
@@ -101,7 +210,13 @@ export default function TestRulesForm({testRules, handleClose}) {
     return {
       space: spaceValue,
       m2: m2Value,
-      duration: calculateDuration() / 60 / 1000
+      duration: calculateDuration() / 60 / 1000,
+      n95Mandatory: n95MandatoryValue,
+      vaccinated: vaccinatedValue,
+      vaccineReceived: vaccineReceivedValue,
+      vaccinatedDays: vaccinatedDaysValue,
+      covidRecovered: covidRecoveredValue,
+      covidRecoveredDays: covidRecoveredDaysValue,
     }
   }
 
@@ -115,110 +230,24 @@ export default function TestRulesForm({testRules, handleClose}) {
 
   return (
     <Grid container>
-      <Grid item xs={4}>
-        <h4 className={classes.titleM2}>Superficie del espacio</h4>
-      </Grid>
-      <Grid item xs={8}>
-        <TextField
-          id="m2Value"
-          type="number"
-          helperText="en metros cuadrados (m2)"
-          variant="outlined"
-          onChange={handleM2ValueChange}
-          className={classes.m2Value}
-        />
-      </Grid>
-
-
-      <Grid item xs={4}>
-        <h4 className={classes.titleSpace}>Ventilación del espacio</h4>
-      </Grid>
-      <Grid item xs={8}>
-        <FormControl className={classes.formControlSpaceValue}>
-          <InputLabel className={classes.labelSpaceValue}>Abierto o Cerrado</InputLabel>
-          <Select
-            labelId="spaceValue-label"
-            id="spaceValue"
-            value={spaceValue}
-            onChange={handleSpaceValueChange}
-            variant="outlined"
-          >
-            <MenuItem value={'Abierto'}>{'Abierto'}</MenuItem>
-            <MenuItem value={'Cerrado'}>{'Cerrado'}</MenuItem>
-          </Select>
-        </FormControl>
-      </Grid>
-
-
-      <Grid item xs={4}>
-        <h4 className={classes.titleSpace}>Visita de la persona contagiada</h4>
-      </Grid>
-      <Grid item xs={4} className={classes.timePickersGrid}>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <KeyboardTimePicker
-            margin="normal"
-            id="infectedStartDate"
-            label="Entrada"
-            value={infectedStartDate}
-            onChange={handleInfectedStartDateChange}
-            KeyboardButtonProps={{
-              'aria-label': 'change time',
-            }}
-            className={classes.timePickers}
-          />
-        </MuiPickersUtilsProvider>
-      </Grid>
-      <Grid item xs={4} className={classes.timePickersGrid}>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <KeyboardTimePicker
-            margin="normal"
-            id="infectedEndDate"
-            label="Salida"
-            value={infectedEndDate}
-            onChange={handleInfectedEndDateChange}
-            KeyboardButtonProps={{
-              'aria-label': 'change time',
-            }}
-            className={classes.timePickers}
-          />
-        </MuiPickersUtilsProvider>
-      </Grid>
-
-
-      <Grid item xs={4}>
-        <h4 className={classes.titleSpace}>Visita de la persona sana</h4>
-      </Grid>
-      <Grid item xs={4} className={classes.timePickersGrid}>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <KeyboardTimePicker
-            margin="normal"
-            id="healthyStartDate"
-            label="Entrada"
-            value={healthyStartDate}
-            onChange={handleHealthyStartDateChange}
-            KeyboardButtonProps={{
-              'aria-label': 'change time',
-            }}
-            className={classes.timePickers}
-          />
-        </MuiPickersUtilsProvider>
-      </Grid>
-      <Grid item xs={4} className={classes.timePickersGrid}>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <KeyboardTimePicker
-            margin="normal"
-            id="healthyEndDate"
-            label="Salida"
-            value={healthyEndDate}
-            onChange={handleHealthyEndDateChange}
-            KeyboardButtonProps={{
-              'aria-label': 'change time',
-            }}
-            className={classes.timePickers}
-          />
-        </MuiPickersUtilsProvider>
-      </Grid>
-
+      <M2Input m2Value={m2Value} handleM2ValueChange={handleM2ValueChange} />
+      <SpaceInput spaceValue={spaceValue} handleSpaceValueChange={handleSpaceValueChange} />
+      <N95MandatoryInput n95MandatoryValue={n95MandatoryValue} handleN95MandatoryValueChange={handleN95MandatoryValueChange}/>
+      <TimePickersInput title={"Visita de la persona contagiada"} startDate={infectedStartDate} handleStartDateChange={handleInfectedStartDateChange} endDate={infectedEndDate} handleEndDateChange={handleInfectedEndDateChange}/>
+      <TimePickersInput title={"Visita de la persona sana"} startDate={healthyStartDate} handleStartDateChange={handleHealthyStartDateChange} endDate={healthyEndDate} handleEndDateChange={handleHealthyEndDateChange}/>
+      <VaccinatedInput vaccinatedValue={vaccinatedValue} handleVaccinatedValueChange={handleVaccinatedValueChange} />
+      {
+        vaccineDetailsVisible &&
+          <>
+            <VaccineReceivedInput vaccineReceivedValue={vaccineReceivedValue} handleVaccineReceivedValueChange={handleVaccineReceivedValueChange}/>
+            <VaccinatedDaysInput vaccinatedDaysValue={vaccinatedDaysValue} handleVaccinatedDaysValueChange={handleVaccinatedDaysValueChange}/>
+          </>
+      }
+      <CovidRecoveredInput covidRecoveredValue={covidRecoveredValue} handleCovidRecoveredValueChange={handleCovidRecoveredValueChange} />
+      {
+        covidRecoveredDetailsVisible &&
+          <CovidRecoveredDaysInput covidRecoveredDaysValue={covidRecoveredDaysValue} handleCovidRecoveredDaysValueChange={handleCovidRecoveredDaysValueChange} />
+      }
 
       <Grid item xs={12} className={classes.buttonsGrid}>
         <Button onClick={handleClose} color="primary">
@@ -234,6 +263,18 @@ export default function TestRulesForm({testRules, handleClose}) {
         handleCloseM2Missing={handleCloseM2Missing}
         spaceMissing={spaceMissing}
         handleCloseSpaceMissing={handleCloseSpaceMissing}
+        n95MandatoryMissing={n95MandatoryMissing}
+        handleCloseN95MandatoryMissing={handleCloseN95MandatoryMissing}
+        vaccinatedMissing={vaccinatedMissing}
+        handleCloseVaccinatedMissing={handleCloseVaccinatedMissing}
+        vaccineReceivedMissing={vaccineReceivedMissing}
+        handleCloseVaccineReceivedMissing={handleCloseVaccineReceivedMissing}
+        vaccinatedDaysMissing={vaccinatedDaysMissing}
+        handleCloseVaccinatedDaysMissing={handleCloseVaccinatedDaysMissing}
+        covidRecoveredMissing={covidRecoveredMissing}
+        handleCloseCovidRecoveredMissing={handleCloseCovidRecoveredMissing}
+        covidRecoveredDaysMissing={covidRecoveredDaysMissing}
+        handleCloseCovidRecoveredDaysMissing={handleCloseCovidRecoveredDaysMissing}
         infectedTimeMissing={infectedTimeMissing}
         handleCloseInfectedTimeMissing={handleCloseInfectedTimeMissing}
         healthyTimeMissing={healthyTimeMissing}

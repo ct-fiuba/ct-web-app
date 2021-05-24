@@ -58,7 +58,7 @@ export default function SimulateRulesButton(props) {
         <DialogTitle className={classes.dialogTitle} id="form-dialog-title">Correr simulación de las reglas de contagio</DialogTitle>
         <DialogContent className={classes.dialogContent}>
           <DialogContentText>
-            Defini los valores para simular el comportamiento de la sociedad y entender qué porcentaje de los usuarios terminaría con cada riesgo de contagio luego de un período de tiempo, para poder editar las reglas de contagio tal que representen de la forma más precisa posible a la enfermedad.
+            Definí los valores para simular el comportamiento de la sociedad y observá qué porcentaje de los usuarios terminaría con cada riesgo de contagio luego de un período de tiempo. Esta herramienta ayuda a editar las reglas de contagio de forma tal que representen de la forma más precisa posible a la enfermedad.
           </DialogContentText>
           <SimulateRulesForm handleClose={handleClose} simulateRules={simulateRules} />
           <SimulateRulesResult result={simulateRuleResult} loading={loading} />

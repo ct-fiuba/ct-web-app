@@ -19,14 +19,14 @@ export default function SimulateRulesFormSlider({max, title, tooltip, value, han
 
   return (
     <>
-      <Grid className={classes.firstSliderGrid} item xs={4}>
+      <Grid className={classes.firstSliderGrid} item xs={6}>
         <h4 className={classes.titles}>{title}
           <Tooltip className={classes.tooltips} placement="right" title={<span className={classes.tooltipsText}>{tooltip}</span>}>
             <HelpIcon color="action" fontSize="small"></HelpIcon>
           </Tooltip>
         </h4>
       </Grid>
-      <Grid className={classes.firstSliderGrid} item xs={8}>
+      <Grid className={classes.firstSliderGrid} item xs={6}>
         <Slider
           value={value}
           aria-labelledby="discrete-slider-always"

@@ -16,19 +16,19 @@ class App extends Component {
   constructor(props) {
     super(props)
 
-    if (!localStorage.hasOwnProperty('userId')) {
-      localStorage.setItem('userId', '-1');
-      localStorage.setItem('role', '');
+    if (!sessionStorage.hasOwnProperty('accessToken')) {
+      sessionStorage.setItem('accessToken', '-1');
+      sessionStorage.setItem('role', '');
     }
   }
 
   signedIn() {
-    const usuarioId = localStorage.getItem('userId')
+    const usuarioId = sessionStorage.getItem('accessToken')
     return usuarioId !== '-1';
   }
 
   signedInAdmin(component) {
-    if (this.signedIn() && localStorage.getItem('role') === 'admin') {
+    if (this.signedIn() && sessionStorage.getItem('role') === 'admin') {
         return component;
     }
     return <Redirect to="/iniciarSesion" />

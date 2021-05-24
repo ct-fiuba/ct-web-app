@@ -49,7 +49,7 @@ export default function SignIn() {
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ email, password })
 		};
-		fetch(process.env.REACT_APP_AUTH_SERVER_URL + '/signIn', requestOptions)
+		fetch(process.env.REACT_APP_AUTH_SERVER_URL + '/admins/signIn', requestOptions)
 			.then(response => response.json())
 			.then(dataSignIn => {
 				if (dataSignIn.hasOwnProperty('reason')) {
@@ -62,27 +62,17 @@ export default function SignIn() {
 					if (dataSignIn['reason'] === "EMAIL_NOT_FOUND") {
 						setEmailNotFoundError(true);
 					}
+					if (dataSignIn['reason'].includes("admin")) {
+						setNotAdminError(true);
+					}
 					clearInputs();
 					return;
 				}
-				const getUserDataRequest = {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({ accessToken: dataSignIn['accessToken'] })
-				};
-
-				fetch(process.env.REACT_APP_AUTH_SERVER_URL + '/getUserData', getUserDataRequest)
-					.then(response => response.json())
-					.then(dataGetUserData => {
-						if (dataGetUserData.hasOwnProperty('role') && dataGetUserData['role'] === "admin") {
-							localStorage.setItem('userId', dataSignIn['userId']);
-							localStorage.setItem('role', dataGetUserData['role']);
-							window.location.replace("/reglas");
-						} else {
-							setNotAdminError(true);
-							clearInputs();
-						}
-					})
+				if (dataSignIn.hasOwnProperty('role') && dataSignIn['role'] === "admin") {
+					sessionStorage.setItem('accessToken', dataSignIn['accessToken']);
+					sessionStorage.setItem('role', dataSignIn['role']);
+					window.location.replace("/reglas");
+				}
 			})
 			.catch(err => console.log('Error al iniciar sesión: ', err));
 	}

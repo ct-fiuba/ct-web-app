@@ -7,8 +7,8 @@ export default function SimpleAppBar({loggedIn}) {
 	const classes = useStyles();
 
 	const signOut = () => {
-		localStorage.setItem('userId', -1);
-		localStorage.setItem('role', "");
+		sessionStorage.setItem('accessToken', -1);
+		sessionStorage.setItem('role', "");
 		window.location.replace("/reglas");
 	}
 

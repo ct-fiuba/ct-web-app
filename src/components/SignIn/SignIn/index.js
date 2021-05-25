@@ -70,6 +70,7 @@ export default function SignIn() {
 				}
 				if (dataSignIn.hasOwnProperty('role') && dataSignIn['role'] === "admin") {
 					sessionStorage.setItem('accessToken', dataSignIn['accessToken']);
+					sessionStorage.setItem('userId', dataSignIn['userId']);
 					sessionStorage.setItem('role', dataSignIn['role']);
 					window.location.replace("/reglas");
 				}

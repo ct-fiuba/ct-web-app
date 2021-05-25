@@ -18,6 +18,7 @@ class App extends Component {
 
     if (!sessionStorage.hasOwnProperty('accessToken')) {
       sessionStorage.setItem('accessToken', '-1');
+      sessionStorage.setItem('userId', '-1');
       sessionStorage.setItem('role', '');
     }
   }

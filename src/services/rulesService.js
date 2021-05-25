@@ -1,4 +1,4 @@
-
+import * as sessionUtils from '../utils/sessionUtils';
 
 export async function getRules() {
 	return fetch(process.env.REACT_APP_USER_API_URL + '/rules', {
@@ -6,6 +6,9 @@ export async function getRules() {
 	})
 		.then(response => response.json())
 		.then(data => {
+			if (data.includes('has expired')) {
+				sessionUtils.signOut();
+			}
 			for (let rule of data) {
 				rule['id'] = rule['_id'];
 			}

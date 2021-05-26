@@ -2,7 +2,7 @@ import React from 'react';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { Snackbar } from '@material-ui/core';
 
-export default function SignInAlerts({invalidEmail, invalidPassword, handleCloseInvalidEmail, handleCloseInvalidPassword, emailNotFound, handleCloseEmailNotFound, notAdmin, handleCloseNotAdmin, successPasswordReset, handleCloseSuccessPasswordReset}) {
+export default function SignInAlerts({invalidEmail, invalidPassword, handleCloseInvalidEmail, handleCloseInvalidPassword, emailNotFound, handleCloseEmailNotFound, notAdmin, handleCloseNotAdmin, notOwner, handleCloseNotOwner, successPasswordReset, handleCloseSuccessPasswordReset}) {
   return (
     <div>
       <Snackbar open={invalidEmail} autoHideDuration={5000} onClose={handleCloseInvalidEmail}>
@@ -30,6 +30,13 @@ export default function SignInAlerts({invalidEmail, invalidPassword, handleClose
         <Alert severity="error" onClose={handleCloseNotAdmin}>
           <AlertTitle>Acceso denegado</AlertTitle>
             El usuario no es administrador del sistema.
+        </Alert>
+      </Snackbar>
+
+      <Snackbar open={notOwner} autoHideDuration={5000} onClose={handleCloseNotOwner}>
+        <Alert severity="error" onClose={handleCloseNotOwner}>
+          <AlertTitle>Acceso denegado</AlertTitle>
+            El usuario no es dueño de establecimientos.
         </Alert>
       </Snackbar>
 

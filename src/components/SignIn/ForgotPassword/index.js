@@ -5,7 +5,7 @@ import SignInAlerts from '../SignInAlerts';
 import AppBar from '../../Shared/AppBar';
 import useStyles from './styles';
 
-export default function ForgotPassword() {
+export default function ForgotPassword({isOwnerSignIn}) {
 	const classes = useStyles();
 	const [email, setEmail] = useState("");
 	const [invalidEmailError, setInvalidEmailError] = useState(false);
@@ -97,7 +97,7 @@ export default function ForgotPassword() {
           </Button>
 						<Grid container>
 							<Grid item xs>
-								<Link href="/iniciarSesion" variant="body2">
+								<Link href={`/${isOwnerSignIn ? 'owner' : 'admin'}/signIn`} variant="body2">
 									Iniciar sesión
               </Link>
 							</Grid>

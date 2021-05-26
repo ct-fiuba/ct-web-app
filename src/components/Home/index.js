@@ -19,7 +19,7 @@ export default function Home() {
 			</Button>
 			<Button className={classes.adminsButton} href="/reglas" color="default">
 				Ingresar como administrador
-                </Button>
+      </Button>
 		</section>
 	)
 }

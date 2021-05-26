@@ -5,7 +5,7 @@ import SignInAlerts from '../SignInAlerts';
 import AppBar from '../../Shared/AppBar';
 import useStyles from './styles';
 
-export default function SignIn() {
+export default function SignIn({ signInUrl, isOwnerSignIn }) {
 	const classes = useStyles();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -13,6 +13,7 @@ export default function SignIn() {
 	const [emailNotFoundError, setEmailNotFoundError] = useState(false);
 	const [invalidPasswordError, setInvalidPasswordError] = useState(false);
 	const [notAdminError, setNotAdminError] = useState(false);
+	const [notOwnerError, setNotOwnerError] = useState(false);
 
 	const handleCloseInvalidEmail = () => {
 		setInvalidEmailError(false);
@@ -28,6 +29,10 @@ export default function SignIn() {
 
 	const handleCloseNotAdmin = () => {
 		setNotAdminError(false);
+	}
+
+	const handleCloseNotOwner = () => {
+		setNotOwnerError(false);
 	}
 
 	const handleEmailChange = (event) => {
@@ -49,7 +54,7 @@ export default function SignIn() {
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ email, password })
 		};
-		fetch(process.env.REACT_APP_AUTH_SERVER_URL + '/admins/signIn', requestOptions)
+		fetch(signInUrl, requestOptions)
 			.then(response => response.json())
 			.then(dataSignIn => {
 				if (dataSignIn.hasOwnProperty('reason')) {
@@ -65,14 +70,22 @@ export default function SignIn() {
 					if (dataSignIn['reason'].includes("admin")) {
 						setNotAdminError(true);
 					}
+					if (dataSignIn['reason'].includes("owner")) {
+						setNotOwnerError(true);
+					}
 					clearInputs();
 					return;
 				}
-				if (dataSignIn.hasOwnProperty('role') && dataSignIn['role'] === "admin") {
+				if (dataSignIn.hasOwnProperty('role')) {
 					sessionStorage.setItem('accessToken', dataSignIn['accessToken']);
 					sessionStorage.setItem('userId', dataSignIn['userId']);
 					sessionStorage.setItem('role', dataSignIn['role']);
-					window.location.replace("/reglas");
+					if (dataSignIn['role'] === "admin") {
+						window.location.replace("/reglas");
+					}
+					if (dataSignIn['role'] === "owner") {
+						window.location.replace("/nuevoEstablecimiento");
+					}
 				}
 			})
 			.catch(err => console.log('Error al iniciar sesión: ', err));
@@ -127,11 +140,19 @@ export default function SignIn() {
 							Iniciar Sesión
           </Button>
 						<Grid container>
-							<Grid item xs>
-								<Link href="/recuperarContrasenia" variant="body2">
+							<Grid item xs={12}>
+								<Link href={`/${isOwnerSignIn ? 'owner' : 'admin'}/forgotPassword`} variant="body2">
 									¿Olvidaste tu contraseña?
               </Link>
 							</Grid>
+							{
+								isOwnerSignIn &&
+								<Grid item xs={12}>
+									<Link href={`/${isOwnerSignIn ? 'owner' : 'admin'}/forgotPassword`} variant="body2">
+										¿No tenes cuenta?
+									</Link>
+								</Grid>
+							}
 						</Grid>
 					</form>
 				</div>
@@ -144,6 +165,8 @@ export default function SignIn() {
 					handleCloseInvalidPassword={handleCloseInvalidPassword}
 					notAdmin={notAdminError}
 					handleCloseNotAdmin={handleCloseNotAdmin}
+					notOwner={notOwnerError}
+					handleCloseNotOwner={handleCloseNotOwner}
 				/>
 			</Container>
 		</div>

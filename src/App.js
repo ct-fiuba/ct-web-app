@@ -11,6 +11,7 @@ import {
   Redirect
 } from "react-router-dom";
 import ForgotPassword from './components/SignIn/ForgotPassword';
+import * as sessionUtils from './utils/sessionUtils';
 
 class App extends Component {
   constructor(props) {
@@ -32,7 +33,24 @@ class App extends Component {
     if (this.signedIn() && sessionStorage.getItem('role') === 'admin') {
         return component;
     }
-    return <Redirect to="/iniciarSesion" />
+    return <Redirect to="/admin/signIn" />
+  }
+
+  signedInOwner(component) {
+    if (this.signedIn() && sessionStorage.getItem('role') === 'owner') {
+        return component;
+    }
+    return <Redirect to="/owner/signIn" />
+  }
+
+  redirectIfSignedIn(component) {
+    if (this.signedIn() && sessionStorage.getItem('role') === 'admin') {
+      return <Redirect to="/reglas" />
+    }
+    if (this.signedIn() && sessionStorage.getItem('role') === 'owner') {
+      return <Redirect to="/nuevoEstablecimiento" />
+    }
+    return component;
   }
 
   render() {
@@ -41,13 +59,19 @@ class App extends Component {
         <div>
           <Switch>
             <Route path="/nuevoEstablecimiento">
-              <Checkout />
+              {this.signedInOwner(<Checkout />)}
             </Route>
-            <Route path="/iniciarSesion">
-              <SignIn />
+            <Route path="/admin/signIn">
+              {this.redirectIfSignedIn(<SignIn signInUrl={sessionUtils.getAdminSignInUrl()} isOwnerSignIn={false} />)}
             </Route>
-            <Route path="/recuperarContrasenia">
-              <ForgotPassword />
+            <Route path="/owner/signIn">
+              {this.redirectIfSignedIn(<SignIn signInUrl={sessionUtils.getOwnerSignInUrl()} isOwnerSignIn={true} />)}
+            </Route>
+            <Route path="/admin/forgotPassword">
+              {this.redirectIfSignedIn(<ForgotPassword isOwnerSignIn={false} />)}
+            </Route>
+            <Route path="/owner/forgotPassword">
+              {this.redirectIfSignedIn(<ForgotPassword isOwnerSignIn={true} />)}
             </Route>
             <Route path="/reglas">
               {this.signedInAdmin(<Rules />)}

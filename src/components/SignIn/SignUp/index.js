@@ -5,15 +5,13 @@ import SignInAlerts from '../SignInAlerts';
 import AppBar from '../../Shared/AppBar';
 import useStyles from './styles';
 
-export default function SignIn({ signInUrl, isOwnerSignIn }) {
+export default function SignUp() {
 	const classes = useStyles();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [invalidEmailError, setInvalidEmailError] = useState(false);
 	const [emailNotFoundError, setEmailNotFoundError] = useState(false);
 	const [invalidPasswordError, setInvalidPasswordError] = useState(false);
-	const [notAdminError, setNotAdminError] = useState(false);
-	const [notOwnerError, setNotOwnerError] = useState(false);
 
 	const handleCloseInvalidEmail = () => {
 		setInvalidEmailError(false);
@@ -25,14 +23,6 @@ export default function SignIn({ signInUrl, isOwnerSignIn }) {
 
 	const handleCloseInvalidPassword = () => {
 		setInvalidPasswordError(false);
-	}
-
-	const handleCloseNotAdmin = () => {
-		setNotAdminError(false);
-	}
-
-	const handleCloseNotOwner = () => {
-		setNotOwnerError(false);
 	}
 
 	const handleEmailChange = (event) => {
@@ -48,47 +38,41 @@ export default function SignIn({ signInUrl, isOwnerSignIn }) {
 		setPassword("");
 	}
 
-	const handleSignInButton = () => {
+	const handleSignUpButton = () => {
 		const requestOptions = {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ email, password })
 		};
-		fetch(signInUrl, requestOptions)
+		fetch(process.env.REACT_APP_AUTH_SERVER_URL + '/owners/signUp', requestOptions)
 			.then(response => response.json())
-			.then(dataSignIn => {
-				if (dataSignIn.hasOwnProperty('reason')) {
-					if (dataSignIn['reason'] === "INVALID_EMAIL") {
+			.then(dataSignUp => {
+				if (dataSignUp.hasOwnProperty('reason')) {
+					if (dataSignUp['reason'] === "INVALID_EMAIL") {
 						setInvalidEmailError(true);
 					}
-					if (dataSignIn['reason'] === "INVALID_PASSWORD" || dataSignIn['reason'] === "MISSING_PASSWORD") {
+					if (dataSignUp['reason'] === "INVALID_PASSWORD" || dataSignUp['reason'] === "MISSING_PASSWORD") {
 						setInvalidPasswordError(true);
 					}
-					if (dataSignIn['reason'] === "EMAIL_NOT_FOUND") {
+					if (dataSignUp['reason'] === "EMAIL_NOT_FOUND") {
 						setEmailNotFoundError(true);
-					}
-					if (dataSignIn['reason'].includes("admin")) {
-						setNotAdminError(true);
-					}
-					if (dataSignIn['reason'].includes("owner")) {
-						setNotOwnerError(true);
 					}
 					clearInputs();
 					return;
 				}
-				if (dataSignIn.hasOwnProperty('role')) {
-					sessionStorage.setItem('accessToken', dataSignIn['accessToken']);
-					sessionStorage.setItem('userId', dataSignIn['userId']);
-					sessionStorage.setItem('role', dataSignIn['role']);
-					if (dataSignIn['role'] === "admin") {
+				if (dataSignUp.hasOwnProperty('role')) {
+					sessionStorage.setItem('accessToken', dataSignUp['accessToken']);
+					sessionStorage.setItem('userId', dataSignUp['userId']);
+					sessionStorage.setItem('role', dataSignUp['role']);
+					if (dataSignUp['role'] === "admin") {
 						window.location.replace("/reglas");
 					}
-					if (dataSignIn['role'] === "owner") {
+					if (dataSignUp['role'] === "owner") {
 						window.location.replace("/nuevoEstablecimiento");
 					}
 				}
 			})
-			.catch(err => console.log('Error al iniciar sesión: ', err));
+			.catch(err => console.log('Error al crear cuenta: ', err));
 	}
 
 	return (
@@ -101,7 +85,7 @@ export default function SignIn({ signInUrl, isOwnerSignIn }) {
 						<LockOutlinedIcon />
 					</Avatar>
 					<Typography component="h1" variant="h5">
-						Iniciar Sesión como {isOwnerSignIn ? 'Establecimiento' : 'Administrador'}
+						Crear cuenta de establecimiento
         </Typography>
 					<form className={classes.form} noValidate>
 						<TextField
@@ -135,24 +119,16 @@ export default function SignIn({ signInUrl, isOwnerSignIn }) {
 							variant="contained"
 							color="primary"
 							className={classes.submit}
-							onClick={handleSignInButton}
+							onClick={handleSignUpButton}
 						>
-							Iniciar Sesión
+							Crear cuenta
           </Button>
 						<Grid container>
 							<Grid item xs={12}>
-								<Link href={`/${isOwnerSignIn ? 'owner' : 'admin'}/forgotPassword`} variant="body2">
-									¿Olvidaste tu contraseña?
+								<Link href={'/owner/signin'} variant="body2">
+									¿Ya tenes cuenta?
               </Link>
 							</Grid>
-							{
-								isOwnerSignIn &&
-								<Grid item xs={12}>
-									<Link href={'/owner/signup'} variant="body2">
-										¿No tenes cuenta?
-									</Link>
-								</Grid>
-							}
 						</Grid>
 					</form>
 				</div>
@@ -163,10 +139,6 @@ export default function SignIn({ signInUrl, isOwnerSignIn }) {
 					handleCloseEmailNotFound={handleCloseEmailNotFound}
 					invalidPassword={invalidPasswordError}
 					handleCloseInvalidPassword={handleCloseInvalidPassword}
-					notAdmin={notAdminError}
-					handleCloseNotAdmin={handleCloseNotAdmin}
-					notOwner={notOwnerError}
-					handleCloseNotOwner={handleCloseNotOwner}
 				/>
 			</Container>
 		</div>

@@ -3,6 +3,7 @@ import './App.css';
 import Checkout from './components/Checkout/Checkout';
 import Rules from './components/Rules/Rules';
 import SignIn from './components/SignIn/SignIn';
+import SignUp from './components/SignIn/SignUp';
 import Home from './components/Home';
 import {
   BrowserRouter as Router,
@@ -66,6 +67,9 @@ class App extends Component {
             </Route>
             <Route path="/owner/signIn">
               {this.redirectIfSignedIn(<SignIn signInUrl={sessionUtils.getOwnerSignInUrl()} isOwnerSignIn={true} />)}
+            </Route>
+            <Route path="/owner/signUp">
+              {this.redirectIfSignedIn(<SignUp />)}
             </Route>
             <Route path="/admin/forgotPassword">
               {this.redirectIfSignedIn(<ForgotPassword isOwnerSignIn={false} />)}

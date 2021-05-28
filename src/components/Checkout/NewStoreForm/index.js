@@ -11,7 +11,6 @@ export default function NewStoreForm({initialState, obtainInfo, completeFunction
 	const allFieldsCompleted = () => {
 		return (state.type !== '' &&
 			state.name !== '' &&
-			state.email !== '' && /\S+@\S+\.\S+/.test(state.email) &&
 			state.address !== '' &&
 			state.city !== '' &&
 			state.state !== '' &&
@@ -74,19 +73,6 @@ export default function NewStoreForm({initialState, obtainInfo, completeFunction
 						value={state.name}
 						onChange={handleChange}
             fullWidth
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            required
-            id="email"
-            name="email"
-						type="email"
-            label="Email de contacto"
-            fullWidth
-            autoComplete="email"
-						value={state.email}
-						onChange={handleChange}
           />
         </Grid>
         <Grid item xs={12}>

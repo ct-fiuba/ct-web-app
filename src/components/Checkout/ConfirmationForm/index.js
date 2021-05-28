@@ -34,7 +34,6 @@ export default function ConfirmationForm({firstStepInfo, secondStepInfo}) {
           </Typography>
           <Typography gutterBottom><b>{establecimiento.name}</b></Typography>
           <Typography gutterBottom>{typeTranslation[establecimiento.type]}</Typography>
-          <Typography gutterBottom>{establecimiento.email}</Typography>
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>
           <Typography variant="h6" gutterBottom className={classes.title}>

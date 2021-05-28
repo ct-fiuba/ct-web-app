@@ -24,7 +24,6 @@ export default function Checkout() {
     firstStepInfo: {
       type: '',
       name: '',
-      email: '',
       address: '',
       city: '',
       state: '',
@@ -87,13 +86,14 @@ export default function Checkout() {
     if (body['type'] !== 'hospital') {
 		  body.spaces.forEach(space => space['n95Mandatory'] = false);
     }
+    body['ownerId'] = sessionStorage.getItem('userId');
     return body;
   };
 
   const sendDataToServer = () => {
     const requestOptions = {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'access-token': sessionStorage.getItem('accessToken') },
       body: JSON.stringify(constructBody())
     };
     fetch(process.env.REACT_APP_USER_API_URL + '/establishments', requestOptions)

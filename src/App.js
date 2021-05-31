@@ -13,6 +13,7 @@ import {
 } from "react-router-dom";
 import ForgotPassword from './components/SignIn/ForgotPassword';
 import * as sessionUtils from './utils/sessionUtils';
+import MyEstablishments from './components/Establishments/MyEstablishments';
 
 class App extends Component {
   constructor(props) {
@@ -61,6 +62,9 @@ class App extends Component {
           <Switch>
             <Route path="/nuevoEstablecimiento">
               {this.signedInOwner(<Checkout />)}
+            </Route>
+            <Route path="/myEstablishments">
+              {this.signedInOwner(<MyEstablishments />)}
             </Route>
             <Route path="/admin/signIn">
               {this.redirectIfSignedIn(<SignIn signInUrl={sessionUtils.getAdminSignInUrl()} isOwnerSignIn={false} />)}

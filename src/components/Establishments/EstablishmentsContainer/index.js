@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Grid } from '@material-ui/core';
 import useStyles from './styles';
 import EstablishmentsList from '../EstablishmentsList';
+import NewEstablishmentButton from "../NewEstablishmentButton";
 
 export default function EstablishmentsContainer({ establishments }) {
 	const [state, setState] = useState({ establishments: establishments || [] });
@@ -14,8 +15,11 @@ export default function EstablishmentsContainer({ establishments }) {
 	return (
 		<div className={classes.divContainer}>
 			<Grid container>
-				<Grid item xs={12}>
+				<Grid item xs={8}>
 					<h1>Mis establecimientos</h1>
+				</Grid>
+				<Grid item xs={4}>
+					<NewEstablishmentButton />
 				</Grid>
 				<Grid item xs={12}>
 					<EstablishmentsList establishments={state.establishments} />

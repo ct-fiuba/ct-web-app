@@ -3,6 +3,9 @@ import { Accordion, AccordionDetails, AccordionSummary, Card, CardContent, Grid,
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import useStyles from './styles';
 import SpacesContainer from '../SpacesContainer';
+import NewSpaceButton from '../NewSpaceButton';
+import EditEstablishmentButton from '../EditEstablishmentButton';
+import EstablishmentPDFButton from '../EstablishmentPDFButton';
 
 export default function EstablishmentCard({ id, name, type, address, city, state, country, zip, spaces, spacesInfo }) {
   const classes = useStyles();
@@ -30,6 +33,9 @@ export default function EstablishmentCard({ id, name, type, address, city, state
           </Grid>
 
           <Grid item xs={4}>
+            <EditEstablishmentButton establishmentId={id}/>
+            <NewSpaceButton establishmentId={id}/>
+            <EstablishmentPDFButton establishmentId={id}/>
           </Grid>
           <Grid item xs={12}>
             <Accordion className={classes.accordion}>

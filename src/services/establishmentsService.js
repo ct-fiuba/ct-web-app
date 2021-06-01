@@ -26,3 +26,11 @@ export async function updateSpace(spaceId, establishmentId, enabled) {
 	};
 	return fetch(process.env.REACT_APP_USER_API_URL + '/establishments/space/' + spaceId, requestOptions)
 }
+
+export async function downloadSpacePDF(spaceId, establishmentId) {
+	window.open(process.env.REACT_APP_USER_API_URL + '/establishments/PDF/' + establishmentId + '/space/' + spaceId, '_blank');
+}
+
+export async function downloadEstablishmentPDF(establishmentId) {
+	window.open(process.env.REACT_APP_USER_API_URL + '/establishments/PDF/' + establishmentId, '_blank');
+}

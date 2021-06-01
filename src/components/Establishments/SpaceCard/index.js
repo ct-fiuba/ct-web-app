@@ -1,8 +1,9 @@
 import React from 'react';
 import useStyles from './styles';
 import { Card, CardContent, Grid, Typography } from '@material-ui/core';
+import SpaceToggle from '../SpaceToggle';
 
-export default function SpaceCard({ id, name, m2, hasExit,  estimatedVisitDuration, enabled, n95Mandatory }) {
+export default function SpaceCard({ id, name, m2, hasExit,  estimatedVisitDuration, enabled, n95Mandatory, establishmentId }) {
   const classes = useStyles();
 
   return (
@@ -31,7 +32,8 @@ export default function SpaceCard({ id, name, m2, hasExit,  estimatedVisitDurati
             </Typography>
           </CardContent>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={4} className={classes.buttonsGroup}>
+          <SpaceToggle spaceId={id} establishmentId={establishmentId} isEnabled={enabled} />
         </Grid>
       </Grid>
     </Card>

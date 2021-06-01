@@ -17,3 +17,12 @@ export async function getEstablishments() {
 		})
 		.catch(err => console.log('Error at fetch: ', err));
 }
+
+export async function updateSpace(spaceId, establishmentId, enabled) {
+	const requestOptions = {
+		method: 'PUT',
+		headers: { 'Content-Type': 'application/json', 'access-token': sessionStorage.getItem('accessToken') },
+		body: JSON.stringify({establishmentId, enabled})
+	};
+	return fetch(process.env.REACT_APP_USER_API_URL + '/establishments/space/' + spaceId, requestOptions)
+}

@@ -11,6 +11,9 @@ const useStyles = makeStyles({
   },
   gridContainer: {
     alignItems: 'center',
+  },
+  buttonsGroup: {
+    height: '100%'
   }
 });
 

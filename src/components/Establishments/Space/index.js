@@ -9,5 +9,6 @@ export default function Space({ space }) {
 		estimatedVisitDuration={space.estimatedVisitDuration}
 		enabled={space.enabled}
 		n95Mandatory={space.n95Mandatory}
+		establishmentId={space.establishmentId}
 	/>);
 }

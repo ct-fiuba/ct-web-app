@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Grid, TextField, FormControlLabel, Checkbox, Select, MenuItem, FormControl, InputLabel, Card, CardContent } from '@material-ui/core';
 import useStyles from './styles';
 
-export default function SingleQRForm({initialState, index, obtainInfo, storeType}) {
+export default function NewSingleSpaceForm({initialState, index, obtainInfo, storeType}) {
   const classes = useStyles();
   const [state, setState] = useState(initialState);
 
@@ -29,7 +29,7 @@ export default function SingleQRForm({initialState, index, obtainInfo, storeType
         <CardContent>
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <TextField required name="name" value={state.name} onChange={handleChange} label="Identificador del QR" fullWidth />
+              <TextField required name="name" value={state.name} onChange={handleChange} label="Nombre del espacio" fullWidth />
             </Grid>
             <Grid item xs={12}>
               <TextField required type="number" name="m2"  value={state.m2} onChange={handleChange} label="Metros cuadrados" fullWidth />

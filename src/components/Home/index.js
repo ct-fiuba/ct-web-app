@@ -14,7 +14,7 @@ export default function Home() {
 			<p className="home-stitle">
 				Bienvenido al sistema de contact tracing para encontrar contagios de COVID-19 manteniendo la privacidad de los usuarios.
                 </p>
-			<Button className={classes.ownersButton} href="/nuevoEstablecimiento" variant="contained" color="primary">
+			<Button className={classes.ownersButton} href="/misEstablecimientos" variant="contained" color="primary">
 				Ingresar como dueño de establecimiento
 			</Button>
 			<Button className={classes.adminsButton} href="/reglas" color="default">

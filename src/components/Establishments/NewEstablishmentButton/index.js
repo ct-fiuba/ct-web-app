@@ -8,6 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import * as establishmentsService from '../../../services/establishmentsService';
+import NewEstablishmentForm from '../NewEstablishmentsForms/NewEstablishmentForm';
 
 export default function NewEstablishmentButton() {
   const classes = useStyles();
@@ -40,19 +41,17 @@ export default function NewEstablishmentButton() {
       <Dialog
         open={openModal}
         onClose={handleCloseModal}
+        maxWidth={'lg'}
+        className={classes.newEstablishmentModal}
       >
-        <DialogTitle>{`Creación de nuevo establecimiento`}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Acá iría el form para crear un nuevo establecimiento
+            <NewEstablishmentForm />
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseModal} color="primary" autoFocus>
-            Cancelar
-          </Button>
-          <Button onClick={handleConfirmModal} color="primary">
-            Confirmar
+            Cerrar
           </Button>
         </DialogActions>
       </Dialog>

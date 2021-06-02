@@ -84,7 +84,7 @@ export default function SignIn({ signInUrl, isOwnerSignIn }) {
 						window.location.replace("/reglas");
 					}
 					if (dataSignIn['role'] === "owner") {
-						window.location.replace("/nuevoEstablecimiento");
+						window.location.replace("/misEstablecimientos");
 					}
 				}
 			})

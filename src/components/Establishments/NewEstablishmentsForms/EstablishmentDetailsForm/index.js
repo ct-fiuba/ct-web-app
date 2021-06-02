@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Typography, TextField, Select, MenuItem, FormControl, InputLabel} from '@material-ui/core';
 
-export default function NewStoreForm({initialState, obtainInfo, completeFunction}) {
+export default function EstablishmentDetailsForm({initialState, obtainInfo, completeFunction}) {
   useEffect(() => {
     checkCompleteness();
   });
@@ -40,7 +40,7 @@ export default function NewStoreForm({initialState, obtainInfo, completeFunction
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Registro de nuevo local
+        Detalles del establecimiento
       </Typography>
       <Grid container spacing={3}>
 			  <Grid item xs={12}>

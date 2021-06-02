@@ -68,7 +68,7 @@ export default function SignUp() {
 						window.location.replace("/reglas");
 					}
 					if (dataSignUp['role'] === "owner") {
-						window.location.replace("/nuevoEstablecimiento");
+						window.location.replace("/misEstablecimientos");
 					}
 				}
 			})

@@ -1,25 +1,11 @@
 import React, { useState } from 'react';
-import AppBar from '../../Shared/AppBar';
 import { CssBaseline, Paper, Stepper, Step, StepLabel, Button, Link, Typography } from '@material-ui/core';
-import NewStoreForm from '../NewStoreForm';
-import NewQRForm from '../NewQRForm';
+import EstablishmentDetailsForm from '../EstablishmentDetailsForm';
+import NewSpacesForm from '../NewSpacesForm';
 import ConfirmationForm from '../ConfirmationForm';
 import useStyles from './styles';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Control de Pandemias
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-export default function Checkout() {
+export default function NewEstablishmentForm() {
   const [state, setState] = useState({
     firstStepInfo: {
       type: '',
@@ -43,7 +29,7 @@ export default function Checkout() {
   const [activeStep, setActiveStep] = useState(0);
   const [firstStepComplete, setFirstStepComplete] = useState(false);
   const [secondStepComplete, setSecondStepComplete] = useState(false);
-  const steps = ['Registro del establecimiento', 'Generación de QRs', 'Confirmación'];
+  const steps = ['Detalles del establecimiento', 'Espacios', 'Confirmación'];
 
   const handleNext = () => {
     if (activeStep === 2) {
@@ -108,9 +94,9 @@ export default function Checkout() {
   const getStepContent = (step) => {
     switch (step) {
       case 0:
-        return <NewStoreForm initialState={{ ...state.firstStepInfo }} completeFunction={changeFirstStepState} obtainInfo={obtainFirstStepInfo} />;
+        return <EstablishmentDetailsForm initialState={{ ...state.firstStepInfo }} completeFunction={changeFirstStepState} obtainInfo={obtainFirstStepInfo} />;
       case 1:
-        return <NewQRForm initialState={state.secondStepInfo} completeFunction={changeSecondStepState} obtainInfo={obtainSecondStepInfo} storeType={state.firstStepInfo.type}/>;
+        return <NewSpacesForm initialState={state.secondStepInfo} completeFunction={changeSecondStepState} obtainInfo={obtainSecondStepInfo} storeType={state.firstStepInfo.type}/>;
       case 2:
         return <ConfirmationForm firstStepInfo={{ ...state.firstStepInfo }} secondStepInfo={state.secondStepInfo} />;
       default:
@@ -121,11 +107,10 @@ export default function Checkout() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar loggedIn={true} />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
-            Generador de QRs
+            Registro de nuevo establecimiento
           </Typography>
           <Stepper activeStep={activeStep} className={classes.stepper}>
             {steps.map((label) => (
@@ -138,10 +123,10 @@ export default function Checkout() {
             {activeStep === steps.length ? (
               <React.Fragment>
                 <Typography variant="h5" gutterBottom>
-                  Gracias por generar tus códigos QR.
+                  Gracias por registrar tu establecimiento.
                 </Typography>
                 <Typography variant="subtitle1">
-                  En breve comenzará la descarga de un archivo PDF que podrás imprimir para que sean escaneados por tus clientes.
+                  En breve comenzará la descarga de un archivo PDF con tus QRs que podrás imprimir para que sean escaneados por tus clientes.
                 </Typography>
               </React.Fragment>
             ) : (
@@ -167,7 +152,6 @@ export default function Checkout() {
             )}
           </React.Fragment>
         </Paper>
-        <Copyright />
       </main>
     </React.Fragment>
   );

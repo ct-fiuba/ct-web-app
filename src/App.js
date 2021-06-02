@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import Checkout from './components/Checkout/Checkout';
+import NewEstablishmentForm from './components/Establishments/NewEstablishmentsForms/NewEstablishmentForm';
 import Rules from './components/Rules/Rules';
 import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignIn/SignUp';
@@ -50,7 +50,7 @@ class App extends Component {
       return <Redirect to="/reglas" />
     }
     if (this.signedIn() && sessionStorage.getItem('role') === 'owner') {
-      return <Redirect to="/nuevoEstablecimiento" />
+      return <Redirect to="/misEstablecimientos" />
     }
     return component;
   }
@@ -61,9 +61,9 @@ class App extends Component {
         <div>
           <Switch>
             <Route path="/nuevoEstablecimiento">
-              {this.signedInOwner(<Checkout />)}
+              {this.signedInOwner(<NewEstablishmentForm />)}
             </Route>
-            <Route path="/myEstablishments">
+            <Route path="/misEstablecimientos">
               {this.signedInOwner(<MyEstablishments />)}
             </Route>
             <Route path="/admin/signIn">

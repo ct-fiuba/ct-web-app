@@ -6,6 +6,7 @@ import SpacesContainer from '../SpacesContainer';
 import NewSpaceButton from '../NewSpaceButton';
 import EditEstablishmentButton from '../EditEstablishmentButton';
 import EstablishmentPDFButton from '../EstablishmentPDFButton';
+import { typeTranslation } from '../../../utils/establishmentsUtils';
 
 export default function EstablishmentCard({ id, name, type, address, city, state, country, zip, spaces, spacesInfo, refreshEstablishments }) {
   const classes = useStyles();
@@ -22,7 +23,7 @@ export default function EstablishmentCard({ id, name, type, address, city, state
               {`Nombre: `}<strong>{name}</strong>
             </Typography>
             <Typography variant="body1" component="p">
-              {`Tipo de establecimiento: ${type}`}<br />
+              {`Tipo de establecimiento: ${typeTranslation[type]}`}<br />
               {`Dirección: ${address}`}<br />
               {`Código postal: ${zip}`}<br />
               {`Ciudad: ${city}`}<br />
@@ -33,9 +34,20 @@ export default function EstablishmentCard({ id, name, type, address, city, state
           </Grid>
 
           <Grid item xs={4}>
-            <EditEstablishmentButton establishmentId={id}/>
-            <NewSpaceButton establishmentId={id}/>
-            <EstablishmentPDFButton establishmentId={id}/>
+            <EditEstablishmentButton
+              establishmentId={id}
+              name={name}
+              type={type}
+              address={address}
+              city={city}
+              state={state}
+              country={country}
+              zip={zip}
+              spaces={spacesInfo}
+              refreshEstablishments={refreshEstablishments}
+            />
+            <NewSpaceButton establishmentId={id} />
+            <EstablishmentPDFButton establishmentId={id} />
           </Grid>
           <Grid item xs={12}>
             <Accordion className={classes.accordion}>

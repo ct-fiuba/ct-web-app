@@ -61,9 +61,6 @@ export default function EstablishmentDetailsForm({ initialState, obtainInfo, com
 
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom>
-        Detalles del establecimiento
-      </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <FormControl fullWidth>

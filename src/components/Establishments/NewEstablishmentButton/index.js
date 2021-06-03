@@ -6,7 +6,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import NewEstablishmentForm from '../NewEstablishmentsForms/NewEstablishmentForm';
+import NewEstablishmentForm from '../EstablishmentsForms/NewEstablishmentForm';
 
 export default function NewEstablishmentButton({ refreshEstablishments }) {
   const classes = useStyles();
@@ -41,7 +41,6 @@ export default function NewEstablishmentButton({ refreshEstablishments }) {
         open={openModal}
         onClose={handleCloseModal}
         maxWidth={'lg'}
-        className={classes.newEstablishmentModal}
       >
         <DialogContent>
           <DialogContentText id="alert-dialog-description">

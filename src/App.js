@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import NewEstablishmentForm from './components/Establishments/NewEstablishmentsForms/NewEstablishmentForm';
+import NewEstablishmentForm from './components/Establishments/EstablishmentsForms/NewEstablishmentForm';
 import Rules from './components/Rules/Rules';
 import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignIn/SignUp';

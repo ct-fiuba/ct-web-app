@@ -19,7 +19,6 @@ export default function SpacesContainer({ spaces, refreshEstablishments }) {
 
 	React.useEffect(() => {
 		spaces.sort(cmpSpaces);
-		console.log("DEBUG TOMI !!!!: ", spaces);
 		setState({ spaces: spaces });
 	}, [spaces])
 

@@ -8,8 +8,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import * as establishmentsService from '../../../services/establishmentsService';
+import EditEstablishmentForm from '../EstablishmentsForms/EditEstablishmentForm';
 
-export default function EditEstablishmentButton({ establishmentId }) {
+export default function EditEstablishmentButton({ establishmentId, name, type, address, city, state, country, zip, spaces, refreshEstablishments }) {
   const classes = useStyles();
   const [openModal, setOpenModal] = React.useState(false);
 
@@ -18,7 +19,8 @@ export default function EditEstablishmentButton({ establishmentId }) {
     setOpenModal(true);
   };
 
-  const handleConfirmModal = async () => {
+  const handleConfirm = async () => {
+    await refreshEstablishments();
     handleCloseModal();
   }
 
@@ -41,19 +43,28 @@ export default function EditEstablishmentButton({ establishmentId }) {
       <Dialog
         open={openModal}
         onClose={handleCloseModal}
+        maxWidth={'lg'}
       >
-        <DialogTitle>{`Edición del establecimiento`}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Acá iría el form para editar información del establecimiento
+            <EditEstablishmentForm
+              id={establishmentId}
+              initialName={name}
+              initialType={type}
+              initialAddress={address}
+              initialCity={city}
+              initialState={state}
+              initialCountry={country}
+              initialZip={zip}
+              initialSpaces={spaces}
+              refreshEstablishments={refreshEstablishments}
+              confirmCallback={handleConfirm}
+            />
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseModal} color="primary" autoFocus>
-            Cancelar
-          </Button>
-          <Button onClick={handleConfirmModal} color="primary">
-            Confirmar
+            Cerrar
           </Button>
         </DialogActions>
       </Dialog>

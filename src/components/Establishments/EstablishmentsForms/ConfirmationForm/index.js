@@ -1,20 +1,12 @@
 import React from 'react';
 import { Typography, List, ListItem, ListItemText, Grid } from '@material-ui/core';
 import useStyles from './styles';
+import { typeTranslation } from '../../../../utils/establishmentsUtils';
 
-const typeTranslation = {
-  hospital: 'Hospital',
-	food: 'Gastronómico',
-	supermarket: 'Supermercado',
-	clothing: 'Venta de Ropa',
-	transportation: 'Transporte',
-	other: 'Otros'
-}
-
-export default function ConfirmationForm({firstStepInfo, secondStepInfo}) {
+export default function ConfirmationForm({ firstStepInfo, secondStepInfo }) {
   const classes = useStyles();
-	const establishment = firstStepInfo;
-	const spaces = secondStepInfo;
+  const establishment = firstStepInfo;
+  const spaces = secondStepInfo;
 
   const buildSpaceListItem = (space) => {
     let primary_text = space.hasExit ? space.name + " (x2)" : space.name;
@@ -22,7 +14,7 @@ export default function ConfirmationForm({firstStepInfo, secondStepInfo}) {
     secondary_text = secondary_text.concat(`Tamaño: ${space.m2} m2. `);
     secondary_text = secondary_text.concat(space.estimatedVisitDuration ? `Visita estimada: ${space.estimatedVisitDuration} minutos. ` : '');
     secondary_text = secondary_text.concat(firstStepInfo.type === 'hospital' ? `Uso de N95 ${!space.n95Mandatory ? 'no' : ''} obligatorio.` : '');
-    return <ListItemText primary={primary_text} secondary={secondary_text}/>
+    return <ListItemText primary={primary_text} secondary={secondary_text} />
   }
 
   return (
@@ -39,12 +31,12 @@ export default function ConfirmationForm({firstStepInfo, secondStepInfo}) {
           <Typography variant="h6" gutterBottom className={classes.title}>
             Dirección
           </Typography>
-        	<Typography gutterBottom>{establishment.address}</Typography>
+          <Typography gutterBottom>{establishment.address}</Typography>
           <Typography gutterBottom>{establishment.zip + ", " + establishment.city}</Typography>
           <Typography gutterBottom>{establishment.state + ", " + establishment.country}</Typography>
         </Grid>
       </Grid>
-			<Typography variant="h6" gutterBottom>
+      <Typography variant="h6" gutterBottom>
         Espacios a generar
       </Typography>
       <List disablePadding>

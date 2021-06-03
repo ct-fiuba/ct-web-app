@@ -4,13 +4,11 @@ import Button from '@material-ui/core/Button';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import * as establishmentsService from '../../../services/establishmentsService';
 import NewEstablishmentForm from '../NewEstablishmentsForms/NewEstablishmentForm';
 
-export default function NewEstablishmentButton() {
+export default function NewEstablishmentButton({ refreshEstablishments }) {
   const classes = useStyles();
   const [openModal, setOpenModal] = React.useState(false);
 
@@ -18,7 +16,8 @@ export default function NewEstablishmentButton() {
     setOpenModal(true);
   };
 
-  const handleConfirmModal = async () => {
+  const handleConfirm = async () => {
+    await refreshEstablishments();
     handleCloseModal();
   }
 
@@ -46,7 +45,7 @@ export default function NewEstablishmentButton() {
       >
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            <NewEstablishmentForm />
+            <NewEstablishmentForm confirmCallback={handleConfirm} />
           </DialogContentText>
         </DialogContent>
         <DialogActions>

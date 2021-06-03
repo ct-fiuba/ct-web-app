@@ -7,7 +7,7 @@ import NewSpaceButton from '../NewSpaceButton';
 import EditEstablishmentButton from '../EditEstablishmentButton';
 import EstablishmentPDFButton from '../EstablishmentPDFButton';
 
-export default function EstablishmentCard({ id, name, type, address, city, state, country, zip, spaces, spacesInfo }) {
+export default function EstablishmentCard({ id, name, type, address, city, state, country, zip, spaces, spacesInfo, refreshEstablishments }) {
   const classes = useStyles();
 
   return (
@@ -47,7 +47,7 @@ export default function EstablishmentCard({ id, name, type, address, city, state
                 <Typography className={classes.detalleEspaciosTitle}>+ Detalle de los espacios</Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <SpacesContainer spaces={spacesInfo} />
+                <SpacesContainer spaces={spacesInfo} refreshEstablishments={refreshEstablishments} />
               </AccordionDetails>
             </Accordion>
           </Grid>

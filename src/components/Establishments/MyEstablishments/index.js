@@ -7,6 +7,8 @@ export default class MyEstablishments extends React.Component {
   constructor(props) {
     super(props);
     this.state = { establishments: [] };
+
+    this.getCurrentEstablishments = this.getCurrentEstablishments.bind(this);
   }
 
   async componentDidMount() {
@@ -24,6 +26,7 @@ export default class MyEstablishments extends React.Component {
         <AppBar loggedIn={true} />
         <EstablishmentsContainer
           establishments={this.state.establishments}
+          refreshEstablishments={this.getCurrentEstablishments}
         />
       </div>
     );

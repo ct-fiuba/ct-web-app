@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Grid, TextField, FormControlLabel, Checkbox, Select, MenuItem, FormControl, InputLabel, Card, CardContent } from '@material-ui/core';
 import useStyles from './styles';
 
-export default function NewSingleSpaceForm({initialState, index, obtainInfo, storeType}) {
+export default function NewSingleSpaceForm({ initialState, index, obtainInfo, storeType }) {
   const classes = useStyles();
   const [state, setState] = useState(initialState);
 
@@ -32,10 +32,10 @@ export default function NewSingleSpaceForm({initialState, index, obtainInfo, sto
               <TextField required name="name" value={state.name} onChange={handleChange} label="Nombre del espacio" fullWidth />
             </Grid>
             <Grid item xs={12}>
-              <TextField required type="number" name="m2"  value={state.m2} onChange={handleChange} label="Metros cuadrados" fullWidth />
+              <TextField required type="number" name="m2" value={state.m2} onChange={handleChange} label="Metros cuadrados" fullWidth />
             </Grid>
             <Grid item xs={12} md={6}>
-              <TextField type="number" name="estimatedVisitDuration"  value={state.estimatedVisitDuration} onChange={handleChange} label="Tiempo promedio de visita (min)" fullWidth />
+              <TextField type="number" name="estimatedVisitDuration" value={state.estimatedVisitDuration} onChange={handleChange} label="Tiempo promedio de visita (min)" fullWidth />
             </Grid>
             <Grid item xs={12} md={6}>
               <FormControl fullWidth>

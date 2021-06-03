@@ -4,7 +4,7 @@ import { Card, CardContent, Grid, Typography } from '@material-ui/core';
 import SpaceToggle from '../SpaceToggle';
 import SpacePDFButton from '../SpacePDFButton';
 
-export default function SpaceCard({ id, name, m2, hasExit,  estimatedVisitDuration, enabled, n95Mandatory, establishmentId }) {
+export default function SpaceCard({ id, name, m2, hasExit,  estimatedVisitDuration, enabled, n95Mandatory, establishmentId, refreshEstablishments }) {
   const classes = useStyles();
 
   return (
@@ -34,7 +34,7 @@ export default function SpaceCard({ id, name, m2, hasExit,  estimatedVisitDurati
           </CardContent>
         </Grid>
         <Grid item xs={4} className={classes.buttonsGroup}>
-          <SpaceToggle spaceId={id} establishmentId={establishmentId} isEnabled={enabled} />
+          <SpaceToggle spaceId={id} establishmentId={establishmentId} isEnabled={enabled} refreshEstablishments={refreshEstablishments} />
           <SpacePDFButton spaceId={id} establishmentId={establishmentId} />
         </Grid>
       </Grid>

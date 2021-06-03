@@ -1,7 +1,7 @@
 import React from "react";
 import EstablishmentCard from "../EstablishmentCard";
 
-export default function Establishment({ establishment }) {
+export default function Establishment({ establishment, refreshEstablishments }) {
 	return (<EstablishmentCard id={establishment.id}
 		name={establishment.name}
 		type={establishment.type}
@@ -12,5 +12,6 @@ export default function Establishment({ establishment }) {
 		zip={establishment.zip}
 		spaces={establishment.spaces}
 		spacesInfo={establishment.spacesInfo}
+		refreshEstablishments={refreshEstablishments}
 	/>);
 }

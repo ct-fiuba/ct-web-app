@@ -4,8 +4,9 @@ import EstablishmentDetailsForm from '../EstablishmentDetailsForm';
 import NewSpacesForm from '../NewSpacesForm';
 import ConfirmationForm from '../ConfirmationForm';
 import useStyles from './styles';
+import * as establishmentsService from '../../../../services/establishmentsService';
 
-export default function NewEstablishmentForm() {
+export default function NewEstablishmentForm({ confirmCallback }) {
   const [state, setState] = useState({
     firstStepInfo: {
       type: '',
@@ -31,9 +32,10 @@ export default function NewEstablishmentForm() {
   const [secondStepComplete, setSecondStepComplete] = useState(false);
   const steps = ['Detalles del establecimiento', 'Espacios', 'Confirmación'];
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (activeStep === 2) {
-      sendDataToServer();
+      await establishmentsService.createNewEstablishment(constructBody());
+      await confirmCallback();
     }
     setActiveStep(activeStep + 1);
   };
@@ -70,25 +72,10 @@ export default function NewEstablishmentForm() {
     let body = { ...state.firstStepInfo, spaces: state.secondStepInfo };
     body['openPlace'] = body['openPlace'] === 'no' ? false : true;
     if (body['type'] !== 'hospital') {
-		  body.spaces.forEach(space => space['n95Mandatory'] = false);
+      body.spaces.forEach(space => space['n95Mandatory'] = false);
     }
     body['ownerId'] = sessionStorage.getItem('userId');
     return body;
-  };
-
-  const sendDataToServer = () => {
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'access-token': sessionStorage.getItem('accessToken') },
-      body: JSON.stringify(constructBody())
-    };
-    fetch(process.env.REACT_APP_USER_API_URL + '/establishments', requestOptions)
-      .then(response => response.json())
-      .then(data => {
-        const establishment_id = data['_id'];
-        window.open(process.env.REACT_APP_USER_API_URL + '/establishments/PDF/' + establishment_id, '_blank');
-      })
-      .catch(err => console.log('Error at fetch: ', err));
   };
 
   const getStepContent = (step) => {
@@ -96,7 +83,7 @@ export default function NewEstablishmentForm() {
       case 0:
         return <EstablishmentDetailsForm initialState={{ ...state.firstStepInfo }} completeFunction={changeFirstStepState} obtainInfo={obtainFirstStepInfo} />;
       case 1:
-        return <NewSpacesForm initialState={state.secondStepInfo} completeFunction={changeSecondStepState} obtainInfo={obtainSecondStepInfo} storeType={state.firstStepInfo.type}/>;
+        return <NewSpacesForm initialState={state.secondStepInfo} completeFunction={changeSecondStepState} obtainInfo={obtainSecondStepInfo} storeType={state.firstStepInfo.type} />;
       case 2:
         return <ConfirmationForm firstStepInfo={{ ...state.firstStepInfo }} secondStepInfo={state.secondStepInfo} />;
       default:

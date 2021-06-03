@@ -4,7 +4,7 @@ import useStyles from './styles';
 import EstablishmentsList from '../EstablishmentsList';
 import NewEstablishmentButton from "../NewEstablishmentButton";
 
-export default function EstablishmentsContainer({ establishments }) {
+export default function EstablishmentsContainer({ establishments, refreshEstablishments }) {
 	const [state, setState] = useState({ establishments: establishments || [] });
 	const classes = useStyles();
 
@@ -19,10 +19,10 @@ export default function EstablishmentsContainer({ establishments }) {
 					<h1>Mis establecimientos</h1>
 				</Grid>
 				<Grid item xs={4}>
-					<NewEstablishmentButton />
+					<NewEstablishmentButton refreshEstablishments={refreshEstablishments} />
 				</Grid>
 				<Grid item xs={12}>
-					<EstablishmentsList establishments={state.establishments} />
+					<EstablishmentsList establishments={state.establishments} refreshEstablishments={refreshEstablishments} />
 				</Grid>
 			</Grid>
 		</div>

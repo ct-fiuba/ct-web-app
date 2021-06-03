@@ -11,6 +11,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Tooltip from '@material-ui/core/Tooltip';
 import HelpIcon from '@material-ui/icons/Help';
 import * as establishmentsService from '../../../services/establishmentsService';
+import * as sessionUtils from '../../../utils/sessionUtils';
 
 const IOSSwitch = withStyles((theme) => ({
   root: {
@@ -66,7 +67,7 @@ const IOSSwitch = withStyles((theme) => ({
   );
 });
 
-export default function SpaceToggle({ spaceId, establishmentId, isEnabled }) {
+export default function SpaceToggle({ spaceId, establishmentId, isEnabled, refreshEstablishments }) {
   const classes = useStyles();
   const [enabled, setEnabled] = React.useState(isEnabled);
   const [openModal, setOpenModal] = React.useState(false);
@@ -80,9 +81,9 @@ export default function SpaceToggle({ spaceId, establishmentId, isEnabled }) {
     const res = await establishmentsService.updateSpace(spaceId, establishmentId, !enabled);
     if (res.status === 201) {
       setEnabled(!enabled);
-      window.location.reload();
+      await refreshEstablishments();
     } else {
-      alert("Error " + res.status);
+      sessionUtils.signOut();
     }
   }
 

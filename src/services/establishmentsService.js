@@ -6,7 +6,7 @@ export async function getEstablishments() {
 	})
 		.then(response => response.json())
 		.then(data => {
-			if (data.includes('has expired')) {
+			if (data instanceof String && data.includes('has expired')) {
 				sessionUtils.signOut();
 			}
 			for (let establishment of data) {
@@ -52,11 +52,28 @@ export async function createNewEstablishment(establishmentInfo) {
 	fetch(process.env.REACT_APP_USER_API_URL + '/establishments', requestOptions)
 		.then(response => response.json())
 		.then(data => {
-			if (data.includes('has expired')) {
+			if (data instanceof String && data.includes('has expired')) {
 				return sessionUtils.signOut();
 			}
 			const establishment_id = data['_id'];
 			window.open(process.env.REACT_APP_USER_API_URL + '/establishments/PDF/' + establishment_id, '_blank');
+		})
+		.catch(err => console.log('Error at fetch: ', err));
+};
+
+export async function addSingleSpace(spaceInfo) {
+	const requestOptions = {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json', 'access-token': sessionStorage.getItem('accessToken') },
+		body: JSON.stringify(spaceInfo)
+	};
+	return fetch(process.env.REACT_APP_USER_API_URL + '/establishments/space', requestOptions)
+		.then(response => response.json())
+		.then(data => {
+			if (data instanceof String && data.includes('has expired')) {
+				return sessionUtils.signOut();
+			}
+			return data;
 		})
 		.catch(err => console.log('Error at fetch: ', err));
 };

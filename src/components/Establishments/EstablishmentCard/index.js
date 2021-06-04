@@ -46,7 +46,12 @@ export default function EstablishmentCard({ id, name, type, address, city, state
               spaces={spacesInfo}
               refreshEstablishments={refreshEstablishments}
             />
-            <NewSpaceButton establishmentId={id} />
+            <NewSpaceButton
+              establishmentId={id}
+              name={name}
+              type={type}
+              refreshEstablishments={refreshEstablishments}
+            />
             <EstablishmentPDFButton establishmentId={id} />
           </Grid>
           <Grid item xs={12}>
@@ -59,7 +64,7 @@ export default function EstablishmentCard({ id, name, type, address, city, state
                 <Typography className={classes.detalleEspaciosTitle}>+ Detalle de los espacios</Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <SpacesContainer spaces={spacesInfo} refreshEstablishments={refreshEstablishments} />
+                <SpacesContainer initialSpaces={spacesInfo} refreshEstablishments={refreshEstablishments} />
               </AccordionDetails>
             </Accordion>
           </Grid>

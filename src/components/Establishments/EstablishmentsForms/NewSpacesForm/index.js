@@ -49,9 +49,9 @@ export default function NewSpacesForm({ initialState, completeFunction, obtainIn
 				hasExit: false,
 			}
 		}
-		let newSpaces = JSON.parse(JSON.stringify(state.saces));
+		let newSpaces = JSON.parse(JSON.stringify(state.spaces));
 		newSpaces.push(newSpace);
-		setState({ ...state, Spaces: newSpaces });
+		setState({ ...state, spaces: newSpaces });
 	}
 
 	const checkCompleteness = () => {

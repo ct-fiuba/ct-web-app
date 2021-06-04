@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   layout: {
     width: '900px',
-    height: '500px',
+    height: '550px',
     margin: '60px',
   },
   header: {
@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
     padding: theme.spacing(2),
-    height: '500px',
+    paddingBottom: '80px !important',
     [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
       marginTop: theme.spacing(6),
       marginBottom: theme.spacing(6),
@@ -26,8 +26,6 @@ const useStyles = makeStyles((theme) => ({
   buttons: {
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing(1),
-    display: 'flex',
-    justifyContent: 'flex-end',
     float: 'right'
   },
 }));

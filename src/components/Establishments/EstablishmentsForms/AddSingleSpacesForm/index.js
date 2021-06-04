@@ -1,20 +1,18 @@
 import React, { useState } from 'react';
 import { CssBaseline, Paper, Button, Typography } from '@material-ui/core';
-import EstablishmentDetailsForm from '../EstablishmentDetailsForm';
+import NewSpacesForm from '../NewSpacesForm';
 import useStyles from './styles';
 import * as establishmentsService from '../../../../services/establishmentsService';
 
-export default function EditEstablishmentForm({ id, initialType, initialName, initialAddress, initialCity, initialState, initialZip, initialCountry, initialSpaces, confirmCallback }) {
-  const [state, setState] = useState({
-    type: initialType,
-    name: initialName,
-    address: initialAddress,
-    city: initialCity,
-    state: initialState,
-    zip: initialZip,
-    country: initialCountry,
-    spaces: initialSpaces,
-  });
+export default function AddSingleSpacesForm({ establishmentId, type, name, confirmCallback }) {
+  const [spaces, setSpaces] = useState([{
+    name: '',
+    m2: '',
+    estimatedVisitDuration: '',
+    openPlace: '',
+    n95Mandatory: false,
+    hasExit: false,
+  }]);
   const [confirmButtonEnabled, setConfirmButtonEnabled] = useState(false);
   const classes = useStyles();
 
@@ -23,19 +21,29 @@ export default function EditEstablishmentForm({ id, initialType, initialName, in
   };
 
   const obtainInfo = (info) => {
-    setState({ ...info });
+    setSpaces(info);
   };
 
   const constructBody = () => {
-    let body = { ...state };
-    body['openPlace'] = body['openPlace'] === 'no' ? false : true;
-    body['ownerId'] = sessionStorage.getItem('userId');
-    body['_id'] = id;
+    let body = Object.values(spaces);
+    body.forEach(x => {
+      x['ownerId'] = sessionStorage.getItem('userId');
+      x['establishmentId'] = establishmentId;
+    })
     return body;
   };
 
   const handleConfirm = async () => {
-    await establishmentsService.updateEstablishment(id, constructBody());
+    const body = constructBody();
+    let generatedResponse = []
+    await Promise.all(body.map(async (spaceInfo) => {
+      try {
+        let insertResponse = await establishmentsService.addSingleSpace(spaceInfo);
+        generatedResponse.push(insertResponse)
+      } catch (error) {
+        console.log('error'+ error);
+      }
+    }));
     await confirmCallback();
   }
 
@@ -45,11 +53,11 @@ export default function EditEstablishmentForm({ id, initialType, initialName, in
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center" className={classes.header}>
-            {`Edición del establecimiento ${initialName}`}
+            {`Crear espacios para ${name}`}
           </Typography>
           <React.Fragment>
             <React.Fragment>
-              <EstablishmentDetailsForm initialState={{ ...state }} completeFunction={completeFunction} obtainInfo={obtainInfo} />
+              <NewSpacesForm initialState={spaces} completeFunction={completeFunction} obtainInfo={obtainInfo} storeType={type} />
               <Button 
                 variant="contained"
                 color="primary"

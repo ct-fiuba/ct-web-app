@@ -8,8 +8,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import * as establishmentsService from '../../../services/establishmentsService';
+import AddSingleSpacesForm from '../EstablishmentsForms/AddSingleSpacesForm';
 
-export default function NewSpaceButton({ establishmentId }) {
+export default function NewSpaceButton({ establishmentId, name, type, refreshEstablishments }) {
   const classes = useStyles();
   const [openModal, setOpenModal] = React.useState(false);
 
@@ -18,7 +19,8 @@ export default function NewSpaceButton({ establishmentId }) {
     setOpenModal(true);
   };
 
-  const handleConfirmModal = async () => {
+  const confirmCallback = async () => {
+    await refreshEstablishments();
     handleCloseModal();
   }
 
@@ -41,19 +43,16 @@ export default function NewSpaceButton({ establishmentId }) {
       <Dialog
         open={openModal}
         onClose={handleCloseModal}
+        maxWidth={'lg'}
       >
-        <DialogTitle>{`Creación de nuevos espacios`}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Acá iría el form para crear nuevos espacios
+            <AddSingleSpacesForm establishmentId={establishmentId} type={type} name={name} confirmCallback={confirmCallback} />
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseModal} color="primary" autoFocus>
-            Cancelar
-          </Button>
-          <Button onClick={handleConfirmModal} color="primary">
-            Confirmar
+            Cerrar
           </Button>
         </DialogActions>
       </Dialog>

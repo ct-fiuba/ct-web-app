@@ -57,7 +57,6 @@ export default function EditEstablishmentButton({ establishmentId, name, type, a
               initialCountry={country}
               initialZip={zip}
               initialSpaces={spaces}
-              refreshEstablishments={refreshEstablishments}
               confirmCallback={handleConfirm}
             />
           </DialogContentText>

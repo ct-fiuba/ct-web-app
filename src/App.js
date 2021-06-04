@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import './App.css';
-import NewEstablishmentForm from './components/Establishments/EstablishmentsForms/NewEstablishmentForm';
 import Rules from './components/Rules/Rules';
 import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignIn/SignUp';
@@ -27,8 +26,7 @@ class App extends Component {
   }
 
   signedIn() {
-    const usuarioId = sessionStorage.getItem('accessToken')
-    return usuarioId !== '-1';
+    return sessionStorage.getItem('accessToken') !== '-1'
   }
 
   signedInAdmin(component) {
@@ -60,9 +58,6 @@ class App extends Component {
       <Router>
         <div>
           <Switch>
-            <Route path="/nuevoEstablecimiento">
-              {this.signedInOwner(<NewEstablishmentForm />)}
-            </Route>
             <Route path="/misEstablecimientos">
               {this.signedInOwner(<MyEstablishments />)}
             </Route>

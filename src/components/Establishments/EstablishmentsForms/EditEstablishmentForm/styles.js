@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
     padding: theme.spacing(2),
-    height: '500px',
     [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
       marginTop: theme.spacing(6),
       marginBottom: theme.spacing(6),
@@ -26,9 +25,9 @@ const useStyles = makeStyles((theme) => ({
   buttons: {
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing(1),
-    display: 'flex',
-    justifyContent: 'flex-end',
-    float: 'right'
+    display: 'block',
+    height: 'fit-content',
+    textAlign: 'right'
   },
 }));
 

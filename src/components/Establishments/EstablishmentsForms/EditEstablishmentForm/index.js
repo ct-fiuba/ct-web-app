@@ -50,15 +50,16 @@ export default function EditEstablishmentForm({ id, initialType, initialName, in
           <React.Fragment>
             <React.Fragment>
               <EstablishmentDetailsForm initialState={{ ...state }} completeFunction={completeFunction} obtainInfo={obtainInfo} />
-              <Button 
-                variant="contained"
-                color="primary"
-                onClick={handleConfirm}
-                className={classes.buttons}
-                disabled={!confirmButtonEnabled}
-              >
-                Confirmar
+              <div className={classes.buttons}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleConfirm}
+                  disabled={!confirmButtonEnabled}
+                >
+                  Confirmar
               </Button>
+              </div>
             </React.Fragment>
           </React.Fragment>
         </Paper>

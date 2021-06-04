@@ -27,6 +27,15 @@ const useStyles = makeStyles((theme) => ({
 			marginLeft: 'auto',
 			marginRight: 'auto',
 		}
+	},
+	circularProgress: {
+		width: '70px !important',
+		height: '70px !important',
+	},
+	circularProgressContainer: {
+		textAlign: 'center',
+		marginTop: '200px',	
+		marginBottom: '200px',	
 	}
 }));
 

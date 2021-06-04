@@ -4,7 +4,7 @@ import useStyles from './styles';
 import NewReleasesIcon from '@material-ui/icons/NewReleases';
 import Typography from '@material-ui/core/Typography';
 
-export default function NoEstablishmentsMessage() {
+export default function NoRulesMessage() {
 	const classes = useStyles();
 
 	return (
@@ -15,7 +15,7 @@ export default function NoEstablishmentsMessage() {
 						<NewReleasesIcon className={classes.icon} />
 					</div>
 					<Typography className={classes.message} variant="h6" component="h6">
-						¡Es momento de registrar tu primer establecimiento!
+						¡Es momento de crear tu primera regla de contagio!
 					</Typography>
 				</Grid>
 			</Grid>

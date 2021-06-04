@@ -15,6 +15,9 @@ export function getOwnerSignInUrl() {
 
 export async function validateAdminAccessToken() {
 	const accessToken = sessionStorage.getItem('accessToken');
+	if (accessToken === '-1') {
+		return false;
+	}
 	const requestOptions = {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
@@ -26,6 +29,9 @@ export async function validateAdminAccessToken() {
 
 export async function validateOwnerAccessToken() {
 	const accessToken = sessionStorage.getItem('accessToken');
+	if (accessToken === '-1') {
+		return false;
+	}
 	const requestOptions = {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },

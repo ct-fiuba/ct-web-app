@@ -6,7 +6,7 @@ import * as establishmentsService from '../../../services/establishmentsService'
 export default class MyEstablishments extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { establishments: [] };
+    this.state = { establishments: null };
 
     this.getCurrentEstablishments = this.getCurrentEstablishments.bind(this);
   }

@@ -1,6 +1,9 @@
 import * as sessionUtils from '../utils/sessionUtils';
 
 export async function getEstablishments() {
+	if (!await sessionUtils.validateOwnerAccessToken()) {
+		sessionUtils.signOut();
+	}
 	return fetch(process.env.REACT_APP_USER_API_URL + '/establishments/owner/' + sessionStorage.getItem('userId'), {
 		headers: { 'access-token': sessionStorage.getItem('accessToken') }
 	})
@@ -18,6 +21,9 @@ export async function getEstablishments() {
 }
 
 export async function updateSpace(spaceId, establishmentId, enabled) {
+	if (!await sessionUtils.validateOwnerAccessToken()) {
+		sessionUtils.signOut();
+	}
 	const requestOptions = {
 		method: 'PUT',
 		headers: { 'Content-Type': 'application/json', 'access-token': sessionStorage.getItem('accessToken') },
@@ -27,6 +33,9 @@ export async function updateSpace(spaceId, establishmentId, enabled) {
 }
 
 export async function updateEstablishment(establishmentId, establishmentInfo) {
+	if (!await sessionUtils.validateOwnerAccessToken()) {
+		sessionUtils.signOut();
+	}
 	const requestOptions = {
 		method: 'PUT',
 		headers: { 'Content-Type': 'application/json', 'access-token': sessionStorage.getItem('accessToken') },
@@ -44,6 +53,9 @@ export async function downloadEstablishmentPDF(establishmentId) {
 }
 
 export async function createNewEstablishment(establishmentInfo) {
+	if (!await sessionUtils.validateOwnerAccessToken()) {
+		sessionUtils.signOut();
+	}
 	const requestOptions = {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json', 'access-token': sessionStorage.getItem('accessToken') },
@@ -62,6 +74,9 @@ export async function createNewEstablishment(establishmentInfo) {
 };
 
 export async function addSingleSpace(spaceInfo) {
+	if (!await sessionUtils.validateOwnerAccessToken()) {
+		sessionUtils.signOut();
+	}
 	const requestOptions = {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json', 'access-token': sessionStorage.getItem('accessToken') },

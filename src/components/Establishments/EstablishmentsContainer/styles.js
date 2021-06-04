@@ -13,6 +13,18 @@ const useStyles = makeStyles((theme) => ({
 			marginLeft: 'auto',
 			marginRight: 'auto',
 		}
+	},
+	title: {
+		fontSize: '56px',
+		color: 'darkslategrey'
+	},
+	circularProgress: {
+		width: '70px !important',
+		height: '70px !important',
+	},
+	circularProgressContainer: {
+		textAlign: 'center',
+		marginTop: '200px',	
 	}
 }));
 

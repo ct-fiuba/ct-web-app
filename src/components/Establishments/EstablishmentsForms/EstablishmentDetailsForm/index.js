@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Typography, TextField, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
+import { Grid, TextField, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
 
 export default function EstablishmentDetailsForm({ initialState, obtainInfo, completeFunction }) {
   useEffect(() => {

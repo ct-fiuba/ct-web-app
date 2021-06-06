@@ -11,10 +11,10 @@ const cmpSpaces = (a, b) => {
 	}
 }
 
-const SpacesList = React.memo(function SpacesList({ spaces, refreshEstablishments }) {
+const SpacesList = React.memo(function SpacesList({ spaces, establishmentType, refreshEstablishments }) {
 	spaces.sort(cmpSpaces);
 	return spaces.map((space) => (
-		<Space space={space} key={space._id} refreshEstablishments={refreshEstablishments} />
+		<Space space={{...space, establishmentType}} key={space._id} refreshEstablishments={refreshEstablishments} />
 	));
 });
 

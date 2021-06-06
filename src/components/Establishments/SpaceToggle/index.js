@@ -78,7 +78,7 @@ export default function SpaceToggle({ spaceId, establishmentId, isEnabled, refre
 
   const handleConfirmModal = async () => {
     handleCloseModal();
-    const res = await establishmentsService.updateSpace(spaceId, establishmentId, !enabled);
+    const res = await establishmentsService.updateSpace(spaceId, { establishmentId, enabled: !enabled });
     if (res.status === 201) {
       setEnabled(!enabled);
       await refreshEstablishments();

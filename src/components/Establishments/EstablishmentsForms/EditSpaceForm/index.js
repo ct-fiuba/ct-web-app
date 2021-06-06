@@ -1,41 +1,40 @@
 import React, { useState } from 'react';
 import { CssBaseline, Paper, Button, Typography } from '@material-ui/core';
-import EstablishmentDetailsForm from '../EstablishmentDetailsForm';
 import useStyles from './styles';
 import * as establishmentsService from '../../../../services/establishmentsService';
+import NewSingleSpaceForm from '../NewSingleSpaceForm';
 
-export default function EditEstablishmentForm({ id, initialType, initialName, initialAddress, initialCity, initialState, initialZip, initialCountry, initialSpaces, confirmCallback }) {
+export default function EditSpaceForm({ spaceId, establishmentId, establishmentType, initialName, initialM2, initialEstimatedVisitDuration, initialOpenPlace, initialN95Mandatory, initialHasExit, confirmCallback }) {
   const [state, setState] = useState({
-    type: initialType,
     name: initialName,
-    address: initialAddress,
-    city: initialCity,
-    state: initialState,
-    zip: initialZip,
-    country: initialCountry,
-    spaces: initialSpaces,
+    m2: initialM2,
+    estimatedVisitDuration: initialEstimatedVisitDuration,
+    openPlace: initialOpenPlace ? 'yes' : 'no',
+    n95Mandatory: initialN95Mandatory,
+    hasExit: initialHasExit,
   });
-  const [confirmButtonEnabled, setConfirmButtonEnabled] = useState(false);
+  const [confirmButtonEnabled, setConfirmButtonEnabled] = useState(true);
   const classes = useStyles();
 
-  const completeFunction = (value) => {
-    setConfirmButtonEnabled(value);
-  };
+	const allFieldsCompleted = (space) => {
+		return (space.name !== '' &&
+			space.m2 !== '' &&
+			space.openPlace !== '');
+	}
 
-  const obtainInfo = (info) => {
+  const obtainInfo = (_index, info) => {
     setState({ ...info });
+    setConfirmButtonEnabled(allFieldsCompleted({ ...info }));
   };
 
   const constructBody = () => {
-    let body = { ...state };
-    body['openPlace'] = body['openPlace'] === 'no' ? false : true;
-    body['ownerId'] = sessionStorage.getItem('userId');
-    body['_id'] = id;
+    let body = { ...state, establishmentId: establishmentId };
+    body['openPlace'] = body['openPlace'] === 'yes';
     return body;
   };
 
   const handleConfirm = async () => {
-    await establishmentsService.updateEstablishment(id, constructBody());
+    await establishmentsService.updateSpace(spaceId, constructBody());
     await confirmCallback();
   }
 
@@ -45,11 +44,11 @@ export default function EditEstablishmentForm({ id, initialType, initialName, in
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center" className={classes.header}>
-            Edición del establecimiento <b>{`${initialName}`}</b>
+            Edición del espacio <b>{`${initialName}`}</b>
           </Typography>
           <React.Fragment>
             <React.Fragment>
-              <EstablishmentDetailsForm initialState={{ ...state }} completeFunction={completeFunction} obtainInfo={obtainInfo} />
+              <NewSingleSpaceForm initialState={{ ...state }} obtainInfo={obtainInfo} storeType={establishmentType} />
               <div className={classes.buttons}>
                 <Button
                   variant="contained"

@@ -6,9 +6,9 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import EditEstablishmentForm from '../EstablishmentsForms/EditEstablishmentForm';
+import EditSpaceForm from '../EstablishmentsForms/EditSpaceForm';
 
-export default function EditEstablishmentButton({ establishmentId, name, type, address, city, state, country, zip, spaces, refreshEstablishments }) {
+export default function EditSpaceButton({ spaceId, establishmentId, establishmentType, name, m2, estimatedVisitDuration, openPlace, n95Mandatory, hasExit, refreshEstablishments }) {
   const classes = useStyles();
   const [openModal, setOpenModal] = React.useState(false);
 
@@ -35,7 +35,7 @@ export default function EditEstablishmentButton({ establishmentId, name, type, a
         startIcon={<EditIcon />}
         onClick={handleOpenModal}
       >
-        Editar establecimiento
+        Editar espacio
     </Button>
 
       <Dialog
@@ -45,16 +45,16 @@ export default function EditEstablishmentButton({ establishmentId, name, type, a
       >
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            <EditEstablishmentForm
-              id={establishmentId}
+            <EditSpaceForm
+              spaceId={spaceId}
+              establishmentId={establishmentId}
+              establishmentType={establishmentType}
               initialName={name}
-              initialType={type}
-              initialAddress={address}
-              initialCity={city}
-              initialState={state}
-              initialCountry={country}
-              initialZip={zip}
-              initialSpaces={spaces}
+              initialM2={m2}
+              initialEstimatedVisitDuration={estimatedVisitDuration}
+              initialOpenPlace={openPlace}
+              initialN95Mandatory={n95Mandatory}
+              initialHasExit={hasExit}
               confirmCallback={handleConfirm}
             />
           </DialogContentText>

@@ -3,7 +3,7 @@ import { Grid } from '@material-ui/core';
 import useStyles from './styles';
 import SpacesList from '../SpacesList';
 
-export default function SpacesContainer({ initialSpaces, refreshEstablishments }) {
+export default function SpacesContainer({ initialSpaces, establishmentType, refreshEstablishments }) {
 	const [spaces, setSpaces] = useState([...initialSpaces] || []);
 	const classes = useStyles();
 
@@ -15,7 +15,7 @@ export default function SpacesContainer({ initialSpaces, refreshEstablishments }
 		<div className={classes.divContainer}>
 			<Grid container>
 				<Grid item xs={12}>
-					<SpacesList spaces={spaces} refreshEstablishments={refreshEstablishments} />
+					<SpacesList spaces={spaces} establishmentType={establishmentType} refreshEstablishments={refreshEstablishments} />
 				</Grid>
 			</Grid>
 		</div>

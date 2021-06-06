@@ -64,7 +64,7 @@ export default function EstablishmentCard({ id, name, type, address, city, state
                 <Typography className={classes.detalleEspaciosTitle}>+ Detalle de los espacios</Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <SpacesContainer initialSpaces={spacesInfo} refreshEstablishments={refreshEstablishments} />
+                <SpacesContainer initialSpaces={spacesInfo} establishmentType={type} refreshEstablishments={refreshEstablishments} />
               </AccordionDetails>
             </Accordion>
           </Grid>

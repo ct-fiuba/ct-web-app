@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CssBaseline, Paper, Stepper, Step, StepLabel, Button, Link, Typography } from '@material-ui/core';
+import { CssBaseline, Paper, Stepper, Step, StepLabel, Button, Typography } from '@material-ui/core';
 import EstablishmentDetailsForm from '../EstablishmentDetailsForm';
 import NewSpacesForm from '../NewSpacesForm';
 import ConfirmationForm from '../ConfirmationForm';

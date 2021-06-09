@@ -5,12 +5,12 @@ export function signOut() {
 	window.location.replace("/");
 }
 
-export function getAdminSignInUrl() {
-	return process.env.REACT_APP_AUTH_SERVER_URL + '/admins/signIn';
+export function getAdminLogInUrl() {
+	return process.env.REACT_APP_AUTH_SERVER_URL + '/admins/logIn';
 }
 
-export function getOwnerSignInUrl() {
-	return process.env.REACT_APP_AUTH_SERVER_URL + '/owners/signIn';
+export function getOwnerLogInUrl() {
+	return process.env.REACT_APP_AUTH_SERVER_URL + '/owners/logIn';
 }
 
 export async function validateAdminAccessToken() {

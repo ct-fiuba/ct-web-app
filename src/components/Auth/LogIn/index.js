@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import { Avatar, Button, CssBaseline, TextField, Link, Grid, Typography, Container } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import SignInAlerts from '../SignInAlerts';
+import LogInAlerts from '../LogInAlerts';
 import AppBar from '../../Shared/AppBar';
 import useStyles from './styles';
 
-export default function SignUp() {
+export default function LogIn({ logInUrl, isOwnerLogIn }) {
 	const classes = useStyles();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [invalidEmailError, setInvalidEmailError] = useState(false);
 	const [emailNotFoundError, setEmailNotFoundError] = useState(false);
 	const [invalidPasswordError, setInvalidPasswordError] = useState(false);
+	const [notAdminError, setNotAdminError] = useState(false);
+	const [notOwnerError, setNotOwnerError] = useState(false);
 
 	const handleCloseInvalidEmail = () => {
 		setInvalidEmailError(false);
@@ -23,6 +25,14 @@ export default function SignUp() {
 
 	const handleCloseInvalidPassword = () => {
 		setInvalidPasswordError(false);
+	}
+
+	const handleCloseNotAdmin = () => {
+		setNotAdminError(false);
+	}
+
+	const handleCloseNotOwner = () => {
+		setNotOwnerError(false);
 	}
 
 	const handleEmailChange = (event) => {
@@ -38,41 +48,47 @@ export default function SignUp() {
 		setPassword("");
 	}
 
-	const handleSignUpButton = () => {
+	const handleLogInButton = () => {
 		const requestOptions = {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ email, password })
 		};
-		fetch(process.env.REACT_APP_AUTH_SERVER_URL + '/owners/signUp', requestOptions)
+		fetch(logInUrl, requestOptions)
 			.then(response => response.json())
-			.then(dataSignUp => {
-				if (dataSignUp.hasOwnProperty('reason')) {
-					if (dataSignUp['reason'] === "INVALID_EMAIL") {
+			.then(dataLogIn => {
+				if (dataLogIn.hasOwnProperty('reason')) {
+					if (dataLogIn['reason'] === "INVALID_EMAIL") {
 						setInvalidEmailError(true);
 					}
-					if (dataSignUp['reason'] === "INVALID_PASSWORD" || dataSignUp['reason'] === "MISSING_PASSWORD") {
+					if (dataLogIn['reason'] === "INVALID_PASSWORD" || dataLogIn['reason'] === "MISSING_PASSWORD") {
 						setInvalidPasswordError(true);
 					}
-					if (dataSignUp['reason'] === "EMAIL_NOT_FOUND") {
+					if (dataLogIn['reason'] === "EMAIL_NOT_FOUND") {
 						setEmailNotFoundError(true);
+					}
+					if (dataLogIn['reason'].includes("admin")) {
+						setNotAdminError(true);
+					}
+					if (dataLogIn['reason'].includes("owner")) {
+						setNotOwnerError(true);
 					}
 					clearInputs();
 					return;
 				}
-				if (dataSignUp.hasOwnProperty('role')) {
-					sessionStorage.setItem('accessToken', dataSignUp['accessToken']);
-					sessionStorage.setItem('userId', dataSignUp['userId']);
-					sessionStorage.setItem('role', dataSignUp['role']);
-					if (dataSignUp['role'] === "admin") {
+				if (dataLogIn.hasOwnProperty('role')) {
+					sessionStorage.setItem('accessToken', dataLogIn['accessToken']);
+					sessionStorage.setItem('userId', dataLogIn['userId']);
+					sessionStorage.setItem('role', dataLogIn['role']);
+					if (dataLogIn['role'] === "admin") {
 						window.location.replace("/reglas");
 					}
-					if (dataSignUp['role'] === "owner") {
-						window.location.replace("/misEstablecimientos");
+					if (dataLogIn['role'] === "owner") {
+						window.location.replace("/establecimientos");
 					}
 				}
 			})
-			.catch(err => console.log('Error al crear cuenta: ', err));
+			.catch(err => console.log('Error al iniciar sesión: ', err));
 	}
 
 	return (
@@ -85,7 +101,7 @@ export default function SignUp() {
 						<LockOutlinedIcon />
 					</Avatar>
 					<Typography component="h1" variant="h5">
-						Crear cuenta de establecimiento
+						Iniciar Sesión como {isOwnerLogIn ? 'Establecimiento' : 'Administrador'}
         </Typography>
 					<form className={classes.form} noValidate>
 						<TextField
@@ -119,26 +135,38 @@ export default function SignUp() {
 							variant="contained"
 							color="primary"
 							className={classes.submit}
-							onClick={handleSignUpButton}
+							onClick={handleLogInButton}
 						>
-							Crear cuenta
+							Iniciar Sesión
           </Button>
 						<Grid container>
 							<Grid item xs={12}>
-								<Link href={'/owner/signin'} variant="body2">
-									¿Ya tenes cuenta?
+								<Link href={`/${isOwnerLogIn ? 'owner' : 'admin'}/forgotPassword`} variant="body2">
+									¿Olvidaste tu contraseña?
               </Link>
 							</Grid>
+							{
+								isOwnerLogIn &&
+								<Grid item xs={12}>
+									<Link href={'/owner/signup'} variant="body2">
+										¿No tenes cuenta?
+									</Link>
+								</Grid>
+							}
 						</Grid>
 					</form>
 				</div>
-				<SignInAlerts
+				<LogInAlerts
 					invalidEmail={invalidEmailError}
 					handleCloseInvalidEmail={handleCloseInvalidEmail}
 					emailNotFound={emailNotFoundError}
 					handleCloseEmailNotFound={handleCloseEmailNotFound}
 					invalidPassword={invalidPasswordError}
 					handleCloseInvalidPassword={handleCloseInvalidPassword}
+					notAdmin={notAdminError}
+					handleCloseNotAdmin={handleCloseNotAdmin}
+					notOwner={notOwnerError}
+					handleCloseNotOwner={handleCloseNotOwner}
 				/>
 			</Container>
 		</div>

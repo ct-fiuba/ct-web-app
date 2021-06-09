@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import './App.css';
 import Rules from './components/Rules/Rules';
-import SignIn from './components/SignIn/SignIn';
-import SignUp from './components/SignIn/SignUp';
+import LogIn from './components/Auth/LogIn';
+import SignUp from './components/Auth/SignUp';
 import Home from './components/Home';
 import {
   BrowserRouter as Router,
@@ -10,7 +10,7 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-import ForgotPassword from './components/SignIn/ForgotPassword';
+import ForgotPassword from './components/Auth/ForgotPassword';
 import * as sessionUtils from './utils/sessionUtils';
 import MyEstablishments from './components/Establishments/MyEstablishments';
 
@@ -25,30 +25,30 @@ class App extends Component {
     }
   }
 
-  signedIn() {
+  logedIn() {
     return sessionStorage.getItem('accessToken') !== '-1'
   }
 
-  signedInAdmin(component) {
-    if (this.signedIn() && sessionStorage.getItem('role') === 'admin') {
+  logedInAdmin(component) {
+    if (this.logedIn() && sessionStorage.getItem('role') === 'admin') {
         return component;
     }
-    return <Redirect to="/admin/signIn" />
+    return <Redirect to="/admin/logIn" />
   }
 
-  signedInOwner(component) {
-    if (this.signedIn() && sessionStorage.getItem('role') === 'owner') {
+  logedInOwner(component) {
+    if (this.logedIn() && sessionStorage.getItem('role') === 'owner') {
         return component;
     }
-    return <Redirect to="/owner/signIn" />
+    return <Redirect to="/owner/logIn" />
   }
 
-  redirectIfSignedIn(component) {
-    if (this.signedIn() && sessionStorage.getItem('role') === 'admin') {
+  redirectIfLogedIn(component) {
+    if (this.logedIn() && sessionStorage.getItem('role') === 'admin') {
       return <Redirect to="/reglas" />
     }
-    if (this.signedIn() && sessionStorage.getItem('role') === 'owner') {
-      return <Redirect to="/misEstablecimientos" />
+    if (this.logedIn() && sessionStorage.getItem('role') === 'owner') {
+      return <Redirect to="/establecimientos" />
     }
     return component;
   }
@@ -58,26 +58,26 @@ class App extends Component {
       <Router>
         <div>
           <Switch>
-            <Route path="/misEstablecimientos">
-              {this.signedInOwner(<MyEstablishments />)}
+            <Route path="/establecimientos">
+              {this.logedInOwner(<MyEstablishments />)}
             </Route>
-            <Route path="/admin/signIn">
-              {this.redirectIfSignedIn(<SignIn signInUrl={sessionUtils.getAdminSignInUrl()} isOwnerSignIn={false} />)}
+            <Route path="/admin/login">
+              {this.redirectIfLogedIn(<LogIn logInUrl={sessionUtils.getAdminLogInUrl()} isOwnerLogIn={false} />)}
             </Route>
-            <Route path="/owner/signIn">
-              {this.redirectIfSignedIn(<SignIn signInUrl={sessionUtils.getOwnerSignInUrl()} isOwnerSignIn={true} />)}
+            <Route path="/owner/login">
+              {this.redirectIfLogedIn(<LogIn logInUrl={sessionUtils.getOwnerLogInUrl()} isOwnerLogIn={true} />)}
             </Route>
             <Route path="/owner/signUp">
-              {this.redirectIfSignedIn(<SignUp />)}
+              {this.redirectIfLogedIn(<SignUp />)}
             </Route>
             <Route path="/admin/forgotPassword">
-              {this.redirectIfSignedIn(<ForgotPassword isOwnerSignIn={false} />)}
+              {this.redirectIfLogedIn(<ForgotPassword isOwnerLogIn={false} />)}
             </Route>
             <Route path="/owner/forgotPassword">
-              {this.redirectIfSignedIn(<ForgotPassword isOwnerSignIn={true} />)}
+              {this.redirectIfLogedIn(<ForgotPassword isOwnerLogIn={true} />)}
             </Route>
             <Route path="/reglas">
-              {this.signedInAdmin(<Rules />)}
+              {this.logedInAdmin(<Rules />)}
             </Route>
             <Route path="/">
               <Home />

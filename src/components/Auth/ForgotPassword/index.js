@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Avatar, Button, CssBaseline, TextField, Link, Grid, Typography, Container } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import SignInAlerts from '../SignInAlerts';
+import LogInAlerts from '../LogInAlerts';
 import AppBar from '../../Shared/AppBar';
 import useStyles from './styles';
 
-export default function ForgotPassword({isOwnerSignIn}) {
+export default function ForgotPassword({isOwnerLogIn}) {
 	const classes = useStyles();
 	const [email, setEmail] = useState("");
 	const [invalidEmailError, setInvalidEmailError] = useState(false);
@@ -97,14 +97,14 @@ export default function ForgotPassword({isOwnerSignIn}) {
           </Button>
 						<Grid container>
 							<Grid item xs>
-								<Link href={`/${isOwnerSignIn ? 'owner' : 'admin'}/signIn`} variant="body2">
+								<Link href={`/${isOwnerLogIn ? 'owner' : 'admin'}/logIn`} variant="body2">
 									Iniciar sesión
               </Link>
 							</Grid>
 						</Grid>
 					</form>
 				</div>
-				<SignInAlerts
+				<LogInAlerts
 					invalidEmail={invalidEmailError}
 					handleCloseInvalidEmail={handleCloseInvalidEmail}
 					emailNotFound={emailNotFoundError}

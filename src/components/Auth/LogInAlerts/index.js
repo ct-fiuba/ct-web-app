@@ -2,7 +2,7 @@ import React from 'react';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { Snackbar } from '@material-ui/core';
 
-export default function SignInAlerts({invalidEmail, invalidPassword, handleCloseInvalidEmail, handleCloseInvalidPassword, emailNotFound, handleCloseEmailNotFound, notAdmin, handleCloseNotAdmin, notOwner, handleCloseNotOwner, successPasswordReset, handleCloseSuccessPasswordReset}) {
+export default function LogInAlerts({invalidEmail, invalidPassword, handleCloseInvalidEmail, handleCloseInvalidPassword, emailNotFound, handleCloseEmailNotFound, notAdmin, handleCloseNotAdmin, notOwner, handleCloseNotOwner, successPasswordReset, handleCloseSuccessPasswordReset}) {
   return (
     <div>
       <Snackbar open={invalidEmail} autoHideDuration={5000} onClose={handleCloseInvalidEmail}>

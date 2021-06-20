@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Grid, TextField, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
 
 export default function EstablishmentDetailsForm({ initialState, obtainInfo, completeFunction }) {
+  const [state, setState] = useState(initialState);
+
   useEffect(() => {
     checkCompleteness();
-  });
-
-  const [state, setState] = useState(initialState);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state]);
 
   const allFieldsCompleted = (new_state) => {
     return (new_state &&

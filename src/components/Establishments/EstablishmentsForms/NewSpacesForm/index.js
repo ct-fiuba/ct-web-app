@@ -19,9 +19,10 @@ export default function NewSpacesForm({ initialState, completeFunction, obtainIn
 
 	const [state, setState] = useState(transformInitialState());
 
-	useEffect(() => {
-		checkCompleteness();
-	});
+  useEffect(() => {
+    checkCompleteness();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state]);
 
 	const isAllCompleted = (newSpaces) => {
 		let result = true;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import NewSingleSpaceForm from '../NewSingleSpaceForm'
 import { Button } from '@material-ui/core';
 import useStyles from './styles';
@@ -19,16 +19,11 @@ export default function NewSpacesForm({ initialState, completeFunction, obtainIn
 
 	const [state, setState] = useState(transformInitialState());
 
-  useEffect(() => {
-    checkCompleteness();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state]);
-
-	const isAllCompleted = (newSpaces) => {
+	const isAllCompleted = useCallback((newSpaces) => {
 		let result = true;
 		newSpaces.forEach(space => result = result && allFieldsCompleted(space.data));
 		return result;
-	}
+	}, []);
 
 	const allFieldsCompleted = (space) => {
 		return (space.name !== '' &&
@@ -55,9 +50,9 @@ export default function NewSpacesForm({ initialState, completeFunction, obtainIn
 		setState({ ...state, spaces: newSpaces });
 	}
 
-	const checkCompleteness = () => {
+	const checkCompleteness = useCallback(() => {
 		completeFunction(isAllCompleted(state.spaces));
-	}
+	}, [completeFunction, isAllCompleted, state.spaces]);
 
 	const reportInfo = (newSpaces) => {
 		let result = [];
@@ -72,6 +67,10 @@ export default function NewSpacesForm({ initialState, completeFunction, obtainIn
 		reportInfo(newSpaces);
 		setState({ ...state, spaces: newSpaces });
 	}
+
+	useEffect(() => {
+    checkCompleteness();
+  }, [state, checkCompleteness]);
 
 	return (
 		<React.Fragment>

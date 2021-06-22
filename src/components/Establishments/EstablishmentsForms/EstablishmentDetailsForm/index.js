@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Grid, TextField, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
 
 export default function EstablishmentDetailsForm({ initialState, obtainInfo, completeFunction }) {
   const [state, setState] = useState(initialState);
 
-  useEffect(() => {
-    checkCompleteness();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state]);
-
-  const allFieldsCompleted = (new_state) => {
+  const allFieldsCompleted = useCallback((new_state) => {
     return (new_state &&
       new_state.type !== '' &&
       new_state.name !== '' &&
@@ -18,7 +13,7 @@ export default function EstablishmentDetailsForm({ initialState, obtainInfo, com
       new_state.state !== '' &&
       new_state.zip !== '' &&
       new_state.country !== '');
-  }
+  }, []);
 
   const handleChangeType = (event) => {
     updateFieldsAndCheck('type', event.target.value);
@@ -56,9 +51,13 @@ export default function EstablishmentDetailsForm({ initialState, obtainInfo, com
     }
   }
 
-  const checkCompleteness = () => {
+  const checkCompleteness = useCallback(() => {
     completeFunction(allFieldsCompleted(state));
-  }
+  }, [completeFunction, allFieldsCompleted, state]);
+
+  useEffect(() => {
+    checkCompleteness();
+  }, [state, checkCompleteness]);
 
   return (
     <React.Fragment>

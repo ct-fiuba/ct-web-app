@@ -2,14 +2,13 @@ import React from 'react';
 import { AppBar, Toolbar, Typography, Button, IconButton} from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import useStyles from './styles';
+import * as sessionUtils from '../../../utils/sessionUtils';
 
 export default function SimpleAppBar({loggedIn}) {
 	const classes = useStyles();
 
 	const signOut = () => {
-		localStorage.setItem('userId', -1);
-		localStorage.setItem('role', "");
-		window.location.replace("/reglas");
+		sessionUtils.signOut();
 	}
 
 	const goHome = () => {

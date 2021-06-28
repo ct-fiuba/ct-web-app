@@ -11,7 +11,7 @@ export default class Rules extends React.Component {
     this.deleteRule = this.deleteRule.bind(this);
     this.addRule = this.addRule.bind(this);
     this.saveChanges = this.saveChanges.bind(this);
-    this.state = { rules: [], max_index: 0, savedRules: [], canSaveChanges: false};
+    this.state = { rules: null, max_index: 0, savedRules: [], canSaveChanges: false};
   }
 
   async componentDidMount() {

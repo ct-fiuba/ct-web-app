@@ -43,7 +43,6 @@ export default function SimulateRulesButton(props) {
   }
 
   const simulateRules = (config) => {
-    console.log(config);
     setSimulateRuleResult(null);
     setLoading(true);
     simulateAPI(config);

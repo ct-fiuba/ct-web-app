@@ -102,7 +102,7 @@ export default function LogIn({ logInUrl, isOwnerLogIn }) {
 					</Avatar>
 					<Typography component="h1" variant="h5">
 						Iniciar Sesión como {isOwnerLogIn ? 'Establecimiento' : 'Administrador'}
-        </Typography>
+					</Typography>
 					<form className={classes.form} noValidate>
 						<TextField
 							variant="outlined"
@@ -138,12 +138,12 @@ export default function LogIn({ logInUrl, isOwnerLogIn }) {
 							onClick={handleLogInButton}
 						>
 							Iniciar Sesión
-          </Button>
+						</Button>
 						<Grid container>
 							<Grid item xs={12}>
 								<Link href={`/${isOwnerLogIn ? 'owner' : 'admin'}/forgotPassword`} variant="body2">
 									¿Olvidaste tu contraseña?
-              </Link>
+								</Link>
 							</Grid>
 							{
 								isOwnerLogIn &&

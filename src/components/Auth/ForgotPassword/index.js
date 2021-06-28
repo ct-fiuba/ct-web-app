@@ -68,10 +68,10 @@ export default function ForgotPassword({isOwnerLogIn}) {
 					</Avatar>
 					<Typography component="h1" variant="h5">
 						Recuperar contraseña
-        	</Typography>
+					</Typography>
 					<Typography component="h8" variant="h8">
 						Ingresá el email asociado a tu cuenta para poder enviar un correo de recuperación de contraseña
-        	</Typography>
+					</Typography>
 					<form className={classes.form} noValidate>
 						<TextField
 							variant="outlined"
@@ -94,12 +94,12 @@ export default function ForgotPassword({isOwnerLogIn}) {
 							onClick={handleForgotPasswordButton}
 						>
 							Enviar mail
-          </Button>
+						</Button>
 						<Grid container>
 							<Grid item xs>
 								<Link href={`/${isOwnerLogIn ? 'owner' : 'admin'}/logIn`} variant="body2">
 									Iniciar sesión
-              </Link>
+								</Link>
 							</Grid>
 						</Grid>
 					</form>

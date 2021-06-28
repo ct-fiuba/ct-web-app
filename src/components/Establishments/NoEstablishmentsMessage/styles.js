@@ -15,9 +15,9 @@ const useStyles = makeStyles((theme) => ({
 		color: 'lightgrey',
 	},
 	message: {
-    fontSize: '25px',
-    color: 'grey',
-    textAlign: '-webkit-center',
+		fontSize: '25px',
+		color: 'grey',
+		textAlign: '-webkit-center',
 	}
 }));
 

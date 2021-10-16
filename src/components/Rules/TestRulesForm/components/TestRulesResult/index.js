@@ -37,11 +37,11 @@ export default function TestRulesResult({rule, notMatch}) {
                 {rule.vaccinatedDaysAgoMin !== undefined && ` hace no menos de ${rule.vaccinatedDaysAgoMin} días`}
                 {rule.vaccinated !== undefined ? <br /> : ''}
 
-                {rule.covidRecovered === undefined && ''}
-                {rule.covidRecovered === false && `Persona que no tuvo COVID-19`}
-                {rule.covidRecovered === true && `Persona recuperada de COVID-19`}
-                {rule.covidRecoveredDaysAgoMax !== undefined && ` hace no más de ${rule.covidRecoveredDaysAgoMax} días`}
-                {rule.covidRecovered !== undefined && <br />}
+                {rule.illnessRecovered === undefined && ''}
+                {rule.illnessRecovered === false && `Persona que no tuvo COVID-19`}
+                {rule.illnessRecovered === true && `Persona recuperada de COVID-19`}
+                {rule.illnessRecoveredDaysAgoMax !== undefined && ` hace no más de ${rule.illnessRecoveredDaysAgoMax} días`}
+                {rule.illnessRecovered !== undefined && <br />}
               </Typography>
             </CardContent>
           </Grid>

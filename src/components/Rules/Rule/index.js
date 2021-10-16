@@ -13,8 +13,8 @@ export default function Rule({ rule, deleteRule }) {
 		vaccinated={rule.vaccinated}
 		vaccineReceived={rule.vaccineReceived}
 		vaccinatedDaysAgoMin={rule.vaccinatedDaysAgoMin}
-		covidRecovered={rule.covidRecovered}
-		covidRecoveredDaysAgoMax={rule.covidRecoveredDaysAgoMax}
+		illnessRecovered={rule.illnessRecovered}
+		illnessRecoveredDaysAgoMax={rule.illnessRecoveredDaysAgoMax}
 		index={rule.index}
 		deleteRule={deleteRule} />);
 }

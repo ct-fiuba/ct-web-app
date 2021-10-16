@@ -1,16 +1,16 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-  titleCovidRecovered: {
+  titleIllnessRecovered: {
     marginTop: '28px',
     textAlign: 'center',
   },
-  formControlCovidRecoveredValue: {
+  formControlIllnessRecoveredValue: {
     margin: theme.spacing(1),
     marginRight: '0px',
     width: '-webkit-fill-available',
   },
-  labelCovidRecoveredValue: {
+  labelIllnessRecoveredValue: {
     marginLeft: '10px',
   },
 }));

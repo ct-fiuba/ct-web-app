@@ -2,33 +2,33 @@ import React from 'react';
 import { Grid, TextField, Checkbox } from '@material-ui/core';
 import useStyles from './styles';
 
-export default function CovidRecoveredDaysInput({checkboxCovidRecoveredDays, handleChangeCheckboxCovidRecoveredDays, covidRecoveredDaysValue, handleCovidRecoveredDaysValueChange}) {
+export default function IllnessRecoveredDaysInput({checkboxIllnessRecoveredDays, handleChangeCheckboxIllnessRecoveredDays, illnessRecoveredDaysValue, handleIllnessRecoveredDaysValueChange}) {
   const classes = useStyles();
-  
+
   return (
     <>
       <Grid item xs={1}>
         <Checkbox
           className={classes.checkboxesSecondary}
-          checked={checkboxCovidRecoveredDays}
+          checked={checkboxIllnessRecoveredDays}
           color="primary"
           inputProps={{ 'aria-label': 'secondary checkbox' }}
-          onChange={handleChangeCheckboxCovidRecoveredDays}
+          onChange={handleChangeCheckboxIllnessRecoveredDays}
         />
       </Grid>
       <Grid item xs={3}>
-        <h4 className={classes.titleCovidRecoveredDays}>Recuperada hace menos de (en días)</h4>
+        <h4 className={classes.titleIllnessRecoveredDays}>Recuperada hace menos de (en días)</h4>
       </Grid>
       <Grid item xs={8}>
         <TextField
-          id="covidRecoveredDaysValue"
+          id="illnessRecoveredDaysValue"
           type="number"
           helperText="en días"
           variant="outlined"
-          onChange={handleCovidRecoveredDaysValueChange}
-          value={covidRecoveredDaysValue}
-          className={classes.covidRecoveredDaysValue}
-          disabled={!checkboxCovidRecoveredDays}
+          onChange={handleIllnessRecoveredDaysValueChange}
+          value={illnessRecoveredDaysValue}
+          className={classes.illnessRecoveredDaysValue}
+          disabled={!checkboxIllnessRecoveredDays}
         />
       </Grid>
     </>

@@ -1,13 +1,13 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-  titleCovidRecoveredDays: {
+  titleIllnessRecoveredDays: {
     marginTop: '27px',
     marginLeft: '10px',
     marginRight: '5px',
     textAlign: 'center',
   },
-  covidRecoveredDaysValue: {
+  illnessRecoveredDaysValue: {
     marginTop: '8px',
     margin: theme.spacing(1),
     marginRight: '0px',

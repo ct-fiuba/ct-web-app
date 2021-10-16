@@ -4,7 +4,7 @@ import { Draggable } from "react-beautiful-dnd";
 import DeleteRuleButton from '../DeleteRuleButton';
 import useStyles from './styles';
 
-export default function RuleCard({id, index, contagionRisk, durationCmp, durationValue, m2Cmp, m2Value, openSpace, n95Mandatory, vaccinated, vaccineReceived, vaccinatedDaysAgoMin, covidRecovered, covidRecoveredDaysAgoMax, deleteRule}) {
+export default function RuleCard({id, index, contagionRisk, durationCmp, durationValue, m2Cmp, m2Value, openSpace, n95Mandatory, vaccinated, vaccineReceived, vaccinatedDaysAgoMin, illnessRecovered, illnessRecoveredDaysAgoMax, deleteRule}) {
   const classes = useStyles();
 
   return (
@@ -46,11 +46,11 @@ export default function RuleCard({id, index, contagionRisk, durationCmp, duratio
                     {vaccinatedDaysAgoMin !== undefined && ` hace no menos de ${vaccinatedDaysAgoMin} días`}
                     {vaccinated !== undefined && <br />}
 
-                    {covidRecovered === undefined && ''}
-                    {covidRecovered === false && `Persona que no tuvo COVID-19`}
-                    {covidRecovered === true && `Persona recuperada de COVID-19`}
-                    {covidRecoveredDaysAgoMax !== undefined && ` hace no más de ${covidRecoveredDaysAgoMax} días`}
-                    {covidRecovered !== undefined && <br />}
+                    {illnessRecovered === undefined && ''}
+                    {illnessRecovered === false && `Persona que no tuvo COVID-19`}
+                    {illnessRecovered === true && `Persona recuperada de COVID-19`}
+                    {illnessRecoveredDaysAgoMax !== undefined && ` hace no más de ${illnessRecoveredDaysAgoMax} días`}
+                    {illnessRecovered !== undefined && <br />}
 
                   </Typography>
                 </CardContent>

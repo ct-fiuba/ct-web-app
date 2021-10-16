@@ -9,8 +9,8 @@ import N95MandatoryInput from './components/N95MandatoryInput';
 import VaccinatedInput from './components/VaccinatedInput';
 import VaccineReceivedInput from './components/VaccineReceivedInput';
 import VaccinatedDaysInput from './components/VaccinatedDaysInput';
-import CovidRecoveredInput from './components/CovidRecoveredInput';
-import CovidRecoveredDaysInput from './components/CovidRecoveredDaysInput';
+import IllnessRecoveredInput from './components/IllnessRecoveredInput';
+import IllnessRecoveredDaysInput from './components/IllnessRecoveredDaysInput';
 import useStyles from './styles';
 
 export default function AddRuleForm({addRule, handleClose}) {
@@ -26,8 +26,8 @@ export default function AddRuleForm({addRule, handleClose}) {
   const [vaccinatedValue, setVaccinatedValue] = useState('');
   const [vaccineReceivedValue, setVaccineReceivedValue] = useState('');
   const [vaccinatedDaysValue, setVaccinatedDaysValue] = useState('');
-  const [covidRecoveredValue, setCovidRecoveredValue] = useState('');
-  const [covidRecoveredDaysValue, setCovidRecoveredDaysValue] = useState('');
+  const [illnessRecoveredValue, setIllnessRecoveredValue] = useState('');
+  const [illnessRecoveredDaysValue, setIllnessRecoveredDaysValue] = useState('');
 
   const [checkboxDuration, setCheckboxDuration] = useState(false);
   const [checkboxM2, setCheckboxM2] = useState(false);
@@ -36,11 +36,11 @@ export default function AddRuleForm({addRule, handleClose}) {
   const [checkboxVaccinated, setCheckboxVaccinated] = useState(false);
   const [checkboxVaccineReceived, setCheckboxVaccineReceived] = useState(false);
   const [checkboxVaccinatedDays, setCheckboxVaccinatedDays] = useState(false);
-  const [checkboxCovidRecovered, setCheckboxCovidRecovered] = useState(false);
-  const [checkboxCovidRecoveredDays, setCheckboxCovidRecoveredDays] = useState(false);
+  const [checkboxIllnessRecovered, setCheckboxIllnessRecovered] = useState(false);
+  const [checkboxIllnessRecoveredDays, setCheckboxIllnessRecoveredDays] = useState(false);
 
   const [vaccineDetailsVisible, setVaccineDetailsVisible] = useState(false);
-  const [covidRecoveredDetailsVisible, setCovidRecoveredDetailsVisible] = useState(false);
+  const [illnessRecoveredDetailsVisible, setIllnessRecoveredDetailsVisible] = useState(false);
 
   const [durationMissing, setDurationMissing] = useState(false);
   const [m2Missing, setM2Missing] = useState(false);
@@ -49,8 +49,8 @@ export default function AddRuleForm({addRule, handleClose}) {
   const [vaccinatedMissing, setVaccinatedMissing] = useState(false);
   const [vaccineReceivedMissing, setVaccineReceivedMissing] = useState(false);
   const [vaccinatedDaysMissing, setVaccinatedDaysMissing] = useState(false);
-  const [covidRecoveredMissing, setCovidRecoveredMissing] = useState(false);
-  const [covidRecoveredDaysMissing, setCovidRecoveredDaysMissing] = useState(false);
+  const [illnessRecoveredMissing, setIllnessRecoveredMissing] = useState(false);
+  const [illnessRecoveredDaysMissing, setIllnessRecoveredDaysMissing] = useState(false);
   const [riskMissing, setRiskMissing] = useState(false);
   const [noCheckbox, setNoCheckbox] = useState(false);
 
@@ -95,13 +95,13 @@ export default function AddRuleForm({addRule, handleClose}) {
     setVaccinatedDaysValue(event.target.value);
   }
 
-  const handleCovidRecoveredValueChange = (event) => {
-    setCovidRecoveredValue(event.target.value);
-    setCovidRecoveredDetailsVisible(event.target.value);
+  const handleIllnessRecoveredValueChange = (event) => {
+    setIllnessRecoveredValue(event.target.value);
+    setIllnessRecoveredDetailsVisible(event.target.value);
   }
 
-  const handleCovidRecoveredDaysValueChange = (event) => {
-    setCovidRecoveredDaysValue(event.target.value);
+  const handleIllnessRecoveredDaysValueChange = (event) => {
+    setIllnessRecoveredDaysValue(event.target.value);
   }
 
   const handleChangeCheckboxDuration = () => {
@@ -160,21 +160,21 @@ export default function AddRuleForm({addRule, handleClose}) {
     setCheckboxVaccinatedDays(!checkboxVaccinatedDays);
   }
 
-  const handleChangeCheckboxCovidRecovered = () => {
-    if (checkboxCovidRecovered) {
-      setCovidRecoveredValue('');
-      setCovidRecoveredDaysValue('');
-      setCovidRecoveredDetailsVisible(false);
-      setCheckboxCovidRecoveredDays(false);
+  const handleChangeCheckboxIllnessRecovered = () => {
+    if (checkboxIllnessRecovered) {
+      setIllnessRecoveredValue('');
+      setIllnessRecoveredDaysValue('');
+      setIllnessRecoveredDetailsVisible(false);
+      setCheckboxIllnessRecoveredDays(false);
     }
-    setCheckboxCovidRecovered(!checkboxCovidRecovered);
+    setCheckboxIllnessRecovered(!checkboxIllnessRecovered);
   }
 
-  const handleChangeCheckboxCovidRecoveredDays = () => {
-    if (checkboxCovidRecoveredDays) {
-      setCovidRecoveredDaysValue('');
+  const handleChangeCheckboxIllnessRecoveredDays = () => {
+    if (checkboxIllnessRecoveredDays) {
+      setIllnessRecoveredDaysValue('');
     }
-    setCheckboxCovidRecoveredDays(!checkboxCovidRecoveredDays);
+    setCheckboxIllnessRecoveredDays(!checkboxIllnessRecoveredDays);
   }
 
   const handleCloseDurationMissing = () => {
@@ -205,12 +205,12 @@ export default function AddRuleForm({addRule, handleClose}) {
     setVaccinatedDaysMissing(false);
   }
 
-  const handleCloseCovidRecoveredMissing = () => {
-    setCovidRecoveredMissing(false);
+  const handleCloseIllnessRecoveredMissing = () => {
+    setIllnessRecoveredMissing(false);
   }
 
-  const handleCloseCovidRecoveredDaysMissing = () => {
-    setCovidRecoveredDaysMissing(false);
+  const handleCloseIllnessRecoveredDaysMissing = () => {
+    setIllnessRecoveredDaysMissing(false);
   }
 
   const handleCloseRiskMissing = () => {
@@ -276,22 +276,22 @@ export default function AddRuleForm({addRule, handleClose}) {
       }
     }
 
-    if (checkboxCovidRecovered) {
-      if (covidRecoveredValue === '') {
-        setCovidRecoveredMissing(true);
+    if (checkboxIllnessRecovered) {
+      if (illnessRecoveredValue === '') {
+        setIllnessRecoveredMissing(true);
         return false;
       }
     }
 
-    if (checkboxCovidRecoveredDays) {
-      if (covidRecoveredDaysValue === '' || covidRecoveredDaysValue <= 0) {
-        setCovidRecoveredDaysMissing(true);
+    if (checkboxIllnessRecoveredDays) {
+      if (illnessRecoveredDaysValue === '' || illnessRecoveredDaysValue <= 0) {
+        setIllnessRecoveredDaysMissing(true);
         return false;
       }
     }
 
 
-    if (!checkboxDuration && !checkboxM2 && !checkboxSpace && !checkboxN95Mandatory && !checkboxVaccinated && !checkboxCovidRecovered) {
+    if (!checkboxDuration && !checkboxM2 && !checkboxSpace && !checkboxN95Mandatory && !checkboxVaccinated && !checkboxIllnessRecovered) {
       setNoCheckbox(true);
       return false;
     }
@@ -329,10 +329,10 @@ export default function AddRuleForm({addRule, handleClose}) {
       }
     }
 
-    if (checkboxCovidRecovered) {
-      rule['covidRecovered'] = covidRecoveredValue;
-      if (checkboxCovidRecoveredDays) {
-        rule['covidRecoveredDaysAgoMax'] = covidRecoveredDaysValue;
+    if (checkboxIllnessRecovered) {
+      rule['illnessRecovered'] = illnessRecoveredValue;
+      if (checkboxIllnessRecoveredDays) {
+        rule['illnessRecoveredDaysAgoMax'] = illnessRecoveredDaysValue;
       }
     }
 
@@ -374,11 +374,11 @@ export default function AddRuleForm({addRule, handleClose}) {
         </>
       }
 
-      <CovidRecoveredInput checkboxCovidRecovered={checkboxCovidRecovered} handleChangeCheckboxCovidRecovered={handleChangeCheckboxCovidRecovered} covidRecoveredValue={covidRecoveredValue} handleCovidRecoveredValueChange={handleCovidRecoveredValueChange}/>
+      <IllnessRecoveredInput checkboxIllnessRecovered={checkboxIllnessRecovered} handleChangeCheckboxIllnessRecovered={handleChangeCheckboxIllnessRecovered} illnessRecoveredValue={illnessRecoveredValue} handleIllnessRecoveredValueChange={handleIllnessRecoveredValueChange}/>
 
       {
-        covidRecoveredDetailsVisible &&
-          <CovidRecoveredDaysInput checkboxCovidRecoveredDays={checkboxCovidRecoveredDays} handleChangeCheckboxCovidRecoveredDays={handleChangeCheckboxCovidRecoveredDays} covidRecoveredDaysValue={covidRecoveredDaysValue} handleCovidRecoveredDaysValueChange={handleCovidRecoveredDaysValueChange}/>
+        illnessRecoveredDetailsVisible &&
+          <IllnessRecoveredDaysInput checkboxIllnessRecoveredDays={checkboxIllnessRecoveredDays} handleChangeCheckboxIllnessRecoveredDays={handleChangeCheckboxIllnessRecoveredDays} illnessRecoveredDaysValue={illnessRecoveredDaysValue} handleIllnessRecoveredDaysValueChange={handleIllnessRecoveredDaysValueChange}/>
       }
 
       <Grid item xs={12} className={classes.buttonsGrid}>
@@ -405,10 +405,10 @@ export default function AddRuleForm({addRule, handleClose}) {
         handleCloseVaccineReceivedMissing={handleCloseVaccineReceivedMissing}
         vaccinatedDaysMissing={vaccinatedDaysMissing}
         handleCloseVaccinatedDaysMissing={handleCloseVaccinatedDaysMissing}
-        covidRecoveredMissing={covidRecoveredMissing}
-        handleCloseCovidRecoveredMissing={handleCloseCovidRecoveredMissing}
-        covidRecoveredDaysMissing={covidRecoveredDaysMissing}
-        handleCloseCovidRecoveredDaysMissing={handleCloseCovidRecoveredDaysMissing}
+        illnessRecoveredMissing={illnessRecoveredMissing}
+        handleCloseIllnessRecoveredMissing={handleCloseIllnessRecoveredMissing}
+        illnessRecoveredDaysMissing={illnessRecoveredDaysMissing}
+        handleCloseIllnessRecoveredDaysMissing={handleCloseIllnessRecoveredDaysMissing}
         riskMissing={riskMissing}
         handleCloseRiskMissing={handleCloseRiskMissing}
         noCheckbox={noCheckbox}

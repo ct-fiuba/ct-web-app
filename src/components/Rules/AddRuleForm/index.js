@@ -21,7 +21,7 @@ export default function AddRuleForm({addRule, handleClose}) {
   const [durationValue, setDurationValue] = useState('');
   const [m2Cmp, setM2Cmp] = useState('');
   const [m2Value, setM2Value] = useState('');
-  const [spaceValue, setSpaceValue] = useState('');
+  const [openSpace, setOpenSpace] = useState('');
   const [n95MandatoryValue, setN95MandatoryValue] = useState('');
   const [vaccinatedValue, setVaccinatedValue] = useState('');
   const [vaccineReceivedValue, setVaccineReceivedValue] = useState('');
@@ -74,8 +74,8 @@ export default function AddRuleForm({addRule, handleClose}) {
     setM2Value(event.target.value);
   }
 
-  const handleSpaceValueChange = (event) => {
-    setSpaceValue(event.target.value);
+  const handleOpenSpaceChange = (event) => {
+    setOpenSpace(event.target.value);
   }
 
   const handleN95MandatoryValueChange = (event) => {
@@ -122,7 +122,7 @@ export default function AddRuleForm({addRule, handleClose}) {
 
   const handleChangeCheckboxSpace = () => {
     if (checkboxSpace) {
-      setSpaceValue('');
+      setOpenSpace('');
     }
     setCheckboxSpace(!checkboxSpace);
   }
@@ -242,7 +242,7 @@ export default function AddRuleForm({addRule, handleClose}) {
     }
 
     if (checkboxSpace) {
-      if (!spaceValue) {
+      if (openSpace === '') {
         setSpaceMissing(true);
         return false;
       }
@@ -312,7 +312,7 @@ export default function AddRuleForm({addRule, handleClose}) {
     }
 
     if (checkboxSpace) {
-      rule['spaceValue'] = spaceValue;
+      rule['openSpace'] = openSpace;
     }
 
     if (checkboxN95Mandatory) {
@@ -357,7 +357,7 @@ export default function AddRuleForm({addRule, handleClose}) {
 
       <DurationInput checkboxDuration={checkboxDuration} handleChangeCheckboxDuration={handleChangeCheckboxDuration} durationCmp={durationCmp} handleDurationCmpChange={handleDurationCmpChange} durationValue={durationValue} handleDurationValueChange={handleDurationValueChange}/>
       <M2Input checkboxM2={checkboxM2} handleChangeCheckboxM2={handleChangeCheckboxM2} m2Cmp={m2Cmp} handleM2CmpChange={handleM2CmpChange} m2Value={m2Value} handleM2ValueChange={handleM2ValueChange}/>
-      <SpaceInput checkboxSpace={checkboxSpace} handleChangeCheckboxSpace={handleChangeCheckboxSpace} spaceValue={spaceValue} handleSpaceValueChange={handleSpaceValueChange}/>
+      <SpaceInput checkboxSpace={checkboxSpace} handleChangeCheckboxSpace={handleChangeCheckboxSpace} openSpace={openSpace} handleOpenSpaceChange={handleOpenSpaceChange}/>
       <N95MandatoryInput checkboxN95Mandatory={checkboxN95Mandatory} handleChangeCheckboxN95Mandatory={handleChangeCheckboxN95Mandatory} n95MandatoryValue={n95MandatoryValue} handleN95MandatoryValueChange={handleN95MandatoryValueChange}/>
 
       <Grid item xs={12}>
@@ -375,10 +375,10 @@ export default function AddRuleForm({addRule, handleClose}) {
       }
 
       <CovidRecoveredInput checkboxCovidRecovered={checkboxCovidRecovered} handleChangeCheckboxCovidRecovered={handleChangeCheckboxCovidRecovered} covidRecoveredValue={covidRecoveredValue} handleCovidRecoveredValueChange={handleCovidRecoveredValueChange}/>
-      
+
       {
         covidRecoveredDetailsVisible &&
-          <CovidRecoveredDaysInput checkboxCovidRecoveredDays={checkboxCovidRecoveredDays} handleChangeCheckboxCovidRecoveredDays={handleChangeCheckboxCovidRecoveredDays} covidRecoveredDaysValue={covidRecoveredDaysValue} handleCovidRecoveredDaysValueChange={handleCovidRecoveredDaysValueChange}/>  
+          <CovidRecoveredDaysInput checkboxCovidRecoveredDays={checkboxCovidRecoveredDays} handleChangeCheckboxCovidRecoveredDays={handleChangeCheckboxCovidRecoveredDays} covidRecoveredDaysValue={covidRecoveredDaysValue} handleCovidRecoveredDaysValueChange={handleCovidRecoveredDaysValueChange}/>
       }
 
       <Grid item xs={12} className={classes.buttonsGrid}>
@@ -390,7 +390,7 @@ export default function AddRuleForm({addRule, handleClose}) {
         </Button>
       </Grid>
 
-      <AddRuleFormErrors 
+      <AddRuleFormErrors
         durationMissing={durationMissing}
         handleCloseDurationMissing={handleCloseDurationMissing}
         m2Missing={m2Missing}

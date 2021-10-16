@@ -48,8 +48,8 @@ export default function TestRulesButton({rules}) {
       }
     }
 
-    if (rule.hasOwnProperty('spaceValue')) {
-      space = env.space === rule.spaceValue;
+    if (rule.hasOwnProperty('openSpace')) {
+      space = env.space === rule.openSpace;
     }
 
     if (rule.hasOwnProperty('n95Mandatory')) {

@@ -4,7 +4,7 @@ import { Draggable } from "react-beautiful-dnd";
 import DeleteRuleButton from '../DeleteRuleButton';
 import useStyles from './styles';
 
-export default function RuleCard({id, index, contagionRisk, durationCmp, durationValue, m2Cmp, m2Value, spaceValue, n95Mandatory, vaccinated, vaccineReceived, vaccinatedDaysAgoMin, covidRecovered, covidRecoveredDaysAgoMax, deleteRule}) {
+export default function RuleCard({id, index, contagionRisk, durationCmp, durationValue, m2Cmp, m2Value, openSpace, n95Mandatory, vaccinated, vaccineReceived, vaccinatedDaysAgoMin, covidRecovered, covidRecoveredDaysAgoMax, deleteRule}) {
   const classes = useStyles();
 
   return (
@@ -32,8 +32,8 @@ export default function RuleCard({id, index, contagionRisk, durationCmp, duratio
                     {durationCmp ? <br /> : ''}
                     {m2Cmp ? `Superficie ${m2Cmp === '<' ? "menor a" : "mayor a"} ${m2Value} metros cuadrados` : ''}
                     {m2Cmp ? <br /> : ''}
-                    {spaceValue ? `Ventilación del espacio: ${spaceValue}` : ''}
-                    {spaceValue ? <br /> : ''}
+                    {openSpace ? `Ventilación del espacio: ${openSpace ? 'Abierto' : 'Cerrado'}` : ''}
+                    {openSpace ? <br /> : ''}
 
                     {n95Mandatory !== undefined ? `Uso del N95 ${n95Mandatory ? '' : 'no'} obligatorio` : ''}
                     {n95Mandatory !== undefined ? <br /> : ''}

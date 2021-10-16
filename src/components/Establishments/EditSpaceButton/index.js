@@ -8,7 +8,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import EditSpaceForm from '../EstablishmentsForms/EditSpaceForm';
 
-export default function EditSpaceButton({ spaceId, establishmentId, establishmentType, name, m2, estimatedVisitDuration, openPlace, n95Mandatory, hasExit, refreshEstablishments }) {
+export default function EditSpaceButton({ spaceId, establishmentId, establishmentType, name, m2, estimatedVisitDuration, openSpace, n95Mandatory, hasExit, refreshEstablishments }) {
   const classes = useStyles();
   const [openModal, setOpenModal] = React.useState(false);
 
@@ -52,7 +52,7 @@ export default function EditSpaceButton({ spaceId, establishmentId, establishmen
               initialName={name}
               initialM2={m2}
               initialEstimatedVisitDuration={estimatedVisitDuration}
-              initialOpenPlace={openPlace}
+              initialOpenSpace={openSpace}
               initialN95Mandatory={n95Mandatory}
               initialHasExit={hasExit}
               confirmCallback={handleConfirm}

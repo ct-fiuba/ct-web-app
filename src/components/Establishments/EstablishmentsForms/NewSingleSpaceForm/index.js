@@ -39,17 +39,17 @@ export default function NewSingleSpaceForm({ initialState, index, obtainInfo, st
             </Grid>
             <Grid item xs={12} md={6}>
               <FormControl fullWidth>
-                <InputLabel htmlFor="openPlace">Espacio abierto</InputLabel>
+                <InputLabel htmlFor="openSpace">Espacio abierto</InputLabel>
                 <Select
-                  value={state.openPlace}
+                  value={state.openSpace}
                   onChange={handleChange}
-                  name="openPlace"
-                  inputProps={{ 'aria-label': 'openPlace' }}
+                  name="openSpace"
+                  inputProps={{ 'aria-label': 'openSpace' }}
                   fullWidth
                 >
                   <MenuItem aria-label="None" value=""></MenuItem>
-                  <MenuItem value={'no'}>No</MenuItem>
-                  <MenuItem value={'yes'}>Si</MenuItem>
+                  <MenuItem value={false}>No</MenuItem>
+                  <MenuItem value={true}>Si</MenuItem>
                 </Select>
               </FormControl>
             </Grid>

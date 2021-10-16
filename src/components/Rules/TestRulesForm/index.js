@@ -16,7 +16,7 @@ export default function TestRulesForm({testRules, handleClose}) {
   const classes = useStyles();
 
   const [m2Value, setM2Value] = useState('');
-  const [spaceValue, setSpaceValue] = useState('');
+  const [openSpace, setOpenSpace] = useState('');
   const [n95MandatoryValue, setN95MandatoryValue] = useState('');
   const [vaccinatedValue, setVaccinatedValue] = useState('');
   const [vaccineReceivedValue, setVaccineReceivedValue] = useState('');
@@ -26,7 +26,7 @@ export default function TestRulesForm({testRules, handleClose}) {
 
   const [vaccineDetailsVisible, setVaccineDetailsVisible] = useState(false);
   const [covidRecoveredDetailsVisible, setCovidRecoveredDetailsVisible] = useState(false);
-  
+
   const [m2Missing, setM2Missing] = useState(false);
   const [spaceMissing, setSpaceMissing] = useState(false);
   const [n95MandatoryMissing, setN95MandatoryMissing] = useState(false);
@@ -62,8 +62,8 @@ export default function TestRulesForm({testRules, handleClose}) {
     setM2Value(event.target.value);
   }
 
-  const handleSpaceValueChange = (event) => {
-    setSpaceValue(event.target.value);
+  const handleOpenSpaceChange = (event) => {
+    setOpenSpace(event.target.value);
   }
 
   const handleN95MandatoryValueChange = (event) => {
@@ -147,7 +147,7 @@ export default function TestRulesForm({testRules, handleClose}) {
       return false;
     }
 
-    if (!spaceValue) {
+    if (openSpace === '') {
       setSpaceMissing(true);
       return false;
     }
@@ -208,7 +208,7 @@ export default function TestRulesForm({testRules, handleClose}) {
 
   const buildTestEnv = () => {
     return {
-      space: spaceValue,
+      space: openSpace,
       m2: m2Value,
       duration: calculateDuration() / 60 / 1000,
       n95Mandatory: n95MandatoryValue,
@@ -231,7 +231,7 @@ export default function TestRulesForm({testRules, handleClose}) {
   return (
     <Grid container>
       <M2Input m2Value={m2Value} handleM2ValueChange={handleM2ValueChange} />
-      <SpaceInput spaceValue={spaceValue} handleSpaceValueChange={handleSpaceValueChange} />
+      <SpaceInput openSpace={openSpace} handleOpenSpaceChange={handleOpenSpaceChange} />
       <N95MandatoryInput n95MandatoryValue={n95MandatoryValue} handleN95MandatoryValueChange={handleN95MandatoryValueChange}/>
       <TimePickersInput title={"Visita de la persona contagiada"} startDate={infectedStartDate} handleStartDateChange={handleInfectedStartDateChange} endDate={infectedEndDate} handleEndDateChange={handleInfectedEndDateChange}/>
       <TimePickersInput title={"Visita de la persona sana"} startDate={healthyStartDate} handleStartDateChange={handleHealthyStartDateChange} endDate={healthyEndDate} handleEndDateChange={handleHealthyEndDateChange}/>

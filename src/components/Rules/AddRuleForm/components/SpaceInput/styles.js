@@ -8,12 +8,12 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '28px',
     textAlign: 'center',
   },
-  formControlSpaceValue: {
+  formControlOpenSpace: {
     margin: theme.spacing(1),
     marginRight: '0px',
     width: '-webkit-fill-available',
   },
-  labelSpaceValue: {
+  labelOpenSpace: {
     marginLeft: '10px',
   },
 }));

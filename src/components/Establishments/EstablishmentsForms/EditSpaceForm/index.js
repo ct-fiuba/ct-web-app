@@ -4,12 +4,12 @@ import useStyles from './styles';
 import * as establishmentsService from '../../../../services/establishmentsService';
 import NewSingleSpaceForm from '../NewSingleSpaceForm';
 
-export default function EditSpaceForm({ spaceId, establishmentId, establishmentType, initialName, initialM2, initialEstimatedVisitDuration, initialOpenPlace, initialN95Mandatory, initialHasExit, confirmCallback }) {
+export default function EditSpaceForm({ spaceId, establishmentId, establishmentType, initialName, initialM2, initialEstimatedVisitDuration, initialOpenSpace, initialN95Mandatory, initialHasExit, confirmCallback }) {
   const [state, setState] = useState({
     name: initialName,
     m2: initialM2,
     estimatedVisitDuration: initialEstimatedVisitDuration,
-    openPlace: initialOpenPlace ? 'yes' : 'no',
+    openSpace: initialOpenSpace,
     n95Mandatory: initialN95Mandatory,
     hasExit: initialHasExit,
   });
@@ -19,7 +19,7 @@ export default function EditSpaceForm({ spaceId, establishmentId, establishmentT
 	const allFieldsCompleted = (space) => {
 		return (space.name !== '' &&
 			space.m2 !== '' &&
-			space.openPlace !== '');
+			space.openSpace !== '');
 	}
 
   const obtainInfo = (_index, info) => {
@@ -29,7 +29,6 @@ export default function EditSpaceForm({ spaceId, establishmentId, establishmentT
 
   const constructBody = () => {
     let body = { ...state, establishmentId: establishmentId };
-    body['openPlace'] = body['openPlace'] === 'yes';
     return body;
   };
 

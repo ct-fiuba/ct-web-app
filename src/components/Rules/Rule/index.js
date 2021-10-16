@@ -8,7 +8,7 @@ export default function Rule({ rule, deleteRule }) {
 		durationCmp={rule.durationCmp}
 		m2Value={rule.m2Value}
 		m2Cmp={rule.m2Cmp}
-		spaceValue={rule.spaceValue}
+		openSpace={rule.openSpace}
 		n95Mandatory={rule.n95Mandatory}
 		vaccinated={rule.vaccinated}
 		vaccineReceived={rule.vaccineReceived}

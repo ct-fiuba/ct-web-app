@@ -222,7 +222,7 @@ export default function AddRuleForm({addRule, handleClose}) {
   }
 
   const fieldsValidation = () => {
-    if (!contagionRisk) {
+    if (contagionRisk === '') {
       setRiskMissing(true);
       return false;
     }

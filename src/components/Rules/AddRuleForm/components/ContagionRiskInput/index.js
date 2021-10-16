@@ -4,7 +4,7 @@ import useStyles from './styles';
 
 export default function ContagionRiskInput({contagionRisk, handleContagionRiskChange}) {
   const classes = useStyles();
-  
+
   return (
     <Grid item xs={12} className={classes.gridContagionRisk}>
       <FormControl className={classes.formControlContagionRisk}>
@@ -16,9 +16,9 @@ export default function ContagionRiskInput({contagionRisk, handleContagionRiskCh
           onChange={handleContagionRiskChange}
           variant="outlined"
         >
-          <MenuItem className={classes.optionsContagionRisk} value={'Alto'}>Alto</MenuItem>
-          <MenuItem className={classes.optionsContagionRisk} value={'Medio'}>Medio</MenuItem>
-          <MenuItem className={classes.optionsContagionRisk} value={'Bajo'}>Bajo</MenuItem>
+          <MenuItem className={classes.optionsContagionRisk} value={0}>Alto</MenuItem>
+          <MenuItem className={classes.optionsContagionRisk} value={1}>Medio</MenuItem>
+          <MenuItem className={classes.optionsContagionRisk} value={2}>Bajo</MenuItem>
         </Select>
         <FormHelperText>Riesgo asociado a la regla</FormHelperText>
       </FormControl>

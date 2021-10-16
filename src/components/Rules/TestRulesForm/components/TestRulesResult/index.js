@@ -5,9 +5,15 @@ import useStyles from './styles';
 export default function TestRulesResult({rule, notMatch}) {
   const classes = useStyles();
 
+  const contagionRiskToString = {
+    0: 'Alto',
+    1: 'Medio',
+    2: 'Bajo'
+  }
+
   return (
     <div>
-      { rule && <Card className={`${classes.root} ${rule.contagionRisk === 'Alto' ? classes.highRisk : ''} ${rule.contagionRisk === 'Medio' ? classes.mediumRisk : ''} ${rule.contagionRisk === 'Bajo' ? classes.lowRisk : ''}`}>
+      { rule && <Card className={`${classes.root} ${rule.contagionRisk === 0 ? classes.highRisk : ''} ${rule.contagionRisk === 1 ? classes.mediumRisk : ''} ${rule.contagionRisk === 2 ? classes.lowRisk : ''}`}>
         <Grid container className={classes.gridContainer}>
           <Grid item xs={12}>
             <CardContent>
@@ -17,7 +23,7 @@ export default function TestRulesResult({rule, notMatch}) {
                 {`Id regla: ${rule.id}`}
               </Typography>
               <Typography variant="h5" component="h2">
-                {`Riesgo de contagio `}<strong>{rule.contagionRisk}</strong>
+                {`Riesgo de contagio `}<strong>{contagionRiskToString[rule.contagionRisk]}</strong>
               </Typography>
               <Typography variant="body1" component="p">
                 {rule.durationCmp ? `Duración ${rule.durationCmp === '<' ? "menor a" : "mayor a"} ${rule.durationValue} minutos` : ''}

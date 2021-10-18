@@ -10,7 +10,7 @@ export default function ConfirmationForm({ firstStepInfo, secondStepInfo }) {
 
   const buildSpaceListItem = (space) => {
     let primary_text = space.hasExit ? space.name + " (x2)" : space.name;
-    let secondary_text = `Espacio ${space.openPlace === "yes" ? 'Abierto. ' : 'Cerrado. '}`;
+    let secondary_text = `Espacio ${space.openSpace ? 'Abierto. ' : 'Cerrado. '}`;
     secondary_text = secondary_text.concat(`Tamaño: ${space.m2} m2. `);
     secondary_text = secondary_text.concat(space.estimatedVisitDuration ? `Visita estimada: ${space.estimatedVisitDuration} minutos. ` : '');
     secondary_text = secondary_text.concat(firstStepInfo.type === 'hospital' ? `Uso de N95 ${!space.n95Mandatory ? 'no' : ''} obligatorio.` : '');

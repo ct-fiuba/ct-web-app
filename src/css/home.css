@@ -16,7 +16,7 @@
     letter-spacing: 2px;
 }
 
-.covid {
+.illness {
   display: inline;
   width: 10em;
 }
@@ -24,7 +24,7 @@
 .rotate {
     animation: rotation 8s infinite linear;
 }
-  
+
 @keyframes rotation {
   from {
     transform: rotate(0deg);

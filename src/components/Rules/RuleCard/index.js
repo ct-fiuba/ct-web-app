@@ -4,8 +4,14 @@ import { Draggable } from "react-beautiful-dnd";
 import DeleteRuleButton from '../DeleteRuleButton';
 import useStyles from './styles';
 
-export default function RuleCard({id, index, contagionRisk, durationCmp, durationValue, m2Cmp, m2Value, spaceValue, n95Mandatory, vaccinated, vaccineReceived, vaccinatedDaysAgoMin, covidRecovered, covidRecoveredDaysAgoMax, deleteRule}) {
+export default function RuleCard({id, index, contagionRisk, durationCmp, durationValue, m2Cmp, m2Value, openSpace, n95Mandatory, vaccinated, vaccineReceived, vaccinatedDaysAgoMin, illnessRecovered, illnessRecoveredDaysAgoMax, deleteRule}) {
   const classes = useStyles();
+
+  const contagionRiskToString = {
+    0: 'Alto',
+    1: 'Medio',
+    2: 'Bajo'
+  }
 
   return (
     <Draggable draggableId={`${id}`} index={index}>
@@ -15,7 +21,7 @@ export default function RuleCard({id, index, contagionRisk, durationCmp, duratio
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <Card className={`${classes.root} ${contagionRisk === 'Alto' ? classes.highRisk : ''} ${contagionRisk === 'Medio' ? classes.mediumRisk : ''} ${contagionRisk === 'Bajo' ? classes.lowRisk : ''}`}>
+          <Card className={`${classes.root} ${contagionRisk === 0 ? classes.highRisk : ''} ${contagionRisk === 1 ? classes.mediumRisk : ''} ${contagionRisk === 2 ? classes.lowRisk : ''}`}>
             <Grid container className={classes.gridContainer}>
               <Grid item xs={10}>
                 <CardContent>
@@ -25,15 +31,15 @@ export default function RuleCard({id, index, contagionRisk, durationCmp, duratio
                     {`Id regla: ${id}`}
                   </Typography>
                   <Typography variant="h5" component="h2">
-                    {`Riesgo de contagio `}<strong>{contagionRisk}</strong>
+                    {`Riesgo de contagio `}<strong>{contagionRiskToString[contagionRisk]}</strong>
                   </Typography>
                   <Typography variant="body1" component="p">
                     {durationCmp ? `Duración ${durationCmp === '<' ? "menor a" : "mayor a"} ${durationValue} minutos` : ''}
                     {durationCmp ? <br /> : ''}
                     {m2Cmp ? `Superficie ${m2Cmp === '<' ? "menor a" : "mayor a"} ${m2Value} metros cuadrados` : ''}
                     {m2Cmp ? <br /> : ''}
-                    {spaceValue ? `Ventilación del espacio: ${spaceValue}` : ''}
-                    {spaceValue ? <br /> : ''}
+                    {openSpace ? `Ventilación del espacio: ${openSpace ? 'Abierto' : 'Cerrado'}` : ''}
+                    {openSpace ? <br /> : ''}
 
                     {n95Mandatory !== undefined ? `Uso del N95 ${n95Mandatory ? '' : 'no'} obligatorio` : ''}
                     {n95Mandatory !== undefined ? <br /> : ''}
@@ -46,11 +52,11 @@ export default function RuleCard({id, index, contagionRisk, durationCmp, duratio
                     {vaccinatedDaysAgoMin !== undefined && ` hace no menos de ${vaccinatedDaysAgoMin} días`}
                     {vaccinated !== undefined && <br />}
 
-                    {covidRecovered === undefined && ''}
-                    {covidRecovered === false && `Persona que no tuvo COVID-19`}
-                    {covidRecovered === true && `Persona recuperada de COVID-19`}
-                    {covidRecoveredDaysAgoMax !== undefined && ` hace no más de ${covidRecoveredDaysAgoMax} días`}
-                    {covidRecovered !== undefined && <br />}
+                    {illnessRecovered === undefined && ''}
+                    {illnessRecovered === false && `Persona que no tuvo COVID-19`}
+                    {illnessRecovered === true && `Persona recuperada de COVID-19`}
+                    {illnessRecoveredDaysAgoMax !== undefined && ` hace no más de ${illnessRecoveredDaysAgoMax} días`}
+                    {illnessRecovered !== undefined && <br />}
 
                   </Typography>
                 </CardContent>

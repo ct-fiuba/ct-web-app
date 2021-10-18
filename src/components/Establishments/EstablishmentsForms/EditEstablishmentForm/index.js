@@ -28,7 +28,6 @@ export default function EditEstablishmentForm({ id, initialType, initialName, in
 
   const constructBody = () => {
     let body = { ...state };
-    body['openPlace'] = body['openPlace'] === 'no' ? false : true;
     body['ownerId'] = sessionStorage.getItem('userId');
     body['_id'] = id;
     return body;

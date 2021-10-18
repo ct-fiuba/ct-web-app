@@ -2,7 +2,7 @@ import React from 'react';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { Snackbar } from '@material-ui/core';
 
-export default function AddRuleFormErrors({durationMissing, m2Missing, riskMissing, spaceMissing, n95MandatoryMissing, vaccinatedMissing, vaccineReceivedMissing, vaccinatedDaysMissing, covidRecoveredMissing, covidRecoveredDaysMissing, handleCloseM2Missing, handleCloseVaccinatedMissing, handleCloseVaccineReceivedMissing, handleCloseVaccinatedDaysMissing, handleCloseCovidRecoveredMissing, handleCloseCovidRecoveredDaysMissing, handleCloseRiskMissing, handleCloseSpaceMissing, handleCloseN95MandatoryMissing, handleCloseDurationMissing, noCheckbox, handleCloseNoCheckbox}) {
+export default function AddRuleFormErrors({durationMissing, m2Missing, riskMissing, spaceMissing, n95MandatoryMissing, vaccinatedMissing, vaccineReceivedMissing, vaccinatedDaysMissing, illnessRecoveredMissing, illnessRecoveredDaysMissing, handleCloseM2Missing, handleCloseVaccinatedMissing, handleCloseVaccineReceivedMissing, handleCloseVaccinatedDaysMissing, handleCloseIllnessRecoveredMissing, handleCloseIllnessRecoveredDaysMissing, handleCloseRiskMissing, handleCloseSpaceMissing, handleCloseN95MandatoryMissing, handleCloseDurationMissing, noCheckbox, handleCloseNoCheckbox}) {
   return (
     <div>
       <Snackbar open={durationMissing} autoHideDuration={5000} onClose={handleCloseDurationMissing}>
@@ -61,15 +61,15 @@ export default function AddRuleFormErrors({durationMissing, m2Missing, riskMissi
         </Alert>
       </Snackbar>
 
-      <Snackbar open={covidRecoveredMissing} autoHideDuration={5000} onClose={handleCloseCovidRecoveredMissing}>
-        <Alert severity="error" onClose={handleCloseCovidRecoveredMissing}>
+      <Snackbar open={illnessRecoveredMissing} autoHideDuration={5000} onClose={handleCloseIllnessRecoveredMissing}>
+        <Alert severity="error" onClose={handleCloseIllnessRecoveredMissing}>
           <AlertTitle>Error</AlertTitle>
           Falta definir si la persona está <strong>recuperada de COVID-19</strong>
         </Alert>
       </Snackbar>
 
-      <Snackbar open={covidRecoveredDaysMissing} autoHideDuration={5000} onClose={handleCloseCovidRecoveredDaysMissing}>
-        <Alert severity="error" onClose={handleCloseCovidRecoveredDaysMissing}>
+      <Snackbar open={illnessRecoveredDaysMissing} autoHideDuration={5000} onClose={handleCloseIllnessRecoveredDaysMissing}>
+        <Alert severity="error" onClose={handleCloseIllnessRecoveredDaysMissing}>
           <AlertTitle>Error</AlertTitle>
           Falta definir hasta cuantos <strong>días (como máximo) pasaron desde la recuperación</strong>. El valor debe ser mayor a 0.
         </Alert>

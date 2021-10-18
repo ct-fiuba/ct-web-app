@@ -4,16 +4,16 @@ const useStyles = makeStyles((theme) => ({
   checkboxes: {
     marginTop: '16px',
   },
-  titleCovidRecovered: {
+  titleIllnessRecovered: {
     marginTop: '28px',
     textAlign: 'center',
   },
-  formControlCovidRecoveredValue: {
+  formControlIllnessRecoveredValue: {
     margin: theme.spacing(1),
     marginRight: '0px',
     width: '-webkit-fill-available',
   },
-  labelCovidRecoveredValue: {
+  labelIllnessRecoveredValue: {
     marginLeft: '10px',
   },
 }));

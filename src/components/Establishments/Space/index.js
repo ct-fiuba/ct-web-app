@@ -6,7 +6,7 @@ export default function Space({ space, refreshEstablishments }) {
 		name={space.name}
 		m2={space.m2}
 		hasExit={space.hasExit}
-		openPlace={space.openPlace}
+		openSpace={space.openSpace}
 		estimatedVisitDuration={space.estimatedVisitDuration}
 		enabled={space.enabled}
 		n95Mandatory={space.n95Mandatory}

@@ -5,9 +5,15 @@ import useStyles from './styles';
 export default function TestRulesResult({rule, notMatch}) {
   const classes = useStyles();
 
+  const contagionRiskToString = {
+    0: 'Alto',
+    1: 'Medio',
+    2: 'Bajo'
+  }
+
   return (
     <div>
-      { rule && <Card className={`${classes.root} ${rule.contagionRisk === 'Alto' ? classes.highRisk : ''} ${rule.contagionRisk === 'Medio' ? classes.mediumRisk : ''} ${rule.contagionRisk === 'Bajo' ? classes.lowRisk : ''}`}>
+      { rule && <Card className={`${classes.root} ${rule.contagionRisk === 0 ? classes.highRisk : ''} ${rule.contagionRisk === 1 ? classes.mediumRisk : ''} ${rule.contagionRisk === 2 ? classes.lowRisk : ''}`}>
         <Grid container className={classes.gridContainer}>
           <Grid item xs={12}>
             <CardContent>
@@ -17,14 +23,14 @@ export default function TestRulesResult({rule, notMatch}) {
                 {`Id regla: ${rule.id}`}
               </Typography>
               <Typography variant="h5" component="h2">
-                {`Riesgo de contagio `}<strong>{rule.contagionRisk}</strong>
+                {`Riesgo de contagio `}<strong>{contagionRiskToString[rule.contagionRisk]}</strong>
               </Typography>
               <Typography variant="body1" component="p">
                 {rule.durationCmp ? `Duración ${rule.durationCmp === '<' ? "menor a" : "mayor a"} ${rule.durationValue} minutos` : ''}
                 {rule.durationCmp ? <br /> : ''}
                 {rule.m2Cmp ? `Superficie ${rule.m2Cmp === '<' ? "menor a" : "mayor a"} ${rule.m2Value} metros cuadrados` : ''}
                 {rule.m2Cmp ? <br /> : ''}
-                {rule.spaceValue ? `Ventilación del espacio: ${rule.spaceValue}` : ''}
+                {rule.openSpace ? `Ventilación del espacio: ${rule.openSpace ? 'Abierto' : 'Cerrado'}` : ''}
 
                 {rule.n95Mandatory !== undefined ? `Uso del N95 ${rule.n95Mandatory ? '' : 'no'} obligatorio` : ''}
                 {rule.n95Mandatory !== undefined ? <br /> : ''}
@@ -37,11 +43,11 @@ export default function TestRulesResult({rule, notMatch}) {
                 {rule.vaccinatedDaysAgoMin !== undefined && ` hace no menos de ${rule.vaccinatedDaysAgoMin} días`}
                 {rule.vaccinated !== undefined ? <br /> : ''}
 
-                {rule.covidRecovered === undefined && ''}
-                {rule.covidRecovered === false && `Persona que no tuvo COVID-19`}
-                {rule.covidRecovered === true && `Persona recuperada de COVID-19`}
-                {rule.covidRecoveredDaysAgoMax !== undefined && ` hace no más de ${rule.covidRecoveredDaysAgoMax} días`}
-                {rule.covidRecovered !== undefined && <br />}
+                {rule.illnessRecovered === undefined && ''}
+                {rule.illnessRecovered === false && `Persona que no tuvo COVID-19`}
+                {rule.illnessRecovered === true && `Persona recuperada de COVID-19`}
+                {rule.illnessRecoveredDaysAgoMax !== undefined && ` hace no más de ${rule.illnessRecoveredDaysAgoMax} días`}
+                {rule.illnessRecovered !== undefined && <br />}
               </Typography>
             </CardContent>
           </Grid>

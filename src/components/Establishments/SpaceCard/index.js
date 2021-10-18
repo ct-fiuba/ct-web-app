@@ -5,7 +5,7 @@ import SpaceToggle from '../SpaceToggle';
 import SpacePDFButton from '../SpacePDFButton';
 import EditSpaceButton from '../EditSpaceButton';
 
-export default function SpaceCard({ id, name, m2, openPlace, hasExit,  estimatedVisitDuration, enabled, n95Mandatory, establishmentId, establishmentType, refreshEstablishments }) {
+export default function SpaceCard({ id, name, m2, openSpace, hasExit,  estimatedVisitDuration, enabled, n95Mandatory, establishmentId, establishmentType, refreshEstablishments }) {
   const classes = useStyles();
 
   return (
@@ -25,18 +25,18 @@ export default function SpaceCard({ id, name, m2, openPlace, hasExit,  estimated
               {`Duración estimada de la visita: ${estimatedVisitDuration} minutos`}<br />
               {`Tiene QR de salida: ${hasExit ? 'Si' : 'No'}`}<br />
               {`Habilitado: ${enabled ? 'Si' : 'No'}`}<br />
-              
+
               {n95Mandatory === undefined && ''}
               {n95Mandatory === false && 'Uso de N95 no obligatorio'}
               {n95Mandatory === true && 'Uso de N95 obligatorio'}
               {n95Mandatory !== undefined && <br />}
-              
+
             </Typography>
           </CardContent>
         </Grid>
         <Grid item xs={4} className={classes.buttonsGroup}>
           <SpaceToggle spaceId={id} establishmentId={establishmentId} isEnabled={enabled} refreshEstablishments={refreshEstablishments} />
-          <EditSpaceButton spaceId={id} establishmentId={establishmentId} establishmentType={establishmentType} name={name} m2={m2} estimatedVisitDuration={estimatedVisitDuration} openPlace={openPlace} n95Mandatory={n95Mandatory} hasExit={hasExit} refreshEstablishments={refreshEstablishments} />
+          <EditSpaceButton spaceId={id} establishmentId={establishmentId} establishmentType={establishmentType} name={name} m2={m2} estimatedVisitDuration={estimatedVisitDuration} openSpace={openSpace} n95Mandatory={n95Mandatory} hasExit={hasExit} refreshEstablishments={refreshEstablishments} />
           <SpacePDFButton spaceId={id} establishmentId={establishmentId} />
         </Grid>
       </Grid>

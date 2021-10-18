@@ -5,13 +5,13 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '16px',
     marginLeft: '40px',
   },
-  titleCovidRecoveredDays: {
+  titleIllnessRecoveredDays: {
     marginTop: '20px',
     marginLeft: '10px',
     marginRight: '5px',
     textAlign: 'center',
   },
-  covidRecoveredDaysValue: {
+  illnessRecoveredDaysValue: {
     marginTop: '8px',
     margin: theme.spacing(1),
     marginRight: '50px',

@@ -9,32 +9,32 @@ import TimePickersInput from './components/TimePickersInput';
 import VaccinatedInput from './components/VaccinatedInput';
 import VaccineReceivedInput from './components/VaccineReceivedInput';
 import VaccinatedDaysInput from './components/VaccinatedDaysInput';
-import CovidRecoveredInput from './components/CovidRecoveredInput';
-import CovidRecoveredDaysInput from './components/CovidRecoveredDaysInput';
+import IllnessRecoveredInput from './components/IllnessRecoveredInput';
+import IllnessRecoveredDaysInput from './components/IllnessRecoveredDaysInput';
 
 export default function TestRulesForm({testRules, handleClose}) {
   const classes = useStyles();
 
   const [m2Value, setM2Value] = useState('');
-  const [spaceValue, setSpaceValue] = useState('');
+  const [openSpace, setOpenSpace] = useState('');
   const [n95MandatoryValue, setN95MandatoryValue] = useState('');
   const [vaccinatedValue, setVaccinatedValue] = useState('');
   const [vaccineReceivedValue, setVaccineReceivedValue] = useState('');
   const [vaccinatedDaysValue, setVaccinatedDaysValue] = useState('');
-  const [covidRecoveredValue, setCovidRecoveredValue] = useState('');
-  const [covidRecoveredDaysValue, setCovidRecoveredDaysValue] = useState('');
+  const [illnessRecoveredValue, setIllnessRecoveredValue] = useState('');
+  const [illnessRecoveredDaysValue, setIllnessRecoveredDaysValue] = useState('');
 
   const [vaccineDetailsVisible, setVaccineDetailsVisible] = useState(false);
-  const [covidRecoveredDetailsVisible, setCovidRecoveredDetailsVisible] = useState(false);
-  
+  const [illnessRecoveredDetailsVisible, setIllnessRecoveredDetailsVisible] = useState(false);
+
   const [m2Missing, setM2Missing] = useState(false);
   const [spaceMissing, setSpaceMissing] = useState(false);
   const [n95MandatoryMissing, setN95MandatoryMissing] = useState(false);
   const [vaccinatedMissing, setVaccinatedMissing] = useState(false);
   const [vaccineReceivedMissing, setVaccineReceivedMissing] = useState(false);
   const [vaccinatedDaysMissing, setVaccinatedDaysMissing] = useState(false);
-  const [covidRecoveredMissing, setCovidRecoveredMissing] = useState(false);
-  const [covidRecoveredDaysMissing, setCovidRecoveredDaysMissing] = useState(false);
+  const [illnessRecoveredMissing, setIllnessRecoveredMissing] = useState(false);
+  const [illnessRecoveredDaysMissing, setIllnessRecoveredDaysMissing] = useState(false);
   const [infectedTimeMissing, setInfectedTimeMissing] = useState(false);
   const [healthyTimeMissing, setHealthyTimeMissing] = useState(false);
   const [infectedStartDate, setInfectedStartDate] = useState(new Date('2014-08-18T14:00:00'));
@@ -62,8 +62,8 @@ export default function TestRulesForm({testRules, handleClose}) {
     setM2Value(event.target.value);
   }
 
-  const handleSpaceValueChange = (event) => {
-    setSpaceValue(event.target.value);
+  const handleOpenSpaceChange = (event) => {
+    setOpenSpace(event.target.value);
   }
 
   const handleN95MandatoryValueChange = (event) => {
@@ -87,18 +87,18 @@ export default function TestRulesForm({testRules, handleClose}) {
     setVaccinatedDaysValue(event.target.value);
   }
 
-  const handleCovidRecoveredValueChange = (event) => {
-    setCovidRecoveredValue(event.target.value);
+  const handleIllnessRecoveredValueChange = (event) => {
+    setIllnessRecoveredValue(event.target.value);
     if (!event.target.value) {
-      setCovidRecoveredDaysValue('');
-      setCovidRecoveredDetailsVisible(false);
+      setIllnessRecoveredDaysValue('');
+      setIllnessRecoveredDetailsVisible(false);
     } else {
-      setCovidRecoveredDetailsVisible(true);
+      setIllnessRecoveredDetailsVisible(true);
     }
   }
 
-  const handleCovidRecoveredDaysValueChange = (event) => {
-    setCovidRecoveredDaysValue(event.target.value);
+  const handleIllnessRecoveredDaysValueChange = (event) => {
+    setIllnessRecoveredDaysValue(event.target.value);
   }
 
   const handleCloseM2Missing = () => {
@@ -125,12 +125,12 @@ export default function TestRulesForm({testRules, handleClose}) {
     setVaccinatedDaysMissing(false);
   }
 
-  const handleCloseCovidRecoveredMissing = () => {
-    setCovidRecoveredMissing(false);
+  const handleCloseIllnessRecoveredMissing = () => {
+    setIllnessRecoveredMissing(false);
   }
 
-  const handleCloseCovidRecoveredDaysMissing = () => {
-    setCovidRecoveredDaysMissing(false);
+  const handleCloseIllnessRecoveredDaysMissing = () => {
+    setIllnessRecoveredDaysMissing(false);
   }
 
   const handleCloseInfectedTimeMissing = () => {
@@ -147,7 +147,7 @@ export default function TestRulesForm({testRules, handleClose}) {
       return false;
     }
 
-    if (!spaceValue) {
+    if (openSpace === '') {
       setSpaceMissing(true);
       return false;
     }
@@ -172,13 +172,13 @@ export default function TestRulesForm({testRules, handleClose}) {
       return false;
     }
 
-    if (covidRecoveredValue === '') {
-      setCovidRecoveredMissing(true);
+    if (illnessRecoveredValue === '') {
+      setIllnessRecoveredMissing(true);
       return false;
     }
 
-    if ((covidRecoveredValue === true && covidRecoveredDaysValue === '') || (covidRecoveredDaysValue !== '' && covidRecoveredDaysValue <= 0)) {
-      setCovidRecoveredDaysMissing(true);
+    if ((illnessRecoveredValue === true && illnessRecoveredDaysValue === '') || (illnessRecoveredDaysValue !== '' && illnessRecoveredDaysValue <= 0)) {
+      setIllnessRecoveredDaysMissing(true);
       return false;
     }
 
@@ -208,15 +208,15 @@ export default function TestRulesForm({testRules, handleClose}) {
 
   const buildTestEnv = () => {
     return {
-      space: spaceValue,
+      space: openSpace,
       m2: m2Value,
       duration: calculateDuration() / 60 / 1000,
       n95Mandatory: n95MandatoryValue,
       vaccinated: vaccinatedValue,
       vaccineReceived: vaccineReceivedValue,
       vaccinatedDays: vaccinatedDaysValue,
-      covidRecovered: covidRecoveredValue,
-      covidRecoveredDays: covidRecoveredDaysValue,
+      illnessRecovered: illnessRecoveredValue,
+      illnessRecoveredDays: illnessRecoveredDaysValue,
     }
   }
 
@@ -231,7 +231,7 @@ export default function TestRulesForm({testRules, handleClose}) {
   return (
     <Grid container>
       <M2Input m2Value={m2Value} handleM2ValueChange={handleM2ValueChange} />
-      <SpaceInput spaceValue={spaceValue} handleSpaceValueChange={handleSpaceValueChange} />
+      <SpaceInput openSpace={openSpace} handleOpenSpaceChange={handleOpenSpaceChange} />
       <N95MandatoryInput n95MandatoryValue={n95MandatoryValue} handleN95MandatoryValueChange={handleN95MandatoryValueChange}/>
       <TimePickersInput title={"Visita de la persona contagiada"} startDate={infectedStartDate} handleStartDateChange={handleInfectedStartDateChange} endDate={infectedEndDate} handleEndDateChange={handleInfectedEndDateChange}/>
       <TimePickersInput title={"Visita de la persona sana"} startDate={healthyStartDate} handleStartDateChange={handleHealthyStartDateChange} endDate={healthyEndDate} handleEndDateChange={handleHealthyEndDateChange}/>
@@ -243,10 +243,10 @@ export default function TestRulesForm({testRules, handleClose}) {
             <VaccinatedDaysInput vaccinatedDaysValue={vaccinatedDaysValue} handleVaccinatedDaysValueChange={handleVaccinatedDaysValueChange}/>
           </>
       }
-      <CovidRecoveredInput covidRecoveredValue={covidRecoveredValue} handleCovidRecoveredValueChange={handleCovidRecoveredValueChange} />
+      <IllnessRecoveredInput illnessRecoveredValue={illnessRecoveredValue} handleIllnessRecoveredValueChange={handleIllnessRecoveredValueChange} />
       {
-        covidRecoveredDetailsVisible &&
-          <CovidRecoveredDaysInput covidRecoveredDaysValue={covidRecoveredDaysValue} handleCovidRecoveredDaysValueChange={handleCovidRecoveredDaysValueChange} />
+        illnessRecoveredDetailsVisible &&
+          <IllnessRecoveredDaysInput illnessRecoveredDaysValue={illnessRecoveredDaysValue} handleIllnessRecoveredDaysValueChange={handleIllnessRecoveredDaysValueChange} />
       }
 
       <Grid item xs={12} className={classes.buttonsGrid}>
@@ -271,10 +271,10 @@ export default function TestRulesForm({testRules, handleClose}) {
         handleCloseVaccineReceivedMissing={handleCloseVaccineReceivedMissing}
         vaccinatedDaysMissing={vaccinatedDaysMissing}
         handleCloseVaccinatedDaysMissing={handleCloseVaccinatedDaysMissing}
-        covidRecoveredMissing={covidRecoveredMissing}
-        handleCloseCovidRecoveredMissing={handleCloseCovidRecoveredMissing}
-        covidRecoveredDaysMissing={covidRecoveredDaysMissing}
-        handleCloseCovidRecoveredDaysMissing={handleCloseCovidRecoveredDaysMissing}
+        illnessRecoveredMissing={illnessRecoveredMissing}
+        handleCloseIllnessRecoveredMissing={handleCloseIllnessRecoveredMissing}
+        illnessRecoveredDaysMissing={illnessRecoveredDaysMissing}
+        handleCloseIllnessRecoveredDaysMissing={handleCloseIllnessRecoveredDaysMissing}
         infectedTimeMissing={infectedTimeMissing}
         handleCloseInfectedTimeMissing={handleCloseInfectedTimeMissing}
         healthyTimeMissing={healthyTimeMissing}

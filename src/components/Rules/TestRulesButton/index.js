@@ -29,8 +29,8 @@ export default function TestRulesButton({rules}) {
     let vaccinated = true;
     let vaccineReceived = true;
     let vaccinatedDays = true;
-    let covidRecovered = true;
-    let covidRecoveredDays = true;
+    let illnessRecovered = true;
+    let illnessRecoveredDays = true;
 
     if (rule.hasOwnProperty('durationValue')) {
       if (rule.durationCmp === '<') {
@@ -48,8 +48,8 @@ export default function TestRulesButton({rules}) {
       }
     }
 
-    if (rule.hasOwnProperty('spaceValue')) {
-      space = env.space === rule.spaceValue;
+    if (rule.hasOwnProperty('openSpace')) {
+      space = env.space === rule.openSpace;
     }
 
     if (rule.hasOwnProperty('n95Mandatory')) {
@@ -68,15 +68,15 @@ export default function TestRulesButton({rules}) {
       vaccinatedDays = parseInt(env.vaccinatedDays) >= parseInt(rule.vaccinatedDaysAgoMin);
     }
 
-    if (rule.hasOwnProperty('covidRecovered')) {
-      covidRecovered = env.covidRecovered === rule.covidRecovered;
+    if (rule.hasOwnProperty('illnessRecovered')) {
+      illnessRecovered = env.illnessRecovered === rule.illnessRecovered;
     }
 
-    if (rule.hasOwnProperty('covidRecoveredDaysAgoMax')) {
-      covidRecoveredDays = parseInt(env.covidRecoveredDays) <= parseInt(rule.covidRecoveredDaysAgoMax);
+    if (rule.hasOwnProperty('illnessRecoveredDaysAgoMax')) {
+      illnessRecoveredDays = parseInt(env.illnessRecoveredDays) <= parseInt(rule.illnessRecoveredDaysAgoMax);
     }
 
-    return duration && m2 && space && n95Mandatory && vaccinated && vaccineReceived && vaccinatedDays && covidRecovered && covidRecoveredDays;
+    return duration && m2 && space && n95Mandatory && vaccinated && vaccineReceived && vaccinatedDays && illnessRecovered && illnessRecoveredDays;
   }
 
   const testRules = (env) => {

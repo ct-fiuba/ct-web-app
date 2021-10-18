@@ -9,7 +9,7 @@ export default function AddSingleSpacesForm({ establishmentId, type, name, confi
     name: '',
     m2: '',
     estimatedVisitDuration: '',
-    openPlace: '',
+    openSpace: '',
     n95Mandatory: false,
     hasExit: false,
   }]);
@@ -58,7 +58,7 @@ export default function AddSingleSpacesForm({ establishmentId, type, name, confi
           <React.Fragment>
             <React.Fragment>
               <NewSpacesForm initialState={spaces} completeFunction={completeFunction} obtainInfo={obtainInfo} storeType={type} />
-              <Button 
+              <Button
                 variant="contained"
                 color="primary"
                 onClick={handleConfirm}

@@ -21,7 +21,7 @@ export default function NewEstablishmentForm({ confirmCallback }) {
       name: '',
       m2: '',
       estimatedVisitDuration: '',
-      openPlace: '',
+      openSpace: '',
       n95Mandatory: false,
       hasExit: false,
     }],
@@ -70,7 +70,6 @@ export default function NewEstablishmentForm({ confirmCallback }) {
 
   const constructBody = () => {
     let body = { ...state.firstStepInfo, spaces: state.secondStepInfo };
-    body['openPlace'] = body['openPlace'] === 'no' ? false : true;
     if (body['type'] !== 'hospital') {
       body.spaces.forEach(space => space['n95Mandatory'] = false);
     }

@@ -28,7 +28,7 @@ export default function NewSpacesForm({ initialState, completeFunction, obtainIn
 	const allFieldsCompleted = (space) => {
 		return (space.name !== '' &&
 			space.m2 !== '' &&
-			space.openPlace !== '');
+			space.openSpace !== '');
 	}
 
 	const addNewSpace = () => {
@@ -40,7 +40,7 @@ export default function NewSpacesForm({ initialState, completeFunction, obtainIn
 				name: '',
 				m2: '',
 				estimatedVisitDuration: '',
-				openPlace: '',
+				openSpace: '',
 				n95Mandatory: false,
 				hasExit: false,
 			}

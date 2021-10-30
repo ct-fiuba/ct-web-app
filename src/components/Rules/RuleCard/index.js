@@ -8,9 +8,9 @@ export default function RuleCard({id, index, contagionRisk, durationCmp, duratio
   const classes = useStyles();
 
   const contagionRiskToString = {
-    0: 'Alto',
+    0: 'Bajo'
     1: 'Medio',
-    2: 'Bajo'
+    2: 'Alto',
   }
 
   return (
@@ -21,7 +21,7 @@ export default function RuleCard({id, index, contagionRisk, durationCmp, duratio
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <Card className={`${classes.root} ${contagionRisk === 0 ? classes.highRisk : ''} ${contagionRisk === 1 ? classes.mediumRisk : ''} ${contagionRisk === 2 ? classes.lowRisk : ''}`}>
+          <Card className={`${classes.root} ${contagionRisk === 2 ? classes.highRisk : ''} ${contagionRisk === 1 ? classes.mediumRisk : ''} ${contagionRisk === 0 ? classes.lowRisk : ''}`}>
             <Grid container className={classes.gridContainer}>
               <Grid item xs={10}>
                 <CardContent>

@@ -16,9 +16,9 @@ export default function ContagionRiskInput({contagionRisk, handleContagionRiskCh
           onChange={handleContagionRiskChange}
           variant="outlined"
         >
-          <MenuItem className={classes.optionsContagionRisk} value={0}>Alto</MenuItem>
+          <MenuItem className={classes.optionsContagionRisk} value={2}>Alto</MenuItem>
           <MenuItem className={classes.optionsContagionRisk} value={1}>Medio</MenuItem>
-          <MenuItem className={classes.optionsContagionRisk} value={2}>Bajo</MenuItem>
+          <MenuItem className={classes.optionsContagionRisk} value={0}>Bajo</MenuItem>
         </Select>
         <FormHelperText>Riesgo asociado a la regla</FormHelperText>
       </FormControl>

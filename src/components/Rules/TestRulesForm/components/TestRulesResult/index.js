@@ -6,14 +6,14 @@ export default function TestRulesResult({rule, notMatch}) {
   const classes = useStyles();
 
   const contagionRiskToString = {
-    0: 'Alto',
+    0: 'Bajo',
     1: 'Medio',
-    2: 'Bajo'
+    2: 'Alto'
   }
 
   return (
     <div>
-      { rule && <Card className={`${classes.root} ${rule.contagionRisk === 0 ? classes.highRisk : ''} ${rule.contagionRisk === 1 ? classes.mediumRisk : ''} ${rule.contagionRisk === 2 ? classes.lowRisk : ''}`}>
+      { rule && <Card className={`${classes.root} ${rule.contagionRisk === 2 ? classes.highRisk : ''} ${rule.contagionRisk === 1 ? classes.mediumRisk : ''} ${rule.contagionRisk === 0 ? classes.lowRisk : ''}`}>
         <Grid container className={classes.gridContainer}>
           <Grid item xs={12}>
             <CardContent>

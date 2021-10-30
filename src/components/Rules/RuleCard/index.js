@@ -8,9 +8,9 @@ export default function RuleCard({id, index, contagionRisk, durationCmp, duratio
   const classes = useStyles();
 
   const contagionRiskToString = {
-    0: 'Bajo'
+    0: 'Bajo',
     1: 'Medio',
-    2: 'Alto',
+    2: 'Alto'
   }
 
   return (

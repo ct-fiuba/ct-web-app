@@ -30,8 +30,8 @@ export default function SpaceInput({checkboxSpace, handleChangeCheckboxSpace, op
             variant="outlined"
             disabled={!checkboxSpace}
           >
-            <MenuItem value={'Abierto'}>{'Abierto'}</MenuItem>
-            <MenuItem value={'Cerrado'}>{'Cerrado'}</MenuItem>
+            <MenuItem value={true}>{'Abierto'}</MenuItem>
+            <MenuItem value={false}>{'Cerrado'}</MenuItem>
           </Select>
         </FormControl>
       </Grid>

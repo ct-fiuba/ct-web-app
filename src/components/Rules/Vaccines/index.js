@@ -5,10 +5,12 @@ import EditVaccinesTable from '../EditVaccinesTable'
 export default class Vaccines extends React.Component {
   constructor(props) {
     super(props);
+    this.deleteVaccine = this.deleteVaccine.bind(this);
     this.state = { vaccines: undefined };
   }
 
   async componentDidMount() {
+    await this.addNewVaccine({name: 'Sarasa', shotsCount: 3})
     await this.getCurrentVaccines();
   }
 
@@ -23,12 +25,14 @@ export default class Vaccines extends React.Component {
   }
 
   async deleteVaccine(vaccineId) {
-    await vaccinesService.deleteVaccine(vaccineId);
+    console.log(vaccineId);
+    await vaccinesService.deleteVaccine({vaccineId: vaccineId});
+    await this.getCurrentVaccines();
   }
 
   render() {
     return (
-      <EditVaccinesTable vaccines={this.state.vaccines} />
+      <EditVaccinesTable vaccines={this.state.vaccines} deleteVaccine={this.deleteVaccine} />
     );
   }
 }

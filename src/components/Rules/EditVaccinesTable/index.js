@@ -1,12 +1,17 @@
 import React from 'react';
-import { Card, CircularProgress, Grid, Table, TableContainer, TableHead, TableBody, TableRow, TableCell, Paper} from '@material-ui/core';
+import { Card, CircularProgress, Grid, Table, TableContainer, TableHead, TableBody, TableRow, TableCell, Paper, Button} from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
 import useStyles from './styles';
 
-export default function EditVaccinesTable({vaccines}) {
+export default function EditVaccinesTable({vaccines, deleteVaccine}) {
   const classes = useStyles();
 
   function createData(vaccine) {
-    return { name: vaccine.name, doses: vaccine.shotsCount, button: vaccine._id };
+    return { name: vaccine.name, doses: vaccine.shotsCount, _id: vaccine._id };
+  }
+
+  async function deleteRow(vaccineId) {
+    return await deleteVaccine(vaccineId)
   }
 
   return (
@@ -33,7 +38,11 @@ export default function EditVaccinesTable({vaccines}) {
                         {row.name}
                       </TableCell>
                       <TableCell align="right">{row.doses}</TableCell>
-                      <TableCell align="right">{row.button}</TableCell>
+                      <TableCell align="right">
+                        <Button size="small" color="secondary" onClick={(e) => deleteRow(row._id)}>
+                          <DeleteIcon />
+                        </Button>
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

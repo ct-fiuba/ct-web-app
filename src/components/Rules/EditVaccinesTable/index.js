@@ -2,24 +2,16 @@ import React from 'react';
 import { Card, CircularProgress, Grid, Table, TableContainer, TableHead, TableBody, TableRow, TableCell, Paper} from '@material-ui/core';
 import useStyles from './styles';
 
-export default function EditVaccinesTable() {
+export default function EditVaccinesTable({vaccines}) {
   const classes = useStyles();
-  const result = true;
-  const loading = false;
 
-  function createData(name, doses, button) {
-    return { name, doses, button };
+  function createData(vaccine) {
+    return { name: vaccine.name, doses: vaccine.shotsCount, button: vaccine._id };
   }
-
-  const rows = [
-    createData('Pfizer', 2, 'X'),
-    createData('AstraZeneca', 2, 'X'),
-    createData('Covishield', 3, 'X'),
-  ];
 
   return (
     <div>
-      { result && <Card className={classes.root}>
+      { vaccines && vaccines.length !== 0 && <Card className={classes.root}>
         <Grid container className={classes.gridContainer}>
           <Grid item xs={12}>
             <TableContainer component={Paper}>
@@ -32,7 +24,7 @@ export default function EditVaccinesTable() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map((row) => (
+                  {vaccines.map(createData).map((row) => (
                     <TableRow
                       key={row.name}
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -51,7 +43,7 @@ export default function EditVaccinesTable() {
         </Grid>
       </Card>
       }
-      { loading &&
+      { vaccines === undefined &&
         <Grid container className={classes.gridContainer}>
           <Grid item xs={12} className={classes.gridProgress}>
             <CircularProgress />

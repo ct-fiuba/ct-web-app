@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Dialog, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import useStyles from './styles';
-import EditVaccinesTable from '../EditVaccinesTable'
+import Vaccines from '../Vaccines'
 
 export default function EditVaccinesButton() {
   const classes = useStyles();
@@ -27,7 +27,7 @@ export default function EditVaccinesButton() {
           <DialogContentText>
             Aca se van a listar las vacunas
           </DialogContentText>
-          <EditVaccinesTable />
+          <Vaccines />
         </DialogContent>
       </Dialog>
     </div>

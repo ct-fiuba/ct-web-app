@@ -35,10 +35,7 @@ export default function TestRulesResult({rule, notMatch}) {
                 {rule.n95Mandatory !== undefined ? `Uso del N95 ${rule.n95Mandatory ? '' : 'no'} obligatorio` : ''}
                 {rule.n95Mandatory !== undefined ? <br /> : ''}
 
-                {rule.vaccinated === undefined && ''}
-                {rule.vaccinated === 0 && 'Persona no vacunada'}
-                {rule.vaccinated === 1 && 'Persona parcialmente vacunada'}
-                {rule.vaccinated === 2 && 'Persona completamente vacunada'}
+                {rule.vaccinated !== undefined && `${rule.vaccinated} dosis ${rule.vaccinated === 1 ? 'recibida' : 'recibidas'}`}
                 {rule.vaccineReceived !== undefined && ` con la vacuna ${rule.vaccineReceived}`}
                 {rule.vaccinatedDaysAgoMin !== undefined && ` hace no menos de ${rule.vaccinatedDaysAgoMin} días`}
                 {rule.vaccinated !== undefined ? <br /> : ''}

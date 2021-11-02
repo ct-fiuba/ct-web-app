@@ -44,10 +44,7 @@ export default function RuleCard({id, index, contagionRisk, durationCmp, duratio
                     {n95Mandatory !== undefined ? `Uso del N95 ${n95Mandatory ? '' : 'no'} obligatorio` : ''}
                     {n95Mandatory !== undefined ? <br /> : ''}
 
-                    {vaccinated === undefined && ''}
-                    {vaccinated === 0 && 'Persona no vacunada'}
-                    {vaccinated === 1 && 'Persona parcialmente vacunada'}
-                    {vaccinated === 2 && 'Persona completamente vacunada'}
+                    {vaccinated !== undefined && `${vaccinated} dosis ${vaccinated === 1 ? 'recibida' : 'recibidas'}`}
                     {vaccineReceived !== undefined && ` con la vacuna ${vaccineReceived}`}
                     {vaccinatedDaysAgoMin !== undefined && ` hace no menos de ${vaccinatedDaysAgoMin} días`}
                     {vaccinated !== undefined && <br />}

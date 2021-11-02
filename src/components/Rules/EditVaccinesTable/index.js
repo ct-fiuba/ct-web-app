@@ -16,7 +16,8 @@ export default function EditVaccinesTable({vaccines, deleteVaccine}) {
 
   return (
     <div>
-      { vaccines && vaccines.length !== 0 && <Card className={classes.root}>
+      { vaccines && vaccines.length !== 0 &&
+      <Card className={classes.root}>
         <Grid container className={classes.gridContainer}>
           <Grid item xs={12}>
             <TableContainer component={Paper}>
@@ -53,11 +54,13 @@ export default function EditVaccinesTable({vaccines, deleteVaccine}) {
       </Card>
       }
       { vaccines === undefined &&
-        <Grid container className={classes.gridContainer}>
-          <Grid item xs={12} className={classes.gridProgress}>
-            <CircularProgress />
+        <Card className={classes.root}>
+          <Grid container className={classes.gridContainer}>
+            <Grid item xs={12} className={classes.gridProgress}>
+              <CircularProgress />
+            </Grid>
           </Grid>
-        </Grid>
+        </Card>
       }
     </div>
   );

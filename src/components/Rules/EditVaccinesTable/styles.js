@@ -4,8 +4,6 @@ const useStyles = makeStyles({
   root: {
     minWidth: 800,
     margin: '10px',
-    borderTopStyle: 'inset',
-    borderTop: '5px solid #b5ffcf',
   },
   gridContainer: {
     alignItems: 'center',

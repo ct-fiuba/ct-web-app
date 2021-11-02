@@ -23,7 +23,7 @@ export default function RulesContainer({ rules, vaccines, getCurrentVaccines, ad
 		<div className={classes.divContainer}>
 			<Grid container>
 				<Grid item xs={6}>
-					<TestRulesButton rules={state.rules} />
+					<TestRulesButton rules={state.rules} vaccines={state.vaccines} />
 				</Grid>
 				<Grid item xs={6}>
 					<SimulateRulesButton rules={state.rules} />

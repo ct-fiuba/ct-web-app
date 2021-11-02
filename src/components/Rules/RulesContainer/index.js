@@ -5,6 +5,7 @@ import AddRuleButton from '../AddRuleButton';
 import SaveChangesButton from '../SaveChangesButton'
 import TestRulesButton from '../TestRulesButton'
 import SimulateRulesButton from '../SimulateRulesButton'
+import EditVaccinesButton from '../../Vaccines/EditVaccinesButton'
 import { Grid } from '@material-ui/core';
 import useStyles from './styles';
 import NoRulesMessage from '../NoRulesMessage';
@@ -26,6 +27,9 @@ export default function RulesContainer({ rules, addRule, saveChanges, canSaveCha
 				</Grid>
 				<Grid item xs={6}>
 					<SimulateRulesButton rules={state.rules} />
+				</Grid>
+				<Grid item xs={12}>
+					<EditVaccinesButton />
 				</Grid>
 			</Grid>
 			<Grid container className={classes.container}>

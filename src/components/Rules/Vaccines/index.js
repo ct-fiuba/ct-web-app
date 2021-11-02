@@ -13,13 +13,11 @@ export default class Vaccines extends React.Component {
   }
 
   async componentDidMount() {
-    await this.addNewVaccine({name: 'Sarasa', shotsCount: 3})
     await this.getCurrentVaccines();
   }
 
   async getCurrentVaccines() {
     const vaccines = await vaccinesService.getVaccines();
-    console.log("DEBUG", vaccines);
     this.setState({ vaccines: vaccines });
   }
 

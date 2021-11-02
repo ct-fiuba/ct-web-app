@@ -25,7 +25,7 @@ export default function EditVaccinesButton() {
         <DialogTitle className={classes.dialogTitle} id="form-dialog-title">Editar vacunas</DialogTitle>
         <DialogContent className={classes.dialogContent}>
           <DialogContentText>
-            Aca se van a listar las vacunas
+            Las vacunas listadas a continuación son utilizadas por todo el sistema. Por favor provea el nombre oficial de la vacuna y la cantidad de dosis a recibir para completar el esquema de vacunación.
           </DialogContentText>
           <Vaccines />
         </DialogContent>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CircularProgress, Grid, Table, TableContainer, TableHead, TableBody, TableRow, TableCell, Paper, Button} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
+import NoVaccinesMessage from '../NoVaccinesMessage';
 import useStyles from './styles';
 
 export default function EditVaccinesTable({vaccines, deleteVaccine}) {
@@ -60,6 +61,11 @@ export default function EditVaccinesTable({vaccines, deleteVaccine}) {
               <CircularProgress />
             </Grid>
           </Grid>
+        </Card>
+      }
+      { vaccines !== undefined && vaccines.length === 0 &&
+        <Card className={classes.root}>
+          <NoVaccinesMessage />
         </Card>
       }
     </div>

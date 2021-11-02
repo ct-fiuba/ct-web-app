@@ -13,7 +13,7 @@ import IllnessRecoveredInput from './components/IllnessRecoveredInput';
 import IllnessRecoveredDaysInput from './components/IllnessRecoveredDaysInput';
 import useStyles from './styles';
 
-export default function AddRuleForm({addRule, handleClose}) {
+export default function AddRuleForm({addRule, handleClose, vaccines}) {
   const classes = useStyles();
 
   const [contagionRisk, setContagionRisk] = useState('');
@@ -364,12 +364,12 @@ export default function AddRuleForm({addRule, handleClose}) {
         <h4 className={classes.internalTitles}>Condiciones sobre la persona involucrada en el contacto</h4>
       </Grid>
 
-      <VaccinatedInput checkboxVaccinated={checkboxVaccinated} handleChangeCheckboxVaccinated={handleChangeCheckboxVaccinated} vaccinatedValue={vaccinatedValue} handleVaccinatedValueChange={handleVaccinatedValueChange}/>
+      <VaccinatedInput maxDoses={Math.max(...(vaccines.map(vaccine => vaccine.shotsCount)))} checkboxVaccinated={checkboxVaccinated} handleChangeCheckboxVaccinated={handleChangeCheckboxVaccinated} vaccinatedValue={vaccinatedValue} handleVaccinatedValueChange={handleVaccinatedValueChange}/>
 
       {
         vaccineDetailsVisible &&
         <>
-          <VaccineReceivedInput checkboxVaccineReceived={checkboxVaccineReceived} handleChangeCheckboxVaccineReceived={handleChangeCheckboxVaccineReceived} vaccineReceivedValue={vaccineReceivedValue} handleVaccineReceivedValueChange={handleVaccineReceivedValueChange}/>
+          <VaccineReceivedInput vaccines={vaccines} dosesSelected={vaccinatedValue} checkboxVaccineReceived={checkboxVaccineReceived} handleChangeCheckboxVaccineReceived={handleChangeCheckboxVaccineReceived} vaccineReceivedValue={vaccineReceivedValue} handleVaccineReceivedValueChange={handleVaccineReceivedValueChange}/>
           <VaccinatedDaysInput checkboxVaccinatedDays={checkboxVaccinatedDays} handleChangeCheckboxVaccinatedDays={handleChangeCheckboxVaccinatedDays} vaccinatedDaysValue={vaccinatedDaysValue} handleVaccinatedDaysValueChange={handleVaccinatedDaysValueChange}/>
         </>
       }

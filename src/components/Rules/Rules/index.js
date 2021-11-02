@@ -3,19 +3,22 @@ import RulesContainer from '../RulesContainer'
 import AppBar from '../../Shared/AppBar';
 import * as rulesUtils from '../../../utils/rulesUtils';
 import * as rulesService from '../../../services/rulesService';
+import * as vaccinesService from '../../../services/vaccinesService';
 
 export default class Rules extends React.Component {
   constructor(props) {
     super(props);
     this.onDragEnd = this.onDragEnd.bind(this);
     this.deleteRule = this.deleteRule.bind(this);
+    this.getCurrentVaccines = this.getCurrentVaccines.bind(this);
     this.addRule = this.addRule.bind(this);
     this.saveChanges = this.saveChanges.bind(this);
-    this.state = { rules: null, max_index: 0, savedRules: [], canSaveChanges: false};
+    this.state = { rules: null, max_index: 0, savedRules: [], canSaveChanges: false, vaccines: []};
   }
 
   async componentDidMount() {
     await this.getCurrentRules();
+    await this.getCurrentVaccines();
   }
 
   deleteRule(id) {
@@ -45,6 +48,11 @@ export default class Rules extends React.Component {
   async getCurrentRules() {
     const rules = await rulesService.getRules();
     this.setState({ max_index: rules.length, rules: rules, savedRules: JSON.parse(JSON.stringify(rules)) });
+  }
+
+  async getCurrentVaccines() {
+    const vaccines = await vaccinesService.getVaccines();
+    this.setState({ vaccines });
   }
 
   onDragEnd(result) {
@@ -105,8 +113,10 @@ export default class Rules extends React.Component {
     return (
       <div>
         <AppBar loggedIn={true} />
-        <RulesContainer 
+        <RulesContainer
           rules={this.state.rules}
+          vaccines={this.state.vaccines}
+          getCurrentVaccines={this.getCurrentVaccines}
           onDragEnd={this.onDragEnd}
           deleteRule={this.deleteRule}
           addRule={this.addRule}

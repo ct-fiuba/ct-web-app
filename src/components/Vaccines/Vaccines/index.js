@@ -30,7 +30,7 @@ export default class Vaccines extends React.Component {
 
   async deleteVaccine(vaccineId) {
     this.setState({ vaccines: undefined });
-    await vaccinesService.deleteVaccine({vaccineId: vaccineId});
+    await vaccinesService.deleteVaccine(vaccineId);
     await this.getCurrentVaccines();
   }
 

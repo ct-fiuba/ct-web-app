@@ -29,26 +29,25 @@ export async function addNewVaccine(new_vaccine) {
 	return fetch(process.env.REACT_APP_USER_API_URL + '/vaccines', requestOptions)
 }
 
-export async function deleteVaccine(deleted_vaccine) {
+export async function deleteVaccine(vaccineId) {
 	if (!await sessionUtils.validateAdminAccessToken()) {
 		sessionUtils.signOut();
 	}
 	const requestOptions = {
 		method: 'DELETE',
 		headers: { 'Content-Type': 'application/json', 'access-token': sessionStorage.getItem('accessToken') },
-		body: JSON.stringify(deleted_vaccine)
 	};
-	return fetch(process.env.REACT_APP_USER_API_URL + '/vaccines', requestOptions)
+	return fetch(process.env.REACT_APP_USER_API_URL + `/vaccines/${vaccineId}`, requestOptions)
 }
 
-export async function updateVaccine(updated_vaccine) {
+export async function updateVaccine(vaccineId, vaccineInfo) {
 	if (!await sessionUtils.validateAdminAccessToken()) {
 		sessionUtils.signOut();
 	}
 	const requestOptions = {
 		method: 'PUT',
 		headers: { 'Content-Type': 'application/json', 'access-token': sessionStorage.getItem('accessToken') },
-		body: JSON.stringify(updated_vaccine)
+		body: JSON.stringify(vaccineInfo)
 	};
-	return fetch(process.env.REACT_APP_USER_API_URL + '/vaccines', requestOptions)
+	return fetch(process.env.REACT_APP_USER_API_URL + `/vaccines/${vaccineId}`, requestOptions)
 }

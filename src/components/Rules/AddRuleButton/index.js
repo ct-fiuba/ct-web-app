@@ -4,7 +4,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { Button, Dialog, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import useStyles from './styles';
 
-export default function AddRuleButton({addRule}) {
+export default function AddRuleButton({addRule, vaccines}) {
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
@@ -28,7 +28,7 @@ export default function AddRuleButton({addRule}) {
           <DialogContentText>
             Para que un contacto coincida con una regla de contagio se deben cumplir todas las condiciones al mismo tiempo.
           </DialogContentText>
-          <AddRuleForm handleClose={handleClose} addRule={addRule} />
+          <AddRuleForm handleClose={handleClose} addRule={addRule} vaccines={vaccines} />
         </DialogContent>
       </Dialog>
     </div>

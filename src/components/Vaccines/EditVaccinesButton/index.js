@@ -3,7 +3,7 @@ import { Button, Dialog, DialogContent, DialogContentText, DialogTitle } from '@
 import useStyles from './styles';
 import Vaccines from '../Vaccines'
 
-export default function EditVaccinesButton() {
+export default function EditVaccinesButton({vaccines, getCurrentVaccines}) {
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
@@ -27,7 +27,7 @@ export default function EditVaccinesButton() {
           <DialogContentText>
             Las vacunas listadas a continuación son utilizadas por todo el sistema. Por favor provea el nombre oficial de la vacuna y la cantidad de dosis a recibir para completar el esquema de vacunación.
           </DialogContentText>
-          <Vaccines />
+          <Vaccines vaccines={vaccines} getCurrentVaccines={getCurrentVaccines}/>
         </DialogContent>
       </Dialog>
     </div>

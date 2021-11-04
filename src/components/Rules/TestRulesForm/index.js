@@ -12,7 +12,7 @@ import VaccinatedDaysInput from './components/VaccinatedDaysInput';
 import IllnessRecoveredInput from './components/IllnessRecoveredInput';
 import IllnessRecoveredDaysInput from './components/IllnessRecoveredDaysInput';
 
-export default function TestRulesForm({testRules, handleClose}) {
+export default function TestRulesForm({testRules, handleClose, vaccines}) {
   const classes = useStyles();
 
   const [m2Value, setM2Value] = useState('');
@@ -235,11 +235,11 @@ export default function TestRulesForm({testRules, handleClose}) {
       <N95MandatoryInput n95MandatoryValue={n95MandatoryValue} handleN95MandatoryValueChange={handleN95MandatoryValueChange}/>
       <TimePickersInput title={"Visita de la persona contagiada"} startDate={infectedStartDate} handleStartDateChange={handleInfectedStartDateChange} endDate={infectedEndDate} handleEndDateChange={handleInfectedEndDateChange}/>
       <TimePickersInput title={"Visita de la persona sana"} startDate={healthyStartDate} handleStartDateChange={handleHealthyStartDateChange} endDate={healthyEndDate} handleEndDateChange={handleHealthyEndDateChange}/>
-      <VaccinatedInput vaccinatedValue={vaccinatedValue} handleVaccinatedValueChange={handleVaccinatedValueChange} />
+      <VaccinatedInput maxDoses={Math.max(...(vaccines.map(vaccine => vaccine.shotsCount)))} vaccinatedValue={vaccinatedValue} handleVaccinatedValueChange={handleVaccinatedValueChange} />
       {
         vaccineDetailsVisible &&
           <>
-            <VaccineReceivedInput vaccineReceivedValue={vaccineReceivedValue} handleVaccineReceivedValueChange={handleVaccineReceivedValueChange}/>
+            <VaccineReceivedInput vaccines={vaccines} dosesSelected={vaccinatedValue} vaccineReceivedValue={vaccineReceivedValue} handleVaccineReceivedValueChange={handleVaccineReceivedValueChange}/>
             <VaccinatedDaysInput vaccinatedDaysValue={vaccinatedDaysValue} handleVaccinatedDaysValueChange={handleVaccinatedDaysValueChange}/>
           </>
       }

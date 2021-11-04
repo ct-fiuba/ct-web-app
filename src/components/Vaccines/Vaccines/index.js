@@ -9,16 +9,17 @@ export default class Vaccines extends React.Component {
     super(props);
     this.deleteVaccine = this.deleteVaccine.bind(this);
     this.addNewVaccine = this.addNewVaccine.bind(this);
-    this.state = { vaccines: undefined };
+    this.state = { vaccines: this.props.vaccines };
   }
 
-  async componentDidMount() {
-    await this.getCurrentVaccines();
+  componentDidUpdate(prevProps) {
+    if (this.props.vaccines !== prevProps.vaccines) {
+      this.setState({ vaccines: this.props.vaccines })
+    }
   }
 
   async getCurrentVaccines() {
-    const vaccines = await vaccinesService.getVaccines();
-    this.setState({ vaccines: vaccines });
+    await this.props.getCurrentVaccines();
   }
 
   async addNewVaccine(vaccineInfo) {
@@ -29,7 +30,7 @@ export default class Vaccines extends React.Component {
 
   async deleteVaccine(vaccineId) {
     this.setState({ vaccines: undefined });
-    await vaccinesService.deleteVaccine({vaccineId: vaccineId});
+    await vaccinesService.deleteVaccine(vaccineId);
     await this.getCurrentVaccines();
   }
 

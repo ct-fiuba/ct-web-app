@@ -11,37 +11,37 @@ import useStyles from './styles';
 import NoRulesMessage from '../NoRulesMessage';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-export default function RulesContainer({ rules, addRule, saveChanges, canSaveChanges, onDragEnd, deleteRule }) {
-	const [state, setState] = useState({ rules: rules || [] });
+export default function RulesContainer({ rules, vaccines, getCurrentVaccines, addRule, saveChanges, canSaveChanges, onDragEnd, deleteRule }) {
+	const [state, setState] = useState({ rules: rules || [], vaccines: vaccines || [] });
 	const classes = useStyles();
 
 	React.useEffect(() => {
-		setState({ rules: rules });
-	}, [rules])
+		setState({ rules: rules, vaccines: vaccines });
+	}, [rules, vaccines])
 
 	return (
 		<div className={classes.divContainer}>
 			<Grid container>
 				<Grid item xs={6}>
-					<TestRulesButton rules={state.rules} />
+					<TestRulesButton rules={state.rules} vaccines={state.vaccines} />
 				</Grid>
 				<Grid item xs={6}>
 					<SimulateRulesButton rules={state.rules} />
 				</Grid>
 				<Grid item xs={12}>
-					<EditVaccinesButton />
+					<EditVaccinesButton vaccines={state.vaccines} getCurrentVaccines={getCurrentVaccines} />
 				</Grid>
 			</Grid>
 			<Grid container className={classes.container}>
 				<Grid item xs={6}>
-					<AddRuleButton addRule={addRule} />
+					<AddRuleButton addRule={addRule} vaccines={state.vaccines} />
 				</Grid>
 				<Grid item xs={6}>
 					<SaveChangesButton saveChanges={saveChanges} canSaveChanges={canSaveChanges} />
 				</Grid>
 				<Grid item xs={12}>
 
-					{state.rules === null &&
+					{(state.rules === null || state.rules === undefined) &&
 						<div className={classes.circularProgressContainer}>
 							<CircularProgress className={classes.circularProgress} />
 						</div>

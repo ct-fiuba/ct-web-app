@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
-import ContentCopyIcon from '@material-ui/icons/FileCopy';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 export default function DuplicateRuleButton({id, duplicateRule}) {
   const handleDuplicateRule = () => {
@@ -10,7 +10,7 @@ export default function DuplicateRuleButton({id, duplicateRule}) {
   return (
     <div>
       <Button size="small" variant="outlined" color="primary" onClick={handleDuplicateRule}>
-        <ContentCopyIcon />
+        <FileCopyIcon />
       </Button>
     </div>
   );

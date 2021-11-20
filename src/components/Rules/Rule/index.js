@@ -1,7 +1,7 @@
 import React from "react";
 import RuleCard from "../RuleCard";
 
-export default function Rule({ rule, deleteRule }) {
+export default function Rule({ rule, deleteRule, duplicateRule }) {
 	return (<RuleCard id={rule.id}
 		contagionRisk={rule.contagionRisk}
 		durationValue={rule.durationValue}
@@ -16,5 +16,6 @@ export default function Rule({ rule, deleteRule }) {
 		illnessRecovered={rule.illnessRecovered}
 		illnessRecoveredDaysAgoMax={rule.illnessRecoveredDaysAgoMax}
 		index={rule.index}
-		deleteRule={deleteRule} />);
+		deleteRule={deleteRule}
+		duplicateRule={duplicateRule} />);
 }

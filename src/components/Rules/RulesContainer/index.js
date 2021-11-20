@@ -11,7 +11,7 @@ import useStyles from './styles';
 import NoRulesMessage from '../NoRulesMessage';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-export default function RulesContainer({ rules, vaccines, getCurrentVaccines, addRule, saveChanges, canSaveChanges, onDragEnd, deleteRule }) {
+export default function RulesContainer({ rules, vaccines, getCurrentVaccines, addRule, saveChanges, canSaveChanges, onDragEnd, deleteRule, duplicateRule }) {
 	const [state, setState] = useState({ rules: rules || [], vaccines: vaccines || [] });
 	const classes = useStyles();
 
@@ -52,7 +52,7 @@ export default function RulesContainer({ rules, vaccines, getCurrentVaccines, ad
 							<Droppable droppableId="list">
 								{provided => (
 									<div ref={provided.innerRef} {...provided.droppableProps}>
-										<RulesList rules={state.rules} deleteRule={deleteRule} />
+										<RulesList rules={state.rules} deleteRule={deleteRule} duplicateRule={duplicateRule} />
 										{provided.placeholder}
 									</div>
 								)}

@@ -11,6 +11,7 @@ export default class Rules extends React.Component {
     this.onDragEnd = this.onDragEnd.bind(this);
     this.deleteRule = this.deleteRule.bind(this);
     this.getCurrentVaccines = this.getCurrentVaccines.bind(this);
+    this.duplicateRule = this.duplicateRule.bind(this);
     this.addRule = this.addRule.bind(this);
     this.saveChanges = this.saveChanges.bind(this);
     this.state = { rules: null, max_index: 0, savedRules: [], canSaveChanges: false, vaccines: []};
@@ -29,6 +30,11 @@ export default class Rules extends React.Component {
       rules: new_rules
     });
     this.updateSavingButton(new_rules);
+  }
+
+  duplicateRule(id) {
+    const duplicatedRule = this.state.rules.filter(rule => rule['id'] === id)[0];
+    alert(duplicatedRule);
   }
 
   addRule(rule) {
@@ -119,6 +125,7 @@ export default class Rules extends React.Component {
           getCurrentVaccines={this.getCurrentVaccines}
           onDragEnd={this.onDragEnd}
           deleteRule={this.deleteRule}
+          duplicateRule={this.duplicateRule}
           addRule={this.addRule}
           saveChanges={this.saveChanges}
           canSaveChanges={this.state.canSaveChanges} />

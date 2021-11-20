@@ -2,9 +2,10 @@ import React from 'react';
 import { Card, CardContent, Grid, Typography } from '@material-ui/core';
 import { Draggable } from "react-beautiful-dnd";
 import DeleteRuleButton from '../DeleteRuleButton';
+import DuplicateRuleButton from '../DuplicateRuleButton';
 import useStyles from './styles';
 
-export default function RuleCard({id, index, contagionRisk, durationCmp, durationValue, m2Cmp, m2Value, openSpace, n95Mandatory, vaccinated, vaccineReceived, vaccinatedDaysAgoMin, illnessRecovered, illnessRecoveredDaysAgoMax, deleteRule}) {
+export default function RuleCard({id, index, contagionRisk, durationCmp, durationValue, m2Cmp, m2Value, openSpace, n95Mandatory, vaccinated, vaccineReceived, vaccinatedDaysAgoMin, illnessRecovered, illnessRecoveredDaysAgoMax, deleteRule, duplicateRule}) {
   const classes = useStyles();
 
   const contagionRiskToString = {
@@ -23,7 +24,7 @@ export default function RuleCard({id, index, contagionRisk, durationCmp, duratio
         >
           <Card className={`${classes.root} ${contagionRisk === 2 ? classes.highRisk : ''} ${contagionRisk === 1 ? classes.mediumRisk : ''} ${contagionRisk === 0 ? classes.lowRisk : ''}`}>
             <Grid container className={classes.gridContainer}>
-              <Grid item xs={10}>
+              <Grid item xs={8}>
                 <CardContent>
                   <Typography className={classes.title} color="textSecondary" gutterBottom>
                     {`Orden de evaluación: ${index + 1}º`}
@@ -57,6 +58,9 @@ export default function RuleCard({id, index, contagionRisk, durationCmp, duratio
 
                   </Typography>
                 </CardContent>
+              </Grid>
+              <Grid item xs={2}>
+                <DuplicateRuleButton duplicateRule={duplicateRule} id={id}/>
               </Grid>
               <Grid item xs={2}>
                 <DeleteRuleButton deleteRule={deleteRule} id={id}/>

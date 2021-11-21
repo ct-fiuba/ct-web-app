@@ -4,17 +4,16 @@ import AddIcon from '@material-ui/icons/Add';
 import { Button, Dialog, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import useStyles from './styles';
 
-export default function AddRuleButton({addRule, vaccines, initialValues}) {
+export default function AddRuleButton({addRule, vaccines, initialValues, addRuleFormOpen, duplicateRule, setAddRuleFormOpen}) {
   const classes = useStyles();
 
-  const [open, setOpen] = useState(false);
-
   const handleClickOpen = () => {
-    setOpen(true);
+    duplicateRule(null);
+    setAddRuleFormOpen(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setAddRuleFormOpen(false);
   };
 
   return (
@@ -22,7 +21,7 @@ export default function AddRuleButton({addRule, vaccines, initialValues}) {
       <Button className={classes.addButton} size="large" variant="contained" color="primary" onClick={handleClickOpen}>
         <AddIcon /> Crear nueva regla
       </Button>
-      <Dialog maxWidth={'md'} open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog maxWidth={'md'} open={addRuleFormOpen} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle className={classes.dialogTitle} id="form-dialog-title">Crear regla de contagio</DialogTitle>
         <DialogContent className={classes.dialogContent}>
           <DialogContentText>

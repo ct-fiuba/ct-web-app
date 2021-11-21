@@ -5,7 +5,7 @@ import DeleteRuleButton from '../DeleteRuleButton';
 import DuplicateRuleButton from '../DuplicateRuleButton';
 import useStyles from './styles';
 
-export default function RuleCard({id, index, contagionRisk, durationCmp, durationValue, m2Cmp, m2Value, openSpace, n95Mandatory, vaccinated, vaccineReceived, vaccinatedDaysAgoMin, illnessRecovered, illnessRecoveredDaysAgoMax, deleteRule, duplicateRule}) {
+export default function RuleCard({id, index, contagionRisk, durationCmp, durationValue, m2Cmp, m2Value, openSpace, n95Mandatory, vaccinated, vaccineReceived, vaccinatedDaysAgoMin, illnessRecovered, illnessRecoveredDaysAgoMax, deleteRule, duplicateRule, setAddRuleFormOpen}) {
   const classes = useStyles();
 
   const contagionRiskToString = {
@@ -60,7 +60,7 @@ export default function RuleCard({id, index, contagionRisk, durationCmp, duratio
                 </CardContent>
               </Grid>
               <Grid item xs={2}>
-                <DuplicateRuleButton duplicateRule={duplicateRule} id={id}/>
+                <DuplicateRuleButton duplicateRule={duplicateRule} setAddRuleFormOpen={setAddRuleFormOpen} id={id}/>
                 <DeleteRuleButton deleteRule={deleteRule} id={id}/>
               </Grid>
             </Grid>

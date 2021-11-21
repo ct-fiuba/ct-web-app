@@ -13,6 +13,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 export default function RulesContainer({ rules, vaccines, getCurrentVaccines, addRule, saveChanges, canSaveChanges, onDragEnd, deleteRule, duplicateRule, newRuleIntialValue }) {
 	const [state, setState] = useState({ rules: rules || [], vaccines: vaccines || [] });
+  	const [addRuleFormOpen, setAddRuleFormOpen] = useState(false);
 	const classes = useStyles();
 
 	React.useEffect(() => {
@@ -34,7 +35,7 @@ export default function RulesContainer({ rules, vaccines, getCurrentVaccines, ad
 			</Grid>
 			<Grid container className={classes.container}>
 				<Grid item xs={6}>
-					<AddRuleButton addRule={addRule} vaccines={state.vaccines} initialValues={newRuleIntialValue} />
+					<AddRuleButton addRule={addRule} vaccines={state.vaccines} initialValues={newRuleIntialValue} duplicateRule={duplicateRule} addRuleFormOpen={addRuleFormOpen} setAddRuleFormOpen={setAddRuleFormOpen} />
 				</Grid>
 				<Grid item xs={6}>
 					<SaveChangesButton saveChanges={saveChanges} canSaveChanges={canSaveChanges} />
@@ -52,7 +53,7 @@ export default function RulesContainer({ rules, vaccines, getCurrentVaccines, ad
 							<Droppable droppableId="list">
 								{provided => (
 									<div ref={provided.innerRef} {...provided.droppableProps}>
-										<RulesList rules={state.rules} deleteRule={deleteRule} duplicateRule={duplicateRule} />
+										<RulesList rules={state.rules} deleteRule={deleteRule} duplicateRule={duplicateRule} setAddRuleFormOpen={setAddRuleFormOpen} />
 										{provided.placeholder}
 									</div>
 								)}

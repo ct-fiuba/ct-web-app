@@ -3,11 +3,12 @@ import { Button } from '@material-ui/core';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import useStyles from './styles';
 
-export default function DuplicateRuleButton({id, duplicateRule}) {
+export default function DuplicateRuleButton({id, duplicateRule, setAddRuleFormOpen}) {
 	const classes = useStyles();
 
   const handleDuplicateRule = () => {
     duplicateRule(id);
+    setAddRuleFormOpen(true);
   };
 
   return (

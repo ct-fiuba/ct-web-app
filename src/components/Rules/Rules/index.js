@@ -33,9 +33,12 @@ export default class Rules extends React.Component {
   }
 
   duplicateRule(id) {
+    if (!id) {
+      this.setState({newRuleIntialValue: null});
+      return;
+    }
     const newRuleIntialValue = this.state.rules.filter(rule => rule['id'] === id)[0];
     this.setState({newRuleIntialValue});
-    console.log(newRuleIntialValue);
   }
 
   addRule(rule) {

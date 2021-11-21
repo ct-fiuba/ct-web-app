@@ -14,7 +14,7 @@ export default class Rules extends React.Component {
     this.duplicateRule = this.duplicateRule.bind(this);
     this.addRule = this.addRule.bind(this);
     this.saveChanges = this.saveChanges.bind(this);
-    this.state = { rules: null, max_index: 0, savedRules: [], canSaveChanges: false, vaccines: []};
+    this.state = { rules: null, max_index: 0, savedRules: [], canSaveChanges: false, vaccines: [], newRuleIntialValue: null};
   }
 
   async componentDidMount() {
@@ -33,8 +33,9 @@ export default class Rules extends React.Component {
   }
 
   duplicateRule(id) {
-    const duplicatedRule = this.state.rules.filter(rule => rule['id'] === id)[0];
-    alert(duplicatedRule);
+    const newRuleIntialValue = this.state.rules.filter(rule => rule['id'] === id)[0];
+    this.setState({newRuleIntialValue});
+    console.log(newRuleIntialValue);
   }
 
   addRule(rule) {
@@ -128,6 +129,7 @@ export default class Rules extends React.Component {
           duplicateRule={this.duplicateRule}
           addRule={this.addRule}
           saveChanges={this.saveChanges}
+          newRuleIntialValue={this.state.newRuleIntialValue}
           canSaveChanges={this.state.canSaveChanges} />
       </div>
     );

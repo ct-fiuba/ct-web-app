@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, FormControl, Select, MenuItem, InputLabel, Checkbox } from '@material-ui/core';
 import useStyles from './styles';
 
-export default function Vaccinated({maxDoses = 0, checkboxVaccinated, handleChangeCheckboxVaccinated, vaccinatedValue, handleVaccinatedValueChange}) {
+export default function Vaccinated({maxDoses = 1, checkboxVaccinated, handleChangeCheckboxVaccinated, vaccinatedValue, handleVaccinatedValueChange}) {
   const classes = useStyles();
 
   return (
@@ -30,7 +30,7 @@ export default function Vaccinated({maxDoses = 0, checkboxVaccinated, handleChan
             variant="outlined"
             disabled={!checkboxVaccinated}
           >
-            {Array.from(Array(maxDoses + 1).keys()).map(doses => <MenuItem value={doses}>{doses}</MenuItem>)}
+            {Array.from(Array((maxDoses > vaccinatedValue ? maxDoses : vaccinatedValue) + 1).keys()).map(doses => <MenuItem key={doses} value={doses}>{doses}</MenuItem>)}
           </Select>
         </FormControl>
       </Grid>

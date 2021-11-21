@@ -364,7 +364,7 @@ export default function AddRuleForm({addRule, handleClose, vaccines}) {
         <h4 className={classes.internalTitles}>Condiciones sobre la persona involucrada en el contacto</h4>
       </Grid>
 
-      <VaccinatedInput maxDoses={Math.max(...(vaccines.map(vaccine => vaccine.shotsCount)))} checkboxVaccinated={checkboxVaccinated} handleChangeCheckboxVaccinated={handleChangeCheckboxVaccinated} vaccinatedValue={vaccinatedValue} handleVaccinatedValueChange={handleVaccinatedValueChange}/>
+      <VaccinatedInput maxDoses={Math.max(...(vaccines.filter(vaccine => !vaccineReceivedValue || vaccine.name === vaccineReceivedValue).map(vaccine => vaccine.shotsCount)))} checkboxVaccinated={checkboxVaccinated} handleChangeCheckboxVaccinated={handleChangeCheckboxVaccinated} vaccinatedValue={vaccinatedValue} handleVaccinatedValueChange={handleVaccinatedValueChange}/>
 
       {
         vaccineDetailsVisible &&

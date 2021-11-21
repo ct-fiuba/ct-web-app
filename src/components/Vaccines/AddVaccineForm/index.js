@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Grid, Button, TextField } from '@material-ui/core';
 import useStyles from './styles';
 
-export default function AddRuleForm({addVaccine, handleClose}) {
+export default function AddVaccineForm({addVaccine, handleClose}) {
   const classes = useStyles();
 
   const [name, setName] = useState('');

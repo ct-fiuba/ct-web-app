@@ -13,21 +13,21 @@ import IllnessRecoveredInput from './components/IllnessRecoveredInput';
 import IllnessRecoveredDaysInput from './components/IllnessRecoveredDaysInput';
 import useStyles from './styles';
 
-export default function AddRuleForm({addRule, handleClose, vaccines}) {
+export default function AddRuleForm({addRule, handleClose, vaccines, initialValues}) {
   const classes = useStyles();
 
-  const [contagionRisk, setContagionRisk] = useState('');
-  const [durationCmp, setDurationCmp] = useState('');
-  const [durationValue, setDurationValue] = useState('');
-  const [m2Cmp, setM2Cmp] = useState('');
-  const [m2Value, setM2Value] = useState('');
-  const [openSpace, setOpenSpace] = useState('');
-  const [n95MandatoryValue, setN95MandatoryValue] = useState('');
-  const [vaccinatedValue, setVaccinatedValue] = useState('');
-  const [vaccineReceivedValue, setVaccineReceivedValue] = useState('');
-  const [vaccinatedDaysValue, setVaccinatedDaysValue] = useState('');
-  const [illnessRecoveredValue, setIllnessRecoveredValue] = useState('');
-  const [illnessRecoveredDaysValue, setIllnessRecoveredDaysValue] = useState('');
+  const [contagionRisk, setContagionRisk] = useState(initialValues ? initialValues.contagionRisk : '');
+  const [durationCmp, setDurationCmp] = useState(initialValues ? initialValues.durationCmp : '');
+  const [durationValue, setDurationValue] = useState(initialValues ? initialValues.durationValue : '');
+  const [m2Cmp, setM2Cmp] = useState(initialValues ? initialValues.m2Cmp : '');
+  const [m2Value, setM2Value] = useState(initialValues ? initialValues.m2Value : '');
+  const [openSpace, setOpenSpace] = useState(initialValues ? initialValues.openSpace : '');
+  const [n95MandatoryValue, setN95MandatoryValue] = useState(initialValues ? initialValues.n95MandatoryValue : '');
+  const [vaccinatedValue, setVaccinatedValue] = useState(initialValues ? initialValues.vaccinatedValue : '');
+  const [vaccineReceivedValue, setVaccineReceivedValue] = useState(initialValues ? initialValues.vaccineReceivedValue : '');
+  const [vaccinatedDaysValue, setVaccinatedDaysValue] = useState(initialValues ? initialValues.vaccinatedDaysValue : '');
+  const [illnessRecoveredValue, setIllnessRecoveredValue] = useState(initialValues ? initialValues.vaccinatedDaysValue : '');
+  const [illnessRecoveredDaysValue, setIllnessRecoveredDaysValue] = useState(initialValues ? initialValues.illnessRecoveredDaysValue : '');
 
   const [checkboxDuration, setCheckboxDuration] = useState(false);
   const [checkboxM2, setCheckboxM2] = useState(false);

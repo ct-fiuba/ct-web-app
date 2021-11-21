@@ -11,7 +11,7 @@ import useStyles from './styles';
 import NoRulesMessage from '../NoRulesMessage';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-export default function RulesContainer({ rules, vaccines, getCurrentVaccines, addRule, saveChanges, canSaveChanges, onDragEnd, deleteRule, duplicateRule }) {
+export default function RulesContainer({ rules, vaccines, getCurrentVaccines, addRule, saveChanges, canSaveChanges, onDragEnd, deleteRule, duplicateRule, newRuleIntialValue }) {
 	const [state, setState] = useState({ rules: rules || [], vaccines: vaccines || [] });
 	const classes = useStyles();
 
@@ -34,7 +34,7 @@ export default function RulesContainer({ rules, vaccines, getCurrentVaccines, ad
 			</Grid>
 			<Grid container className={classes.container}>
 				<Grid item xs={6}>
-					<AddRuleButton addRule={addRule} vaccines={state.vaccines} />
+					<AddRuleButton addRule={addRule} vaccines={state.vaccines} initialValues={newRuleIntialValue} />
 				</Grid>
 				<Grid item xs={6}>
 					<SaveChangesButton saveChanges={saveChanges} canSaveChanges={canSaveChanges} />

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
+import useStyles from './styles';
 
 export default function DeleteRuleButton({id, deleteRule}) {
+	const classes = useStyles();
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -20,7 +22,7 @@ export default function DeleteRuleButton({id, deleteRule}) {
 
   return (
     <div>
-      <Button size="large" variant="outlined" color="secondary" onClick={handleClickOpen}>
+      <Button className={classes.button} size="small" variant="outlined" color="secondary" onClick={handleClickOpen}>
         <DeleteIcon />
       </Button>
       <Dialog

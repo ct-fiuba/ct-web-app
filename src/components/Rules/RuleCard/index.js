@@ -24,7 +24,7 @@ export default function RuleCard({id, index, contagionRisk, durationCmp, duratio
         >
           <Card className={`${classes.root} ${contagionRisk === 2 ? classes.highRisk : ''} ${contagionRisk === 1 ? classes.mediumRisk : ''} ${contagionRisk === 0 ? classes.lowRisk : ''}`}>
             <Grid container className={classes.gridContainer}>
-              <Grid item xs={8}>
+              <Grid item xs={10}>
                 <CardContent>
                   <Typography className={classes.title} color="textSecondary" gutterBottom>
                     {`Orden de evaluación: ${index + 1}º`}
@@ -61,8 +61,6 @@ export default function RuleCard({id, index, contagionRisk, durationCmp, duratio
               </Grid>
               <Grid item xs={2}>
                 <DuplicateRuleButton duplicateRule={duplicateRule} id={id}/>
-              </Grid>
-              <Grid item xs={2}>
                 <DeleteRuleButton deleteRule={deleteRule} id={id}/>
               </Grid>
             </Grid>

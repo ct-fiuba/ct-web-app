@@ -8,6 +8,7 @@ export default function AddRuleButton({addRule, vaccines, initialValues, addRule
   const classes = useStyles();
 
   const handleClickOpen = () => {
+    // Clear the initial state of the new rule form
     duplicateRule(null);
     setAddRuleFormOpen(true);
   };

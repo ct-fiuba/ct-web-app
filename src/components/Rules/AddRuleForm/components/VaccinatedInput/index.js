@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, FormControl, Select, MenuItem, InputLabel, Checkbox } from '@material-ui/core';
 import useStyles from './styles';
 
-export default function Vaccinated({maxDoses = 1, checkboxVaccinated, handleChangeCheckboxVaccinated, vaccinatedValue, handleVaccinatedValueChange}) {
+export default function Vaccinated({maxDoses = 0, checkboxVaccinated, handleChangeCheckboxVaccinated, vaccinatedValue, handleVaccinatedValueChange}) {
   const classes = useStyles();
 
   return (

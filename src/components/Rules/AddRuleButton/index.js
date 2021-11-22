@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import AddRuleForm from '../AddRuleForm';
 import AddIcon from '@material-ui/icons/Add';
 import { Button, Dialog, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';

@@ -13,34 +13,34 @@ import IllnessRecoveredInput from './components/IllnessRecoveredInput';
 import IllnessRecoveredDaysInput from './components/IllnessRecoveredDaysInput';
 import useStyles from './styles';
 
-export default function AddRuleForm({addRule, handleClose, vaccines}) {
+export default function AddRuleForm({addRule, handleClose, vaccines, initialValues}) {
   const classes = useStyles();
 
-  const [contagionRisk, setContagionRisk] = useState('');
-  const [durationCmp, setDurationCmp] = useState('');
-  const [durationValue, setDurationValue] = useState('');
-  const [m2Cmp, setM2Cmp] = useState('');
-  const [m2Value, setM2Value] = useState('');
-  const [openSpace, setOpenSpace] = useState('');
-  const [n95MandatoryValue, setN95MandatoryValue] = useState('');
-  const [vaccinatedValue, setVaccinatedValue] = useState('');
-  const [vaccineReceivedValue, setVaccineReceivedValue] = useState('');
-  const [vaccinatedDaysValue, setVaccinatedDaysValue] = useState('');
-  const [illnessRecoveredValue, setIllnessRecoveredValue] = useState('');
-  const [illnessRecoveredDaysValue, setIllnessRecoveredDaysValue] = useState('');
+  const [contagionRisk, setContagionRisk] = useState(initialValues ? initialValues.contagionRisk : '');
+  const [durationCmp, setDurationCmp] = useState(initialValues && initialValues.durationCmp !== undefined ? initialValues.durationCmp : '');
+  const [durationValue, setDurationValue] = useState(initialValues && initialValues.durationValue !== undefined ? initialValues.durationValue : '');
+  const [m2Cmp, setM2Cmp] = useState(initialValues && initialValues.m2Cmp !== undefined ? initialValues.m2Cmp : '');
+  const [m2Value, setM2Value] = useState(initialValues && initialValues.m2Value !== undefined ? initialValues.m2Value : '');
+  const [openSpace, setOpenSpace] = useState(initialValues && initialValues.openSpace !== undefined ? initialValues.openSpace : '');
+  const [n95MandatoryValue, setN95MandatoryValue] = useState(initialValues && initialValues.n95Mandatory !== undefined ? initialValues.n95Mandatory : '');
+  const [vaccinatedValue, setVaccinatedValue] = useState(initialValues && initialValues.vaccinated !== undefined ? initialValues.vaccinated : '');
+  const [vaccineReceivedValue, setVaccineReceivedValue] = useState(initialValues && initialValues.vaccineReceived !== undefined ? initialValues.vaccineReceived : '');
+  const [vaccinatedDaysValue, setVaccinatedDaysValue] = useState(initialValues && initialValues.vaccinatedDaysAgoMin !== undefined ? initialValues.vaccinatedDaysAgoMin : '');
+  const [illnessRecoveredValue, setIllnessRecoveredValue] = useState(initialValues && initialValues.illnessRecovered !== undefined ? initialValues.illnessRecovered : '');
+  const [illnessRecoveredDaysValue, setIllnessRecoveredDaysValue] = useState(initialValues && initialValues.illnessRecoveredDaysAgoMax !== undefined ? initialValues.illnessRecoveredDaysAgoMax : '');
 
-  const [checkboxDuration, setCheckboxDuration] = useState(false);
-  const [checkboxM2, setCheckboxM2] = useState(false);
-  const [checkboxSpace, setCheckboxSpace] = useState(false);
-  const [checkboxN95Mandatory, setCheckboxN95Mandatory] = useState(false);
-  const [checkboxVaccinated, setCheckboxVaccinated] = useState(false);
-  const [checkboxVaccineReceived, setCheckboxVaccineReceived] = useState(false);
-  const [checkboxVaccinatedDays, setCheckboxVaccinatedDays] = useState(false);
-  const [checkboxIllnessRecovered, setCheckboxIllnessRecovered] = useState(false);
-  const [checkboxIllnessRecoveredDays, setCheckboxIllnessRecoveredDays] = useState(false);
+  const [checkboxDuration, setCheckboxDuration] = useState(initialValues && initialValues.durationCmp !== undefined);
+  const [checkboxM2, setCheckboxM2] = useState(initialValues && initialValues.m2Cmp !== undefined);
+  const [checkboxSpace, setCheckboxSpace] = useState(initialValues && initialValues.openSpace !== undefined);
+  const [checkboxN95Mandatory, setCheckboxN95Mandatory] = useState(initialValues && initialValues.n95Mandatory !== undefined);
+  const [checkboxVaccinated, setCheckboxVaccinated] = useState(initialValues && initialValues.vaccinated !== undefined);
+  const [checkboxVaccineReceived, setCheckboxVaccineReceived] = useState(initialValues && initialValues.vaccineReceived !== undefined);
+  const [checkboxVaccinatedDays, setCheckboxVaccinatedDays] = useState(initialValues && initialValues.vaccinatedDaysAgoMin !== undefined);
+  const [checkboxIllnessRecovered, setCheckboxIllnessRecovered] = useState(initialValues && initialValues.illnessRecovered !== undefined);
+  const [checkboxIllnessRecoveredDays, setCheckboxIllnessRecoveredDays] = useState(initialValues && initialValues.illnessRecoveredDaysAgoMax !== undefined);
 
-  const [vaccineDetailsVisible, setVaccineDetailsVisible] = useState(false);
-  const [illnessRecoveredDetailsVisible, setIllnessRecoveredDetailsVisible] = useState(false);
+  const [vaccineDetailsVisible, setVaccineDetailsVisible] = useState(initialValues && initialValues.vaccinated !== undefined && initialValues.vaccinated > 0);
+  const [illnessRecoveredDetailsVisible, setIllnessRecoveredDetailsVisible] = useState(initialValues && initialValues.illnessRecovered);
 
   const [durationMissing, setDurationMissing] = useState(false);
   const [m2Missing, setM2Missing] = useState(false);

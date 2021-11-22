@@ -2,9 +2,10 @@ import React from 'react';
 import { Card, CardContent, Grid, Typography } from '@material-ui/core';
 import { Draggable } from "react-beautiful-dnd";
 import DeleteRuleButton from '../DeleteRuleButton';
+import DuplicateRuleButton from '../DuplicateRuleButton';
 import useStyles from './styles';
 
-export default function RuleCard({id, index, contagionRisk, durationCmp, durationValue, m2Cmp, m2Value, openSpace, n95Mandatory, vaccinated, vaccineReceived, vaccinatedDaysAgoMin, illnessRecovered, illnessRecoveredDaysAgoMax, deleteRule}) {
+export default function RuleCard({id, index, contagionRisk, durationCmp, durationValue, m2Cmp, m2Value, openSpace, n95Mandatory, vaccinated, vaccineReceived, vaccinatedDaysAgoMin, illnessRecovered, illnessRecoveredDaysAgoMax, deleteRule, duplicateRule, setAddRuleFormOpen}) {
   const classes = useStyles();
 
   const contagionRiskToString = {
@@ -38,8 +39,8 @@ export default function RuleCard({id, index, contagionRisk, durationCmp, duratio
                     {durationCmp ? <br /> : ''}
                     {m2Cmp ? `Superficie ${m2Cmp === '<' ? "menor a" : "mayor a"} ${m2Value} metros cuadrados` : ''}
                     {m2Cmp ? <br /> : ''}
-                    {openSpace ? `Ventilación del espacio: ${openSpace ? 'Abierto' : 'Cerrado'}` : ''}
-                    {openSpace ? <br /> : ''}
+                    {openSpace !== undefined ? `Ventilación del espacio: ${openSpace ? 'Abierto' : 'Cerrado'}` : ''}
+                    {openSpace !== undefined ? <br /> : ''}
 
                     {n95Mandatory !== undefined ? `Uso del N95 ${n95Mandatory ? '' : 'no'} obligatorio` : ''}
                     {n95Mandatory !== undefined ? <br /> : ''}
@@ -59,6 +60,7 @@ export default function RuleCard({id, index, contagionRisk, durationCmp, duratio
                 </CardContent>
               </Grid>
               <Grid item xs={2}>
+                <DuplicateRuleButton duplicateRule={duplicateRule} setAddRuleFormOpen={setAddRuleFormOpen} id={id}/>
                 <DeleteRuleButton deleteRule={deleteRule} id={id}/>
               </Grid>
             </Grid>

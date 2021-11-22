@@ -30,7 +30,7 @@ export default function Vaccinated({maxDoses = 0, checkboxVaccinated, handleChan
             variant="outlined"
             disabled={!checkboxVaccinated}
           >
-            {Array.from(Array(maxDoses + 1).keys()).map(doses => <MenuItem value={doses}>{doses}</MenuItem>)}
+            {Array.from(Array((maxDoses > vaccinatedValue ? maxDoses : vaccinatedValue) + 1).keys()).map(doses => <MenuItem key={doses} value={doses}>{doses}</MenuItem>)}
           </Select>
         </FormControl>
       </Grid>

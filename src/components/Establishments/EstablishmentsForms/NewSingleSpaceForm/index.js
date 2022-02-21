@@ -98,7 +98,7 @@ export default function NewSingleSpaceForm({ initialName, initialM2, initialEsti
                 />
               </Grid>
             }
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={storeType === 'hospital' ? 4 : 10}>
               <FormControlLabel
                 control={<Checkbox color="secondary" name="hasExit" checked={hasExit} onChange={handleHasExitChange} />}
                 label="Generar un QR de salida"

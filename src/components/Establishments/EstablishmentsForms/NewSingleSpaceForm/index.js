@@ -91,14 +91,14 @@ export default function NewSingleSpaceForm({ initialName, initialM2, initialEsti
             </Grid>
             {
               storeType === 'hospital' &&
-              <Grid item xs={12} md={5}>
+              <Grid item xs={12} md={6}>
                 <FormControlLabel
                   control={<Checkbox color="secondary" name="n95Mandatory" checked={n95Mandatory} onChange={handleN95MandatoryChange} />}
                   label="Uso de N95 obligatorio"
                 />
               </Grid>
             }
-            <Grid item xs={12} md={5}>
+            <Grid item xs={12} md={4}>
               <FormControlLabel
                 control={<Checkbox color="secondary" name="hasExit" checked={hasExit} onChange={handleHasExitChange} />}
                 label="Generar un QR de salida"
@@ -107,8 +107,9 @@ export default function NewSingleSpaceForm({ initialName, initialM2, initialEsti
             {
               deleteSpaceFromForm &&
                 <Grid item xs={12} md={2}>
-                  <Button size="small" color="secondary" onClick={(e) => deleteSpaceFromForm(index)}>
+                  <Button className={classes.deleteButton} size="small" variant="outlined" onClick={(e) => deleteSpaceFromForm(index)}>
                     <DeleteIcon />
+                    Eliminar
                   </Button>
                 </Grid>
             }

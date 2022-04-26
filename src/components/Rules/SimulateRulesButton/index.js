@@ -3,6 +3,7 @@ import SimulateRulesForm from '../SimulateRulesForm';
 import { Button, Dialog, DialogContent, DialogContentText, DialogTitle} from '@material-ui/core';
 import SimulateRulesResult from '../SimulateRulesResult';
 import useStyles from './styles';
+import { simulate } from '../../../services/simulatorService';
 
 export default function SimulateRulesButton(props) {
   const classes = useStyles();
@@ -21,25 +22,24 @@ export default function SimulateRulesButton(props) {
     setLoading(false);
   };
 
-  const sleep = async (milliseconds) => {
-    await new Promise(r => setTimeout(r, milliseconds));
-  }
-
   const formatAPIResponse = (config, response) => {
     // We should format the API response here!
+    const lastDay = response[response.length - 1]
     return {
-      infected: config.infectedUsers,
-      highRisk: (config.users - config.infectedUsers) * 20 / 100,
-      midRisk: (config.users - config.infectedUsers) * 50 / 100,
-      lowRisk: (config.users - config.infectedUsers) * 30 / 100,
+      infected: lastDay.infected,
+      highRisk: lastDay.high,
+      midRisk: lastDay.mid,
+      lowRisk: lastDay.low,
     }
   }
 
   const simulateAPI = async (config) => {
     // We should hit an API here!
-    await sleep(4000);
+    //await sleep(4000);
+    const response = await simulate();
+    console.log(response)
     setLoading(false);
-    setSimulateRuleResult(formatAPIResponse(config, null));
+    setSimulateRuleResult(formatAPIResponse(config, response));
   }
 
   const simulateRules = (config) => {

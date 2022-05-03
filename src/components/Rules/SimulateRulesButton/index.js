@@ -26,10 +26,19 @@ export default function SimulateRulesButton(props) {
     // We should format the API response here!
     const lastDay = response[response.length - 1]
     return {
-      infected: lastDay.infected,
-      highRisk: lastDay.high,
-      midRisk: lastDay.mid,
-      lowRisk: lastDay.low,
+      overall: {
+        infected: lastDay.infected,
+        highRisk: lastDay.high,
+        midRisk: lastDay.mid,
+        lowRisk: lastDay.low,
+      },
+      chart: {
+        data: response,
+        xDataKey: 'day',
+        yDataKeys: ["infected", "high", "mid", "low"],
+        colors: ["#cca9dd", "#ff5252", "#ffdb44", "#b5ffcf"]
+      }
+      
     }
   }
 
@@ -37,7 +46,6 @@ export default function SimulateRulesButton(props) {
     // We should hit an API here!
     //await sleep(4000);
     const response = await simulate();
-    console.log(response)
     setLoading(false);
     setSimulateRuleResult(formatAPIResponse(config, response));
   }

@@ -12,6 +12,7 @@ export default function SimulateRulesButton({rules}) {
   const [open, setOpen] = useState(false);
   const [simulateRuleResult, setSimulateRuleResult] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [rawResult, setRawResult] = useState(null)
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -46,6 +47,7 @@ export default function SimulateRulesButton({rules}) {
   const simulateAPI = async (config) => {
     const response = await simulate(config, rules);
     setLoading(false);
+    setRawResult(response)
     setSimulateRuleResult(formatAPIResponse(config, response));
   }
 
@@ -54,6 +56,15 @@ export default function SimulateRulesButton({rules}) {
     setLoading(true);
     simulateAPI(config);
   }
+
+  const onDownload = () => {
+    const link = document.createElement("a");
+    link.download = `result.json`;
+    link.href =`data:text/json;charset=utf-8,${encodeURIComponent(
+      JSON.stringify({rules: rules, result: rawResult})
+    )}`;
+    link.click();
+  };
 
   return (
     <div>
@@ -72,7 +83,7 @@ export default function SimulateRulesButton({rules}) {
             Definí los valores para simular el comportamiento de la sociedad y observá qué porcentaje de los usuarios terminaría con cada riesgo de contagio luego de un período de tiempo. Esta herramienta ayuda a editar las reglas de contagio de forma tal que representen de la forma más precisa posible a la enfermedad.
           </DialogContentText>
           <SimulateRulesForm handleClose={handleClose} simulateRules={simulateRules} />
-          <SimulateRulesResult result={simulateRuleResult} loading={loading} />
+          <SimulateRulesResult result={simulateRuleResult} loading={loading} onDownload={onDownload} />
         </DialogContent>
       </Dialog>
     </div>

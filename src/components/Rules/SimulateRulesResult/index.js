@@ -1,10 +1,10 @@
 import React from 'react';
-import { Card, CardContent, CircularProgress, Grid, Typography} from '@material-ui/core';
+import { Card, CardContent, CircularProgress, Grid, Typography, Button} from '@material-ui/core';
 import useStyles from './styles';
 
 import Line from "../../LineChart";
 
-export default function SimulateRulesResult({result, loading}) {
+export default function SimulateRulesResult({result, loading, onDownload}) {
   const classes = useStyles();
 
   return (
@@ -29,6 +29,12 @@ export default function SimulateRulesResult({result, loading}) {
             <CardContent>
               <Line {...result.chart}/>
             </CardContent>
+            <CardContent>
+              <Button onClick={onDownload} variant="contained" color="primary">
+                Descargar resultado
+              </Button>
+            </CardContent>
+            
           </Grid>
         </Grid>
       </Card>

@@ -7,12 +7,17 @@ const useStyles = makeStyles({
     borderTopStyle: 'inset',
     borderTop: '5px solid #b5ffcf',
   },
+  grid: {
+    //alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center'
+  },
   gridContainer: {
     alignItems: 'center',
   },
   gridProgress: {
     textAlign: 'center',
-  }
+  },
 });
 
 export default useStyles;

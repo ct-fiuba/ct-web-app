@@ -11,10 +11,6 @@ import {
 } from 'recharts';
 import CustomizedTooltip from '../CustomizedTooltip';
 
-import './styles.css';
-
-//import { COLORS2 as COLORS } from '../chartsUtils';
-
 export const COLORS = [
     // https://www.color-hex.com/color-palette/71119
     '#ffb57c',
@@ -48,7 +44,7 @@ class Line extends Component {
     return `${(decimal * 100 * 100).toFixed(fixed) / 100}%`;
   }
 
-  toNumber(decimal, fixed = 2) {
+  toNumber(decimal, fixed = 0) {
     let { currency } = this.props;
     currency = currency === 'AR$' ? '$' : currency;
     return `${currency ? currency + ' ' : ''}${(decimal).toFixed(fixed).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
@@ -67,8 +63,7 @@ class Line extends Component {
 
     return (
       <LineChart width={650} height={400} data={data}
-        margin={{ top: 10, right: 0, left: 5, bottom: 10 }}
-        className='line-chart'>
+        margin={{ top: 10, right: 0, left: 5, bottom: 10 }}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey={xDataKey} />
         <YAxis ticks={ticks} tickFormatter={isPercentual ? this.toPercent : this.toRoundNumber.bind(this)} />

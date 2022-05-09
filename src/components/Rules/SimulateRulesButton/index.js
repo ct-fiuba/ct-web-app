@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import SimulateRulesForm from '../SimulateRulesForm';
-import { Button, Dialog, DialogContent, DialogContentText, DialogTitle} from '@material-ui/core';
+import { Button, Dialog, DialogContent, DialogContentText, DialogTitle, IconButton} from '@material-ui/core';
+import CloseIcon from "@material-ui/icons/Close"
 import SimulateRulesResult from '../SimulateRulesResult';
 import useStyles from './styles';
 import { simulate } from '../../../services/simulatorService';
 
-export default function SimulateRulesButton(props) {
+export default function SimulateRulesButton({rules}) {
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
@@ -43,9 +44,7 @@ export default function SimulateRulesButton(props) {
   }
 
   const simulateAPI = async (config) => {
-    // We should hit an API here!
-    //await sleep(4000);
-    const response = await simulate();
+    const response = await simulate(config, rules);
     setLoading(false);
     setSimulateRuleResult(formatAPIResponse(config, response));
   }
@@ -61,8 +60,13 @@ export default function SimulateRulesButton(props) {
       <Button className={classes.simulateRulesButton} variant="outlined" color="primary" onClick={handleClickOpen}>
         Simular reglas
       </Button>
-      <Dialog maxWidth={'md'} open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle className={classes.dialogTitle} id="form-dialog-title">Correr simulación de las reglas de contagio</DialogTitle>
+      <Dialog fullScreen maxWidth={'xl'} open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle disableTypography id="form-dialog-title" className={classes.dialogTitle}>
+          <h2>Correr simulación de las reglas de contagio</h2>
+          <IconButton onClick={handleClose}>
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
         <DialogContent className={classes.dialogContent}>
           <DialogContentText>
             Definí los valores para simular el comportamiento de la sociedad y observá qué porcentaje de los usuarios terminaría con cada riesgo de contagio luego de un período de tiempo. Esta herramienta ayuda a editar las reglas de contagio de forma tal que representen de la forma más precisa posible a la enfermedad.

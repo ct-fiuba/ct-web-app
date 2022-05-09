@@ -8,9 +8,13 @@ const useStyles = makeStyles((theme) => ({
     marginRight: '5px',
   },
   dialogTitle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginTop: '40px',
     marginLeft: '40px',
     marginRight: '40px',
+    display: 'flex',
+    alignItems: 'center'
   },
   dialogContent: {
     marginBottom: '40px',

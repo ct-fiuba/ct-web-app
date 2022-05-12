@@ -19,6 +19,10 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
   const [expandedAdvanced, setAdvanced] = useState(false);
 
   const [seed, setSeed] = useState(null);
+  const [lockdownRestriction, setLockdownRestriction] = useState(null);
+  const [plow, setPLow] = useState(null);
+  const [pmid, setPMid] = useState(null);
+  const [phigh, setPHigh] = useState(null);
 
   let maxValueInfectedUsers = usersValue;
   let maxValuePartiallyVaccinatedUsers = 100 - fullyVaccinatedUsersValue;
@@ -30,6 +34,22 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
 
   const handleSeedValueChange = (event) => {
     setSeed(parseInt(event.target.value));
+  }
+
+  const handlePLowValueChange = (event) => {
+    setPLow(parseInt(event.target.value));
+  }
+
+  const handlePMidValueChange = (event) => {
+    setPMid(parseInt(event.target.value));
+  }
+
+  const handlePHighValueChange = (event) => {
+    setPHigh(parseInt(event.target.value));
+  }
+
+  const handleLockdownRestrictionValueChange = (event, newValue) => {
+    setLockdownRestriction(parseInt(newValue));
   }
 
   const handlePartiallyVaccinatedUsersValueChange = (event, newValue) => {
@@ -65,12 +85,14 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
       establishments: establishmentsValue,
       mobility: mobilityValue,
       days: daysValue,
-      ...seed && { seed }
+      ...seed && { seed },
+      ...lockdownRestriction && {lockdownRestriction}
     }
     simulateRules(config);
   }
 
   return (
+    <>
     <Grid container>
       <SimulateRulesFormSlider 
         max={Constants.maxValueUsers}
@@ -78,22 +100,6 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
         tooltip={"Cantidad de usuarios en la simulación."}
         value={usersValue}
         handleValueChange={handleUsersValueChange}
-      />
-
-      <SimulateRulesFormSlider 
-        max={maxValuePartiallyVaccinatedUsers}
-        title={"% usuarios parcialmente vacunados"}
-        tooltip={"Porcentaje de usuarios que ha recibido una sola dosis. Se asumirá que la vacuna es la Sputnik V."}
-        value={partiallyVaccinatedUsersValue}
-        handleValueChange={handlePartiallyVaccinatedUsersValueChange}
-      />
-
-      <SimulateRulesFormSlider 
-        max={maxValueFullyVaccinatedUsers}
-        title={"% usuarios completamente vacunados"}
-        tooltip={"Porcentaje de usuarios que ha recibido las dos dosis. Se asumirá que la vacuna es la Sputnik V."}
-        value={fullyVaccinatedUsersValue}
-        handleValueChange={handleFullyVaccinatedUsersValueChange}
       />
 
       <SimulateRulesFormSlider 
@@ -127,49 +133,120 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
         value={daysValue}
         handleValueChange={handleDaysValueChange}
       />
+    </Grid>
+    <Grid item xs={24}>
 
-      
-      <Grid item xs={12}>
+    <Accordion expanded={expandedAdvanced} onChange={() => setAdvanced(!expandedAdvanced)}>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls="advanced-content"
+        id="advanced-settings"
+      >
+        <Typography sx={{ width: '33%', flexShrink: 0 }}>
+          Configuracion Avanzada
+        </Typography>
+      </AccordionSummary>
+      <AccordionDetails>
+        <Grid container>
+          <SimulateRulesFormSlider 
+            max={maxValuePartiallyVaccinatedUsers}
+            title={"% usuarios parcialmente vacunados"}
+            tooltip={"Porcentaje de usuarios que ha recibido una sola dosis. Se asumirá que la vacuna es la Sputnik V."}
+            value={partiallyVaccinatedUsersValue}
+            handleValueChange={handlePartiallyVaccinatedUsersValueChange}
+          />
 
-        <Accordion expanded={expandedAdvanced} onChange={() => setAdvanced(!expandedAdvanced)}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="advanced-content"
-            id="advanced-settings"
-          >
-            <Typography sx={{ width: '33%', flexShrink: 0 }}>
-              Configuracion Avanzada
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <>
-            <Grid className={classes.firstSliderGrid} item xs={6}>
-              <h4 className={classes.titles}>Semilla
-                <Tooltip className={classes.tooltips} placement="right" title={<span className={classes.tooltipsText}>Para la repetibilidad entre corridas</span>}>
-                  <HelpIcon color="action" fontSize="small"></HelpIcon>
-                </Tooltip>
-              </h4>
-            </Grid>
-            <Grid className={classes.firstSliderGrid} item xs={6}>
-            <TextField
-                id="seed"
-                type="number"
-                //helperText="para la repetibilidad"
-                variant="outlined"
-                onChange={handleSeedValueChange}
-                value={seed}
-              />
-            </Grid>
-            </>
+          <SimulateRulesFormSlider 
+            max={maxValueFullyVaccinatedUsers}
+            title={"% usuarios completamente vacunados"}
+            tooltip={"Porcentaje de usuarios que ha recibido las dos dosis. Se asumirá que la vacuna es la Sputnik V."}
+            value={fullyVaccinatedUsersValue}
+            handleValueChange={handleFullyVaccinatedUsersValueChange}
+          />
+
+          <SimulateRulesFormSlider 
+            max={Constants.maxValueDays}
+            title={"Duracion de restriccion por riesgo alto"}
+            tooltip="Cantidad de dias que una persona debe aislarse al ser detectada como riesgo alto."
+            value={lockdownRestriction}
+            handleValueChange={handleLockdownRestrictionValueChange}
+          />
+
+        
+          <Grid className={classes.firstSliderGrid} item xs={6}>
+            <h4 className={classes.titles}>Semilla
+              <Tooltip className={classes.tooltips} placement="right" title={<span className={classes.tooltipsText}>Para la repetibilidad entre corridas</span>}>
+                <HelpIcon color="action" fontSize="small"></HelpIcon>
+              </Tooltip>
+            </h4>
+          </Grid>
+          <Grid className={classes.firstSliderGrid} item xs={6}>
+          <TextField
+              id="seed"
+              type="number"
+              variant="outlined"
+              onChange={handleSeedValueChange}
+              value={seed}
+            />
+          </Grid>
+
+          <Grid className={classes.firstSliderGrid} item xs={6}>
+            <h4 className={classes.titles}>Probabilidad de contagio para riesgo bajo
+              <Tooltip className={classes.tooltips} placement="right" title={<span className={classes.tooltipsText}>Para la repetibilidad entre corridas</span>}>
+                <HelpIcon color="action" fontSize="small"></HelpIcon>
+              </Tooltip>
+            </h4>
+          </Grid>
+          <Grid className={classes.firstSliderGrid} item xs={6}>
+          <TextField
+              id="seed"
+              type="number"
+              variant="outlined"
+              onChange={handlePLowValueChange}
+              value={plow}
+            />
+          </Grid>
+
+          <Grid className={classes.firstSliderGrid} item xs={6}>
+            <h4 className={classes.titles}>Probabilidad de contagio para riesgo medio
+              <Tooltip className={classes.tooltips} placement="right" title={<span className={classes.tooltipsText}>Para la repetibilidad entre corridas</span>}>
+                <HelpIcon color="action" fontSize="small"></HelpIcon>
+              </Tooltip>
+            </h4>
+          </Grid>
+          <Grid className={classes.firstSliderGrid} item xs={6}>
+          <TextField
+              id="seed"
+              type="number"
+              variant="outlined"
+              onChange={handlePMidValueChange}
+              value={pmid}
+            />
+          </Grid>
+
+          <Grid className={classes.firstSliderGrid} item xs={6}>
+            <h4 className={classes.titles}>Probabilidad de contagio para riesgo alto
+              <Tooltip className={classes.tooltips} placement="right" title={<span className={classes.tooltipsText}>Para la repetibilidad entre corridas</span>}>
+                <HelpIcon color="action" fontSize="small"></HelpIcon>
+              </Tooltip>
+            </h4>
+          </Grid>
+          <Grid className={classes.firstSliderGrid} item xs={6}>
+          <TextField
+              id="seed"
+              type="number"
+              variant="outlined"
+              onChange={handlePHighValueChange}
+              value={phigh}
+            />
+          </Grid>
+
           
-          
-          </AccordionDetails>
-        </Accordion>
+        </Grid>
+      </AccordionDetails>
+    </Accordion>
 
-      </Grid>
-      
-
-      <Grid item xs={12} className={classes.buttonsGrid}>
+    <Grid item xs={12} className={classes.buttonsGrid}>
         <Button onClick={handleClose} color="primary">
           Cancelar
         </Button>
@@ -177,6 +254,8 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
           Correr Simulación
         </Button>
       </Grid>
-    </Grid>
+
+  </Grid>
+  </>
   );
 }

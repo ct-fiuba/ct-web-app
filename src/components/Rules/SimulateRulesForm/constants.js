@@ -5,5 +5,5 @@ export const defaultValueMobility = 3;
 export const defaultValueDays = 60;
 export const maxValueUsers = 500;
 export const maxValueEstablishments = 50;
-export const maxValueMobility = 25;
+export const maxValueMobility = 10;
 export const maxValueDays = 180;

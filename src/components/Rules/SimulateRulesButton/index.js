@@ -12,7 +12,8 @@ export default function SimulateRulesButton({rules}) {
   const [open, setOpen] = useState(false);
   const [simulateRuleResult, setSimulateRuleResult] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [rawResult, setRawResult] = useState(null)
+  const [rawResult, setRawResult] = useState(null);
+  const [currentConfig, setConfig] = useState(null);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -48,6 +49,7 @@ export default function SimulateRulesButton({rules}) {
     const response = await simulate(config, rules);
     setLoading(false);
     setRawResult(response)
+    setConfig(config);
     setSimulateRuleResult(formatAPIResponse(config, response));
   }
 
@@ -61,7 +63,7 @@ export default function SimulateRulesButton({rules}) {
     const link = document.createElement("a");
     link.download = `result.json`;
     link.href =`data:text/json;charset=utf-8,${encodeURIComponent(
-      JSON.stringify({rules: rules, result: rawResult})
+      JSON.stringify({rules: rules, result: rawResult, config: currentConfig})
     )}`;
     link.click();
   };

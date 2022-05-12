@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Grid, Button } from '@material-ui/core';
+import { Grid, Button, Accordion, AccordionSummary, AccordionDetails, Typography, Tooltip, TextField } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import HelpIcon from '@material-ui/icons/Help';
 import SimulateRulesFormSlider from '../SimulateRulesFormSlider';
 import useStyles from './styles';
 import * as Constants from './constants';
@@ -14,6 +16,9 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
   const [establishmentsValue, setEstablishmentsValue] = useState(Constants.defaultValueEstablishments);
   const [mobilityValue, setMobilityValue] = useState(Constants.defaultValueMobility);
   const [daysValue, setDaysValue] = useState(Constants.defaultValueDays);
+  const [expandedAdvanced, setAdvanced] = useState(false);
+
+  const [seed, setSeed] = useState(null);
 
   let maxValueInfectedUsers = usersValue;
   let maxValuePartiallyVaccinatedUsers = 100 - fullyVaccinatedUsersValue;
@@ -21,6 +26,10 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
 
   const handleUsersValueChange = (event, newValue) => {
     setUsersValue(parseInt(newValue));
+  }
+
+  const handleSeedValueChange = (event) => {
+    setSeed(parseInt(event.target.value));
   }
 
   const handlePartiallyVaccinatedUsersValueChange = (event, newValue) => {
@@ -56,6 +65,7 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
       establishments: establishmentsValue,
       mobility: mobilityValue,
       days: daysValue,
+      ...seed && { seed }
     }
     simulateRules(config);
   }
@@ -105,7 +115,7 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
       <SimulateRulesFormSlider 
         max={Constants.maxValueMobility}
         title={"Índice de movilidad"}
-        tooltip={"Cantidad de visitas que hace cada usuario cada día. El establecimiento visitado es aleatorio y todos tienen la misma probabilidad de ser visitados."}
+        tooltip={"Cantidad de establecimientos que suele visitar un usuario ('favoritos'). Durante la simulacion estos establecimientos tienen la misma probabilidad de ser visitados."}
         value={mobilityValue}
         handleValueChange={handleMobilityValueChange}
       />
@@ -117,6 +127,47 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
         value={daysValue}
         handleValueChange={handleDaysValueChange}
       />
+
+      
+      <Grid item xs={12}>
+
+        <Accordion expanded={expandedAdvanced} onChange={() => setAdvanced(!expandedAdvanced)}>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="advanced-content"
+            id="advanced-settings"
+          >
+            <Typography sx={{ width: '33%', flexShrink: 0 }}>
+              Configuracion Avanzada
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <>
+            <Grid className={classes.firstSliderGrid} item xs={6}>
+              <h4 className={classes.titles}>Semilla
+                <Tooltip className={classes.tooltips} placement="right" title={<span className={classes.tooltipsText}>Para la repetibilidad entre corridas</span>}>
+                  <HelpIcon color="action" fontSize="small"></HelpIcon>
+                </Tooltip>
+              </h4>
+            </Grid>
+            <Grid className={classes.firstSliderGrid} item xs={6}>
+            <TextField
+                id="seed"
+                type="number"
+                //helperText="para la repetibilidad"
+                variant="outlined"
+                onChange={handleSeedValueChange}
+                value={seed}
+              />
+            </Grid>
+            </>
+          
+          
+          </AccordionDetails>
+        </Accordion>
+
+      </Grid>
+      
 
       <Grid item xs={12} className={classes.buttonsGrid}>
         <Button onClick={handleClose} color="primary">

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Button, Accordion, AccordionSummary, AccordionDetails, Typography, Tooltip, TextField } from '@material-ui/core';
+import { Grid, Button, Accordion, AccordionSummary, AccordionDetails, Typography, Tooltip, TextField, Box } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import HelpIcon from '@material-ui/icons/Help';
 import SimulateRulesFormSlider from '../SimulateRulesFormSlider';
@@ -142,9 +142,16 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
         aria-controls="advanced-content"
         id="advanced-settings"
       >
-        <Typography sx={{ width: '33%', flexShrink: 0 }}>
-          Configuracion Avanzada
-        </Typography>
+        <Box className={classes.accordion}>
+
+          <Typography className={classes.accordionTitle}>
+            Configuracion Avanzada
+          </Typography>
+
+          <Typography className={classes.accordionSubtitle}>Definí parametros no obligatorios para tener mayor control del contexto de la simulación.</Typography>
+
+        </Box>
+        
       </AccordionSummary>
       <AccordionDetails>
         <Grid container>

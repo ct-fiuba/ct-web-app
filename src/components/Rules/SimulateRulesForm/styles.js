@@ -20,7 +20,10 @@ const useStyles = makeStyles((theme) => ({
   },
   tooltips: {
     marginLeft: '5px'
-  }
+  },
+  accordion: {display: "flex", flexDirection: "column"},
+  accordionTitle: { width: '33%', flexShrink: 0 },
+  accordionSubtitle: { color: '#0000008a' }
 }));
 
 export default useStyles;

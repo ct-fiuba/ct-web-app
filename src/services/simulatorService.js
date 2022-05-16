@@ -9,5 +9,5 @@ export async function simulate(config, rules) {
 	};
 	return fetch(process.env.REACT_APP_SIMULATOR_URL + '/simulation', requestOptions)
 		.then(response => response.json())
-		.catch(err => console.log('Error at fetch: ', err));
+		.catch(err => ({error: "Problem with simulation"}));
 }

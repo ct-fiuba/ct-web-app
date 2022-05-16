@@ -47,10 +47,16 @@ export default function SimulateRulesButton({rules}) {
 
   const simulateAPI = async (config) => {
     const response = await simulate(config, rules);
-    setLoading(false);
-    setRawResult(response)
-    setConfig(config);
-    setSimulateRuleResult(formatAPIResponse(config, response));
+    if (!response.error) {
+      setLoading(false);
+      setRawResult(response)
+      setConfig(config);
+      setSimulateRuleResult(formatAPIResponse(config, response));
+    } else {
+      setLoading(false);
+      alert("Hubo un problema con la simulación.")
+    }
+    
   }
 
   const simulateRules = (config) => {
@@ -61,7 +67,8 @@ export default function SimulateRulesButton({rules}) {
 
   const onDownload = () => {
     const link = document.createElement("a");
-    link.download = `result.json`;
+    const date = Date.now();
+    link.download = `resultado_${date}.json`;
     link.href =`data:text/json;charset=utf-8,${encodeURIComponent(
       JSON.stringify({rules: rules, result: rawResult, config: currentConfig})
     )}`;

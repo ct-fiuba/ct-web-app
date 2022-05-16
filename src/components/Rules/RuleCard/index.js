@@ -38,8 +38,8 @@ export default function RuleCard({id, index, contagionRisk, durationCmp, duratio
                     {durationCmp ? <br /> : ''}
                     {m2Cmp ? `Superficie ${m2Cmp === '<' ? "menor a" : "mayor a"} ${m2Value} metros cuadrados` : ''}
                     {m2Cmp ? <br /> : ''}
-                    {openSpace ? `Ventilación del espacio: ${openSpace ? 'Abierto' : 'Cerrado'}` : ''}
-                    {openSpace ? <br /> : ''}
+                    {openSpace !== undefined ? `Ventilación del espacio: ${openSpace ? 'Abierto' : 'Cerrado'}` : ''}
+                    {openSpace !== undefined ? <br /> : ''}
 
                     {n95Mandatory !== undefined ? `Uso del N95 ${n95Mandatory ? '' : 'no'} obligatorio` : ''}
                     {n95Mandatory !== undefined ? <br /> : ''}

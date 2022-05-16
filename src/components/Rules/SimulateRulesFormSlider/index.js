@@ -3,7 +3,7 @@ import { Grid, Slider, Tooltip } from '@material-ui/core';
 import HelpIcon from '@material-ui/icons/Help';
 import useStyles from './styles';
 
-export default function SimulateRulesFormSlider({max, title, tooltip, value, handleValueChange}) {
+export default function SimulateRulesFormSlider({max, title, tooltip, value, handleValueChange, step=1}) {
   const classes = useStyles();
 
   const marks = [
@@ -30,7 +30,7 @@ export default function SimulateRulesFormSlider({max, title, tooltip, value, han
         <Slider
           value={value}
           aria-labelledby="discrete-slider-always"
-          step={1}
+          step={step}
           max={max}
           marks={marks}
           onChange={handleValueChange}

@@ -63,7 +63,7 @@ export default function AddRuleForm({addRule, handleClose}) {
   };
 
   const handleDurationValueChange = (event) => {
-    setDurationValue(event.target.value);
+    setDurationValue(parseInt(event.target.value));
   }
 
   const handleM2CmpChange = (event) => {

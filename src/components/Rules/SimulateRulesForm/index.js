@@ -24,7 +24,6 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
   const [pmid, setPMid] = useState(null);
   const [phigh, setPHigh] = useState(null);
 
-  let maxValueInfectedUsers = usersValue;
   let maxValuePartiallyVaccinatedUsers = 100 - fullyVaccinatedUsersValue;
   let maxValueFullyVaccinatedUsers = 100 - partiallyVaccinatedUsersValue;
 
@@ -37,15 +36,15 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
   }
 
   const handlePLowValueChange = (event) => {
-    setPLow(parseInt(event.target.value));
+    setPLow(parseFloat(event.target.value));
   }
 
   const handlePMidValueChange = (event) => {
-    setPMid(parseInt(event.target.value));
+    setPMid(parseFloat(event.target.value));
   }
 
   const handlePHighValueChange = (event) => {
-    setPHigh(parseInt(event.target.value));
+    setPHigh(parseFloat(event.target.value));
   }
 
   const handleLockdownRestrictionValueChange = (event, newValue) => {
@@ -79,14 +78,15 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
   const handleConfirm = () => {
     const config = {
       users: usersValue,
-      partiallyVaccinatedUsers: usersValue * partiallyVaccinatedUsersValue / 100,
-      fullyVaccinatedUsers: usersValue * fullyVaccinatedUsersValue / 100,
-      infectedUsers: infectedUsersValue,
+      partiallyVaccinated: partiallyVaccinatedUsersValue / 100,
+      fullyVaccinated: fullyVaccinatedUsersValue / 100,
+      infectedUsers: infectedUsersValue / 100,
       establishments: establishmentsValue,
       mobility: mobilityValue,
       days: daysValue,
       ...seed && { seed },
-      ...lockdownRestriction && {lockdownRestriction}
+      ...lockdownRestriction && {lockdownRestriction},
+      ...phigh !=null && plow!=null && pmid!=null && { p: { high: phigh, mid: pmid, low: plow}}
     }
     simulateRules(config);
   }
@@ -103,9 +103,9 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
       />
 
       <SimulateRulesFormSlider 
-        max={maxValueInfectedUsers}
-        title={"Usuarios infectados"}
-        tooltip={"Cantidad de usuarios que comienzan infectados."}
+        max={100}
+        title={"% usuarios infectados"}
+        tooltip={"Porcentaje de usuarios que comienzan infectados."}
         value={infectedUsersValue}
         handleValueChange={handleInfectedUsersValueChange}
       />
@@ -172,7 +172,7 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
           />
 
           <SimulateRulesFormSlider 
-            max={Constants.maxValueDays}
+            max={daysValue}
             title={"Duracion de restriccion por riesgo alto"}
             tooltip="Cantidad de dias que una persona debe aislarse al ser detectada como riesgo alto."
             value={lockdownRestriction}
@@ -199,7 +199,7 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
 
           <Grid className={classes.firstSliderGrid} item xs={6}>
             <h4 className={classes.titles}>Probabilidad de contagio para riesgo bajo
-              <Tooltip className={classes.tooltips} placement="right" title={<span className={classes.tooltipsText}>Para la repetibilidad entre corridas</span>}>
+              <Tooltip className={classes.tooltips} placement="right" title={<span className={classes.tooltipsText}>Número entre 0 y 1 (Usar . para los decimales)</span>}>
                 <HelpIcon color="action" fontSize="small"></HelpIcon>
               </Tooltip>
             </h4>
@@ -216,7 +216,7 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
 
           <Grid className={classes.firstSliderGrid} item xs={6}>
             <h4 className={classes.titles}>Probabilidad de contagio para riesgo medio
-              <Tooltip className={classes.tooltips} placement="right" title={<span className={classes.tooltipsText}>Para la repetibilidad entre corridas</span>}>
+              <Tooltip className={classes.tooltips} placement="right" title={<span className={classes.tooltipsText}>Número entre 0 y 1 (Usar . para los decimales)</span>}>
                 <HelpIcon color="action" fontSize="small"></HelpIcon>
               </Tooltip>
             </h4>
@@ -233,7 +233,7 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
 
           <Grid className={classes.firstSliderGrid} item xs={6}>
             <h4 className={classes.titles}>Probabilidad de contagio para riesgo alto
-              <Tooltip className={classes.tooltips} placement="right" title={<span className={classes.tooltipsText}>Para la repetibilidad entre corridas</span>}>
+              <Tooltip className={classes.tooltips} placement="right" title={<span className={classes.tooltipsText}>Número entre 0 y 1 (Usar . para los decimales)</span>}>
                 <HelpIcon color="action" fontSize="small"></HelpIcon>
               </Tooltip>
             </h4>

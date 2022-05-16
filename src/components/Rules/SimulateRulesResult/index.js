@@ -37,7 +37,7 @@ export default function SimulateRulesResult({result, loading, onDownload}) {
             
           </Grid>
           <Grid item xs={8}>
-            <CardContent className={classes.grid}>
+            <CardContent className={classes.chart}>
             <Typography variant="h5" component="h2">
                 <strong>Comportamiento a lo largo del tiempo</strong>
               </Typography>

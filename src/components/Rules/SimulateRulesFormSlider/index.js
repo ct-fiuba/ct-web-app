@@ -3,7 +3,7 @@ import { Grid, Slider, Tooltip } from '@material-ui/core';
 import HelpIcon from '@material-ui/icons/Help';
 import useStyles from './styles';
 
-export default function SimulateRulesFormSlider({max, title, tooltip, value, handleValueChange, step=1}) {
+export default function SimulateRulesFormSlider({max, title, tooltip, value, handleValueChange, step=1, titleSize=6, sliderSize=6}) {
   const classes = useStyles();
 
   const marks = [
@@ -19,14 +19,14 @@ export default function SimulateRulesFormSlider({max, title, tooltip, value, han
 
   return (
     <>
-      <Grid className={classes.firstSliderGrid} item xs={6}>
+      <Grid className={classes.firstSliderGrid} item xs={titleSize}>
         <h4 className={classes.titles}>{title}
           <Tooltip className={classes.tooltips} placement="right" title={<span className={classes.tooltipsText}>{tooltip}</span>}>
             <HelpIcon color="action" fontSize="small"></HelpIcon>
           </Tooltip>
         </h4>
       </Grid>
-      <Grid className={classes.firstSliderGrid} item xs={6}>
+      <Grid className={classes.firstSliderGrid} item xs={sliderSize}>
         <Slider
           value={value}
           aria-labelledby="discrete-slider-always"

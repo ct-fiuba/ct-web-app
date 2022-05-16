@@ -14,7 +14,10 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
   const [partiallyVaccinatedUsersValue, setPartiallyVaccinatedUsersValue] = useState(0);
   const [fullyVaccinatedUsersValue, setFullyVaccinatedUsersValue] = useState(0);
   const [establishmentsValue, setEstablishmentsValue] = useState(Constants.defaultValueEstablishments);
-  const [mobilityValue, setMobilityValue] = useState(Constants.defaultValueMobility);
+
+  const [mobFreqValue, setMobFreqValue] = useState(Constants.defaultValueFreq);
+  const [mobVarValue, setMobVarValue] = useState(Constants.defaultValueVar);
+
   const [daysValue, setDaysValue] = useState(Constants.defaultValueDays);
   const [expandedAdvanced, setAdvanced] = useState(false);
 
@@ -67,8 +70,12 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
     setEstablishmentsValue(parseInt(newValue));
   }
 
-  const handleMobilityValueChange = (event, newValue) => {
-    setMobilityValue(parseInt(newValue));
+  const handleMobVarValueChange = (event, newValue) => {
+    setMobVarValue(parseInt(newValue));
+  }
+
+  const handleMobFreqValueChange = (event, newValue) => {
+    setMobFreqValue(parseInt(newValue));
   }
 
   const handleDaysValueChange = (event, newValue) => {
@@ -82,7 +89,10 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
       fullyVaccinated: fullyVaccinatedUsersValue / 100,
       infectedUsers: infectedUsersValue / 100,
       establishments: establishmentsValue,
-      mobility: mobilityValue,
+      mobility: {
+        frequency: mobFreqValue,
+        variability: mobVarValue
+      },
       days: daysValue,
       ...seed && { seed },
       ...lockdownRestriction && {lockdownRestriction},
@@ -119,19 +129,32 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
       />
 
       <SimulateRulesFormSlider 
-        max={Constants.maxValueMobility}
-        title={"Índice de movilidad"}
-        tooltip={"Cantidad de establecimientos que suele visitar un usuario ('favoritos'). Durante la simulacion estos establecimientos tienen la misma probabilidad de ser visitados."}
-        value={mobilityValue}
-        handleValueChange={handleMobilityValueChange}
-      />
-
-      <SimulateRulesFormSlider 
         max={Constants.maxValueDays}
         title={"Días a simular"}
         tooltip={"Cantidad de días que durará la simulación."}
         value={daysValue}
         handleValueChange={handleDaysValueChange}
+      />
+
+      <Grid item xs={12}>
+        <h4 className={classes.mobility}>Movilidad:</h4>
+
+      </Grid>
+
+      <SimulateRulesFormSlider 
+        max={establishmentsValue}
+        title={"Variabilidad"}
+        tooltip={"Cantidad de establecimientos que suele visitar un usuario ('favoritos'). Durante la simulacion estos establecimientos tienen la misma probabilidad de ser visitados."}
+        value={mobVarValue}
+        handleValueChange={handleMobVarValueChange}
+      />
+
+      <SimulateRulesFormSlider 
+        max={Constants.maxValueMobility}
+        title={"Frecuencia"}
+        tooltip={"Cantidad máxima de salidas que realiza un usuario en un dia."}
+        value={mobFreqValue}
+        handleValueChange={handleMobFreqValueChange}
       />
     </Grid>
     <Grid item xs={24}>

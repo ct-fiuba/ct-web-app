@@ -9,6 +9,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '5px',
     textAlign: 'center',
   },
+  mobility: {
+    marginTop: '5px',
+  },
   sliderGrids: {
     marginTop: '15px'
   },

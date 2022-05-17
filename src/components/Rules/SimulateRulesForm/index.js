@@ -19,13 +19,15 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
   const [mobVarValue, setMobVarValue] = useState(Constants.defaultValueVar);
 
   const [daysValue, setDaysValue] = useState(Constants.defaultValueDays);
+  const [infectedDaysValue, setInfectedDaysValue] = useState(Constants.defaultInfectedValueDays);
+  const [incubationDaysValue, setIncubationDaysValue] = useState(Constants.defaultIncubationValueDays);
   const [expandedAdvanced, setAdvanced] = useState(false);
 
   const [seed, setSeed] = useState(null);
-  const [lockdownRestriction, setLockdownRestriction] = useState(null);
-  const [plow, setPLow] = useState(null);
-  const [pmid, setPMid] = useState(null);
-  const [phigh, setPHigh] = useState(null);
+  const [lockdownRestriction, setLockdownRestriction] = useState(Constants.defaultLockdownRestrictionDays);
+  const [plow, setPLow] = useState(Constants.p.low);
+  const [pmid, setPMid] = useState(Constants.p.mid);
+  const [phigh, setPHigh] = useState(Constants.p.high);
 
   let maxValuePartiallyVaccinatedUsers = 100 - fullyVaccinatedUsersValue;
   let maxValueFullyVaccinatedUsers = 100 - partiallyVaccinatedUsersValue;
@@ -82,12 +84,22 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
     setDaysValue(parseInt(newValue));
   }
 
+  const handleDaysInfectedValueChange = (event, newValue) => {
+    setInfectedDaysValue(parseInt(newValue));
+  }
+
+  const handleDaysIncubationValueChange = (event, newValue) => {
+    setIncubationDaysValue(parseInt(newValue));
+  }
+
   const handleConfirm = () => {
     const config = {
       users: usersValue,
       partiallyVaccinated: partiallyVaccinatedUsersValue / 100,
       fullyVaccinated: fullyVaccinatedUsersValue / 100,
       infectedUsers: infectedUsersValue / 100,
+      infectedDays: infectedDaysValue,
+      incubationDays: incubationDaysValue,
       establishments: establishmentsValue,
       mobility: {
         frequency: mobFreqValue,
@@ -134,6 +146,14 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
         tooltip={"Cantidad de días que durará la simulación."}
         value={daysValue}
         handleValueChange={handleDaysValueChange}
+      />
+
+      <SimulateRulesFormSlider 
+        max={daysValue}
+        title={"Duración del virus"}
+        tooltip={"Cantidad de días que una persona es contagiosa."}
+        value={infectedDaysValue}
+        handleValueChange={handleDaysInfectedValueChange}
       />
 
       <Grid item xs={12}>
@@ -200,6 +220,14 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
             tooltip="Cantidad de dias que una persona debe aislarse al ser detectada como riesgo alto."
             value={lockdownRestriction}
             handleValueChange={handleLockdownRestrictionValueChange}
+          />
+
+          <SimulateRulesFormSlider 
+            max={daysValue}
+            title={"Periodo de incubación del virus"}
+            tooltip="Cantidad de dias hasta que una persona empieza a desarrollar sintomas."
+            value={incubationDaysValue}
+            handleValueChange={handleDaysIncubationValueChange}
           />
 
         

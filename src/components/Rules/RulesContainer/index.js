@@ -10,7 +10,7 @@ import useStyles from './styles';
 import NoRulesMessage from '../NoRulesMessage';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-export default function RulesContainer({ rules, addRule, saveChanges, canSaveChanges, onDragEnd, deleteRule }) {
+export default function RulesContainer({ rules, addRule, saveChanges, canSaveChanges, onDragEnd, deleteRule, importRules }) {
 	const [state, setState] = useState({ rules: rules || [] });
 	const classes = useStyles();
 
@@ -25,7 +25,7 @@ export default function RulesContainer({ rules, addRule, saveChanges, canSaveCha
 					<TestRulesButton rules={state.rules} />
 				</Grid>
 				<Grid item xs={6}>
-					<SimulateRulesButton rules={state.rules} />
+					<SimulateRulesButton rules={state.rules} onImport={importRules} />
 				</Grid>
 			</Grid>
 			<Grid container className={classes.container}>

@@ -6,7 +6,7 @@ import SimulateRulesResult from '../SimulateRulesResult';
 import useStyles from './styles';
 import { simulate } from '../../../services/simulatorService';
 
-export default function SimulateRulesButton({rules}) {
+export default function SimulateRulesButton({rules, onImport}) {
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
@@ -25,7 +25,7 @@ export default function SimulateRulesButton({rules}) {
     setLoading(false);
   };
 
-  const formatAPIResponse = (config, response) => {
+  const formatAPIResponse = (response) => {
     // We should format the API response here!
     const lastDay = response[response.length - 1]
     return {
@@ -51,7 +51,7 @@ export default function SimulateRulesButton({rules}) {
       setLoading(false);
       setRawResult(response)
       setConfig(config);
-      setSimulateRuleResult(formatAPIResponse(config, response));
+      setSimulateRuleResult(formatAPIResponse(response));
     } else {
       setLoading(false);
       alert("Hubo un problema con la simulación.")
@@ -75,6 +75,20 @@ export default function SimulateRulesButton({rules}) {
     link.click();
   };
 
+
+  const handleChange = e => {
+    const fileReader = new FileReader();
+    fileReader.readAsText(e.target.files[0], "UTF-8");
+    fileReader.onload = e => {
+      const fileRaw = e.target.result
+      const fileContent = JSON.parse(fileRaw)
+      setConfig(fileContent.config)
+      onImport(fileContent.rules)
+      setRawResult(fileContent.result)
+      setSimulateRuleResult(formatAPIResponse(fileContent.result)) 
+    }
+  }
+
   return (
     <div>
       <Button className={classes.simulateRulesButton} variant="outlined" color="primary" onClick={handleClickOpen}>
@@ -83,9 +97,23 @@ export default function SimulateRulesButton({rules}) {
       <Dialog fullScreen maxWidth={'xl'} open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle disableTypography id="form-dialog-title" className={classes.dialogTitle}>
           <h2>Correr simulación de las reglas de contagio</h2>
-          <IconButton onClick={handleClose}>
-            <CloseIcon />
-          </IconButton>
+          <div>
+            <Button
+              variant="contained"
+              component="label"
+            >
+              Importar Resultado
+              <input
+                type="file"
+                hidden
+                onChange={handleChange}
+              />
+            </Button>
+            <IconButton onClick={handleClose}>
+              <CloseIcon />
+            </IconButton>
+          </div>
+          
         </DialogTitle>
         <DialogContent className={classes.dialogContent}>
           <DialogContentText>

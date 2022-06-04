@@ -11,6 +11,7 @@ export default class Rules extends React.Component {
     this.deleteRule = this.deleteRule.bind(this);
     this.addRule = this.addRule.bind(this);
     this.saveChanges = this.saveChanges.bind(this);
+    this.importRules = this.importRules.bind(this);
     this.state = { rules: null, max_index: 0, savedRules: [], canSaveChanges: false};
   }
 
@@ -101,6 +102,15 @@ export default class Rules extends React.Component {
 		window.location.replace("/reglas");
   }
 
+  importRules(new_rules) {
+    this.setState({
+      rules: new_rules
+    });
+    this.updateSavingButton(new_rules);
+  }
+
+  
+
   render() {
     return (
       <div>
@@ -111,7 +121,8 @@ export default class Rules extends React.Component {
           deleteRule={this.deleteRule}
           addRule={this.addRule}
           saveChanges={this.saveChanges}
-          canSaveChanges={this.state.canSaveChanges} />
+          canSaveChanges={this.state.canSaveChanges}
+          importRules={this.importRules} />
       </div>
     );
   }

@@ -26,6 +26,27 @@ export default function SimulateRulesForm({simulateRules, handleClose, initConfi
   const [seed, setSeed] = useState(initConfig.seed || null);
   const [lockdownRestriction, setLockdownRestriction] = useState(initConfig.lockdownRestriction || Constants.defaultLockdownRestrictionDays);
 
+  React.useEffect(() => {
+		setUsersValue(initConfig.users)
+    setInfectedUsersValue(initConfig.infectedUsers*100)
+    setPartiallyVaccinatedUsersValue(initConfig.partiallyVaccinated * 100)
+    setFullyVaccinatedUsersValue(initConfig.fullyVaccinated * 100)
+    setEstablishmentsValue(initConfig.establishments)
+
+    setMobFreqValue(initConfig.mobility?.frequency)
+    setMobVarValue(initConfig.mobility?.variability)
+
+    setDaysValue(initConfig.days)
+    setInfectedDaysValue(initConfig.infectedDays)
+    setIncubationDaysValue(initConfig.incubationDays)
+    setLockdownRestriction(initConfig.lockdownRestriction)
+
+    setSeed(initConfig.seed)
+
+    setAdvanced(true)
+
+	}, [initConfig])
+
   let maxValuePartiallyVaccinatedUsers = 100 - fullyVaccinatedUsersValue;
   let maxValueFullyVaccinatedUsers = 100 - partiallyVaccinatedUsersValue;
 

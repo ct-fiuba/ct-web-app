@@ -13,7 +13,7 @@ export default function SimulateRulesButton({rules, onImport}) {
   const [simulateRuleResult, setSimulateRuleResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [rawResult, setRawResult] = useState(null);
-  const [currentConfig, setConfig] = useState(null);
+  const [currentConfig, setConfig] = useState({});
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -119,7 +119,7 @@ export default function SimulateRulesButton({rules, onImport}) {
           <DialogContentText>
             Definí los valores para simular el comportamiento de la sociedad y observá qué porcentaje de los usuarios terminaría con cada riesgo de contagio luego de un período de tiempo. Esta herramienta ayuda a editar las reglas de contagio de forma tal que representen de la forma más precisa posible a la enfermedad.
           </DialogContentText>
-          <SimulateRulesForm handleClose={handleClose} simulateRules={simulateRules} />
+          <SimulateRulesForm handleClose={handleClose} simulateRules={simulateRules} initConfig={currentConfig} />
           <SimulateRulesResult result={simulateRuleResult} loading={loading} onDownload={onDownload} />
         </DialogContent>
       </Dialog>

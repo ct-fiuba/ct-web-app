@@ -27,23 +27,21 @@ export default function SimulateRulesForm({simulateRules, handleClose, initConfi
   const [lockdownRestriction, setLockdownRestriction] = useState(initConfig.lockdownRestriction || Constants.defaultLockdownRestrictionDays);
 
   React.useEffect(() => {
-		setUsersValue(initConfig.users)
-    setInfectedUsersValue(initConfig.infectedUsers*100)
-    setPartiallyVaccinatedUsersValue(initConfig.partiallyVaccinated * 100)
-    setFullyVaccinatedUsersValue(initConfig.fullyVaccinated * 100)
-    setEstablishmentsValue(initConfig.establishments)
+		setUsersValue(v => initConfig.users || v)
+    setInfectedUsersValue(v => initConfig.infectedUsers*100 || v)
+    setPartiallyVaccinatedUsersValue(v => initConfig.partiallyVaccinated * 100 || v)
+    setFullyVaccinatedUsersValue(v=>initConfig.fullyVaccinated * 100 || v)
+    setEstablishmentsValue(v=>initConfig.establishments || v)
 
-    setMobFreqValue(initConfig.mobility?.frequency)
-    setMobVarValue(initConfig.mobility?.variability)
+    setMobFreqValue(v=>initConfig.mobility?.frequency || v)
+    setMobVarValue(v=>initConfig.mobility?.variability || v)
 
-    setDaysValue(initConfig.days)
-    setInfectedDaysValue(initConfig.infectedDays)
-    setIncubationDaysValue(initConfig.incubationDays)
-    setLockdownRestriction(initConfig.lockdownRestriction)
+    setDaysValue(v=>initConfig.days || v)
+    setInfectedDaysValue(v=>initConfig.infectedDays || v)
+    setIncubationDaysValue(v=>initConfig.incubationDays || v)
+    setLockdownRestriction(v=>initConfig.lockdownRestriction || v)
 
-    setSeed(initConfig.seed)
-
-    setAdvanced(true)
+    setSeed(v=>initConfig.seed || v)
 
 	}, [initConfig])
 

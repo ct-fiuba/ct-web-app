@@ -2,9 +2,9 @@ import React from 'react';
 import { Grid, FormControl, Select, MenuItem, InputLabel, Checkbox } from '@material-ui/core';
 import useStyles from './styles';
 
-export default function VaccineReceived({checkboxVaccineReceived, handleChangeCheckboxVaccineReceived, vaccineReceivedValue, handleVaccineReceivedValueChange}) {
+export default function VaccineReceived({vaccines, dosesSelected, checkboxVaccineReceived, handleChangeCheckboxVaccineReceived, vaccineReceivedValue, handleVaccineReceivedValueChange}) {
   const classes = useStyles();
-  
+
   return (
     <>
       <Grid item xs={1}>
@@ -30,10 +30,7 @@ export default function VaccineReceived({checkboxVaccineReceived, handleChangeCh
             variant="outlined"
             disabled={!checkboxVaccineReceived}
           >
-            <MenuItem value={'Sputnik V'}>{'Sputnik V'}</MenuItem>
-            <MenuItem value={'AstraZeneca'}>{'AstraZeneca'}</MenuItem>
-            <MenuItem value={'Covishield'}>{'Covishield'}</MenuItem>
-            <MenuItem value={'Sinopharm'}>{'Sinopharm'}</MenuItem>
+            {vaccines.filter(vaccine => vaccine.shotsCount >= dosesSelected).map(vaccine => <MenuItem value={vaccine.name}>{vaccine.name}</MenuItem>)}
           </Select>
         </FormControl>
       </Grid>

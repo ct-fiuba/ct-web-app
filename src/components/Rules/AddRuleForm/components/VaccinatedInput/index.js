@@ -2,9 +2,9 @@ import React from 'react';
 import { Grid, FormControl, Select, MenuItem, InputLabel, Checkbox } from '@material-ui/core';
 import useStyles from './styles';
 
-export default function Vaccinated({checkboxVaccinated, handleChangeCheckboxVaccinated, vaccinatedValue, handleVaccinatedValueChange}) {
+export default function Vaccinated({maxDoses = 0, checkboxVaccinated, handleChangeCheckboxVaccinated, vaccinatedValue, handleVaccinatedValueChange}) {
   const classes = useStyles();
-  
+
   return (
     <>
       <Grid item xs={1}>
@@ -17,11 +17,11 @@ export default function Vaccinated({checkboxVaccinated, handleChangeCheckboxVacc
         />
       </Grid>
       <Grid item xs={3}>
-        <h4 className={classes.titleVaccinated}>Vacunada</h4>
+        <h4 className={classes.titleVaccinated}>Dosis recibidas</h4>
       </Grid>
       <Grid item xs={8}>
         <FormControl className={classes.formControlVaccinatedValue}>
-          <InputLabel className={classes.labelVaccinatedValue}>No, parcial o completamente vacunada</InputLabel>
+          <InputLabel className={classes.labelVaccinatedValue}>Cantidad de dosis</InputLabel>
           <Select
             labelId="vaccinatedValue-label"
             id="vaccinatedValue"
@@ -30,9 +30,7 @@ export default function Vaccinated({checkboxVaccinated, handleChangeCheckboxVacc
             variant="outlined"
             disabled={!checkboxVaccinated}
           >
-            <MenuItem value={0}>{'No vacunada'}</MenuItem>
-            <MenuItem value={1}>{'Parcialmente vacunada'}</MenuItem>
-            <MenuItem value={2}>{'Completamente vacunada'}</MenuItem>
+            {Array.from(Array((maxDoses > vaccinatedValue ? maxDoses : vaccinatedValue) + 1).keys()).map(doses => <MenuItem key={doses} value={doses}>{doses}</MenuItem>)}
           </Select>
         </FormControl>
       </Grid>

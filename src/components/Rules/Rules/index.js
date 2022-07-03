@@ -3,20 +3,24 @@ import RulesContainer from '../RulesContainer'
 import AppBar from '../../Shared/AppBar';
 import * as rulesUtils from '../../../utils/rulesUtils';
 import * as rulesService from '../../../services/rulesService';
+import * as vaccinesService from '../../../services/vaccinesService';
 
 export default class Rules extends React.Component {
   constructor(props) {
     super(props);
     this.onDragEnd = this.onDragEnd.bind(this);
     this.deleteRule = this.deleteRule.bind(this);
+    this.getCurrentVaccines = this.getCurrentVaccines.bind(this);
+    this.duplicateRule = this.duplicateRule.bind(this);
     this.addRule = this.addRule.bind(this);
     this.saveChanges = this.saveChanges.bind(this);
     this.importRules = this.importRules.bind(this);
-    this.state = { rules: null, max_index: 0, savedRules: [], canSaveChanges: false};
+    this.state = { rules: null, max_index: 0, savedRules: [], canSaveChanges: false, vaccines: [], newRuleIntialValue: null};
   }
 
   async componentDidMount() {
     await this.getCurrentRules();
+    await this.getCurrentVaccines();
   }
 
   deleteRule(id) {
@@ -27,6 +31,15 @@ export default class Rules extends React.Component {
       rules: new_rules
     });
     this.updateSavingButton(new_rules);
+  }
+
+  duplicateRule(id) {
+    if (!id) {
+      this.setState({newRuleIntialValue: null});
+      return;
+    }
+    const newRuleIntialValue = this.state.rules.filter(rule => rule['id'] === id)[0];
+    this.setState({newRuleIntialValue});
   }
 
   addRule(rule) {
@@ -46,6 +59,11 @@ export default class Rules extends React.Component {
   async getCurrentRules() {
     const rules = await rulesService.getRules();
     this.setState({ max_index: rules.length, rules: rules, savedRules: JSON.parse(JSON.stringify(rules)) });
+  }
+
+  async getCurrentVaccines() {
+    const vaccines = await vaccinesService.getVaccines();
+    this.setState({ vaccines });
   }
 
   onDragEnd(result) {
@@ -115,14 +133,18 @@ export default class Rules extends React.Component {
     return (
       <div>
         <AppBar loggedIn={true} />
-        <RulesContainer 
+        <RulesContainer
           rules={this.state.rules}
+          vaccines={this.state.vaccines}
+          getCurrentVaccines={this.getCurrentVaccines}
           onDragEnd={this.onDragEnd}
           deleteRule={this.deleteRule}
+          duplicateRule={this.duplicateRule}
           addRule={this.addRule}
           saveChanges={this.saveChanges}
-          canSaveChanges={this.state.canSaveChanges}
-          importRules={this.importRules} />
+          importRules={this.importRules}
+          newRuleIntialValue={this.state.newRuleIntialValue}
+          canSaveChanges={this.state.canSaveChanges} />
       </div>
     );
   }

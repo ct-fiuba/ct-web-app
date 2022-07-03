@@ -4,7 +4,7 @@ import { Button, Dialog, DialogContent, DialogContentText, DialogTitle } from '@
 import TestRulesResult from '../TestRulesForm/components/TestRulesResult';
 import useStyles from './styles';
 
-export default function TestRulesButton({rules}) {
+export default function TestRulesButton({rules, vaccines}) {
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
@@ -107,7 +107,7 @@ export default function TestRulesButton({rules}) {
           <DialogContentText>
             Ingrese las características de un espacio, los horarios de entrada y salida de una persona contagiada, los de una persona sana, y si ésta está vacunada o recuperada de COVID-19. Presioná en "Correr Prueba" para validar con qué regla coincidirá ese contacto y qué riesgo tendra la persona sana.
           </DialogContentText>
-          <TestRulesForm handleClose={handleClose} testRules={testRules} />
+          <TestRulesForm handleClose={handleClose} testRules={testRules} vaccines={vaccines} />
           <TestRulesResult rule={testRuleResult} notMatch={notMatch} />
         </DialogContent>
       </Dialog>

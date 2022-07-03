@@ -26,7 +26,6 @@ export default function SimulateRulesButton({rules, onImport}) {
   };
 
   const formatAPIResponse = (response) => {
-    // We should format the API response here!
     const lastDay = response[response.length - 1]
     return {
       overall: {

@@ -8,7 +8,6 @@ const useStyles = makeStyles({
     borderTop: '5px solid #b5ffcf',
   },
   grid: {
-    //alignItems: 'center',
     justifyContent: 'center',
     textAlign: 'center'
   },

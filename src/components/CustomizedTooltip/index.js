@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-//import { MEMES } from '../chartsUtils';
 import './styles.css';
 
 class CustomizedTooltip extends Component {

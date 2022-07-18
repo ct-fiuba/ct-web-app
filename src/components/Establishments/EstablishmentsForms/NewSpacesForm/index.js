@@ -14,7 +14,7 @@ export default function NewSpacesForm({ initialState, completeFunction, obtainIn
 				data: value
 			});
 		});
-		return { spaces: result };
+		return result;
 	}
 
 	const [state, setState] = useState(transformInitialState());
@@ -31,11 +31,23 @@ export default function NewSpacesForm({ initialState, completeFunction, obtainIn
 			space.openSpace !== '');
 	}
 
+	const deleteSpaceFromForm = (key) => {
+		let newSpaces = JSON.parse(JSON.stringify(state));
+		newSpaces = newSpaces.filter(space => space.key !== key);
+		newSpaces.forEach(space => {
+			if (space.key > key) {
+				space.key -= 1;
+			}
+		});
+		reportInfo(newSpaces);
+		setState(newSpaces);
+	}
+
 	const addNewSpace = () => {
-		if (!isAllCompleted(state.spaces))
+		if (!isAllCompleted(state))
 			return
 		const newSpace = {
-			key: state.spaces.length,
+			key: state.length,
 			data: {
 				name: '',
 				m2: '',
@@ -45,14 +57,15 @@ export default function NewSpacesForm({ initialState, completeFunction, obtainIn
 				hasExit: false,
 			}
 		}
-		let newSpaces = JSON.parse(JSON.stringify(state.spaces));
+		let newSpaces = JSON.parse(JSON.stringify(state));
 		newSpaces.push(newSpace);
-		setState({ ...state, spaces: newSpaces });
+		reportInfo(newSpaces);
+		setState(newSpaces);
 	}
 
 	const checkCompleteness = useCallback(() => {
-		completeFunction(isAllCompleted(state.spaces));
-	}, [completeFunction, isAllCompleted, state.spaces]);
+		completeFunction(isAllCompleted(state));
+	}, [completeFunction, isAllCompleted, state]);
 
 	const reportInfo = (newSpaces) => {
 		let result = [];
@@ -61,11 +74,11 @@ export default function NewSpacesForm({ initialState, completeFunction, obtainIn
 	}
 
 	const obtainInfoSingleSpace = (key, info) => {
-		let newSpaces = JSON.parse(JSON.stringify(state.spaces));
+		let newSpaces = JSON.parse(JSON.stringify(state));
 		newSpaces[key].data = info;
 		isAllCompleted(newSpaces);
 		reportInfo(newSpaces);
-		setState({ ...state, spaces: newSpaces });
+		setState(newSpaces);
 	}
 
 	useEffect(() => {
@@ -79,12 +92,24 @@ export default function NewSpacesForm({ initialState, completeFunction, obtainIn
 				color="primary"
 				onClick={addNewSpace}
 				className={classes.button}
-				disabled={!isAllCompleted(state.spaces)}
+				disabled={!isAllCompleted(state)}
 			>
 				Añadir espacio
 			</Button>
-			{state.spaces.map((space) => (
-				<NewSingleSpaceForm key={space.key} index={space.key} initialState={space.data} obtainInfo={obtainInfoSingleSpace} storeType={storeType} />
+			{state.map((space) => (
+				<NewSingleSpaceForm
+					key={space.key}
+					initialIndex={space.key}
+					initialName={space.data.name}
+					initialM2={space.data.m2}
+					initialEstimatedVisitDuration={space.data.estimatedVisitDuration}
+					initialOpenSpace={space.data.openSpace}
+					initialN95Mandatory={space.data.n95Mandatory}
+					initialHasExit={space.data.hasExit}
+					obtainInfo={obtainInfoSingleSpace}
+					storeType={storeType}
+					deleteSpaceFromForm={state.length > 1 ? deleteSpaceFromForm : null }
+				/>
 			))}
 		</React.Fragment>
 	);

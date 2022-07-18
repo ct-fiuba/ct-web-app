@@ -1,26 +1,63 @@
 import React, { useState } from 'react';
-import { Grid, Button } from '@material-ui/core';
+import { Grid, Button, Accordion, AccordionSummary, AccordionDetails, Typography, Tooltip, TextField, Box } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import HelpIcon from '@material-ui/icons/Help';
 import SimulateRulesFormSlider from '../SimulateRulesFormSlider';
 import useStyles from './styles';
 import * as Constants from './constants';
 
-export default function SimulateRulesForm({simulateRules, handleClose}) {
+export default function SimulateRulesForm({simulateRules, handleClose, initConfig={}}) {
   const classes = useStyles();
 
-  const [usersValue, setUsersValue] = useState(Constants.defaultValueUsers);
-  const [infectedUsersValue, setInfectedUsersValue] = useState(Constants.defaultValueInfectedUsers);
-  const [partiallyVaccinatedUsersValue, setPartiallyVaccinatedUsersValue] = useState(0);
-  const [fullyVaccinatedUsersValue, setFullyVaccinatedUsersValue] = useState(0);
-  const [establishmentsValue, setEstablishmentsValue] = useState(Constants.defaultValueEstablishments);
-  const [mobilityValue, setMobilityValue] = useState(Constants.defaultValueMobility);
-  const [daysValue, setDaysValue] = useState(Constants.defaultValueDays);
+  const [usersValue, setUsersValue] = useState(initConfig.users || Constants.defaultValueUsers);
+  const [infectedUsersValue, setInfectedUsersValue] = useState(initConfig.infectedUsers ? initConfig.infectedUsers * 100 : Constants.defaultValueInfectedUsers);
+  const [partiallyVaccinatedUsersValue, setPartiallyVaccinatedUsersValue] = useState(initConfig.partiallyVaccinated ? initConfig.partiallyVaccinated * 100 :  0);
+  const [fullyVaccinatedUsersValue, setFullyVaccinatedUsersValue] = useState(initConfig.fullyVaccinated ? initConfig.fullyVaccinated * 100 :  0);
+  const [establishmentsValue, setEstablishmentsValue] = useState(initConfig.establishments || Constants.defaultValueEstablishments);
 
-  let maxValueInfectedUsers = usersValue;
+  const [mobFreqValue, setMobFreqValue] = useState(initConfig.mobility?.frequency || Constants.defaultValueFreq);
+  const [mobVarValue, setMobVarValue] = useState(initConfig.mobility?.variability || Constants.defaultValueVar);
+
+  const [daysValue, setDaysValue] = useState(initConfig.days || Constants.defaultValueDays);
+  const [infectedDaysValue, setInfectedDaysValue] = useState(initConfig.infectedDays || Constants.defaultInfectedValueDays);
+  const [incubationDaysValue, setIncubationDaysValue] = useState(initConfig.incubationDays || Constants.defaultIncubationValueDays);
+  const [expandedAdvanced, setAdvanced] = useState(false);
+
+  const [seed, setSeed] = useState(initConfig.seed || null);
+  const [lockdownRestriction, setLockdownRestriction] = useState(initConfig.lockdownRestriction || Constants.defaultLockdownRestrictionDays);
+
+  React.useEffect(() => {
+		setUsersValue(v => initConfig.users || v)
+    setInfectedUsersValue(v => initConfig.infectedUsers*100 || v)
+    setPartiallyVaccinatedUsersValue(v => initConfig.partiallyVaccinated * 100 || v)
+    setFullyVaccinatedUsersValue(v=>initConfig.fullyVaccinated * 100 || v)
+    setEstablishmentsValue(v=>initConfig.establishments || v)
+
+    setMobFreqValue(v=>initConfig.mobility?.frequency || v)
+    setMobVarValue(v=>initConfig.mobility?.variability || v)
+
+    setDaysValue(v=>initConfig.days || v)
+    setInfectedDaysValue(v=>initConfig.infectedDays || v)
+    setIncubationDaysValue(v=>initConfig.incubationDays || v)
+    setLockdownRestriction(v=>initConfig.lockdownRestriction || v)
+
+    setSeed(v=>initConfig.seed || v)
+
+	}, [initConfig])
+
   let maxValuePartiallyVaccinatedUsers = 100 - fullyVaccinatedUsersValue;
   let maxValueFullyVaccinatedUsers = 100 - partiallyVaccinatedUsersValue;
 
   const handleUsersValueChange = (event, newValue) => {
     setUsersValue(parseInt(newValue));
+  }
+
+  const handleSeedValueChange = (event) => {
+    setSeed(parseInt(event.target.value));
+  }
+
+  const handleLockdownRestrictionValueChange = (event, newValue) => {
+    setLockdownRestriction(parseInt(newValue));
   }
 
   const handlePartiallyVaccinatedUsersValueChange = (event, newValue) => {
@@ -39,28 +76,48 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
     setEstablishmentsValue(parseInt(newValue));
   }
 
-  const handleMobilityValueChange = (event, newValue) => {
-    setMobilityValue(parseInt(newValue));
+  const handleMobVarValueChange = (event, newValue) => {
+    setMobVarValue(parseInt(newValue));
+  }
+
+  const handleMobFreqValueChange = (event, newValue) => {
+    setMobFreqValue(parseInt(newValue));
   }
 
   const handleDaysValueChange = (event, newValue) => {
     setDaysValue(parseInt(newValue));
   }
 
+  const handleDaysInfectedValueChange = (event, newValue) => {
+    setInfectedDaysValue(parseInt(newValue));
+  }
+
+  const handleDaysIncubationValueChange = (event, newValue) => {
+    setIncubationDaysValue(parseInt(newValue));
+  }
+
   const handleConfirm = () => {
     const config = {
       users: usersValue,
-      partiallyVaccinatedUsers: usersValue * partiallyVaccinatedUsersValue / 100,
-      fullyVaccinatedUsers: usersValue * fullyVaccinatedUsersValue / 100,
-      infectedUsers: infectedUsersValue,
+      partiallyVaccinated: partiallyVaccinatedUsersValue / 100,
+      fullyVaccinated: fullyVaccinatedUsersValue / 100,
+      infectedUsers: infectedUsersValue / 100,
+      infectedDays: infectedDaysValue,
+      incubationDays: incubationDaysValue,
       establishments: establishmentsValue,
-      mobility: mobilityValue,
+      mobility: {
+        frequency: mobFreqValue,
+        variability: mobVarValue
+      },
       days: daysValue,
+      ...seed && { seed },
+      ...lockdownRestriction && {lockdownRestriction},
     }
     simulateRules(config);
   }
 
   return (
+    <>
     <Grid container>
       <SimulateRulesFormSlider 
         max={Constants.maxValueUsers}
@@ -71,25 +128,9 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
       />
 
       <SimulateRulesFormSlider 
-        max={maxValuePartiallyVaccinatedUsers}
-        title={"% usuarios parcialmente vacunados"}
-        tooltip={"Porcentaje de usuarios que ha recibido una sola dosis. Se asumirá que la vacuna es la Sputnik V."}
-        value={partiallyVaccinatedUsersValue}
-        handleValueChange={handlePartiallyVaccinatedUsersValueChange}
-      />
-
-      <SimulateRulesFormSlider 
-        max={maxValueFullyVaccinatedUsers}
-        title={"% usuarios completamente vacunados"}
-        tooltip={"Porcentaje de usuarios que ha recibido las dos dosis. Se asumirá que la vacuna es la Sputnik V."}
-        value={fullyVaccinatedUsersValue}
-        handleValueChange={handleFullyVaccinatedUsersValueChange}
-      />
-
-      <SimulateRulesFormSlider 
-        max={maxValueInfectedUsers}
-        title={"Usuarios infectados"}
-        tooltip={"Cantidad de usuarios que comienzan infectados."}
+        max={100}
+        title={"% usuarios infectados"}
+        tooltip={"Porcentaje de usuarios que comienzan infectados."}
         value={infectedUsersValue}
         handleValueChange={handleInfectedUsersValueChange}
       />
@@ -103,14 +144,6 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
       />
 
       <SimulateRulesFormSlider 
-        max={Constants.maxValueMobility}
-        title={"Índice de movilidad"}
-        tooltip={"Cantidad de visitas que hace cada usuario cada día. El establecimiento visitado es aleatorio y todos tienen la misma probabilidad de ser visitados."}
-        value={mobilityValue}
-        handleValueChange={handleMobilityValueChange}
-      />
-
-      <SimulateRulesFormSlider 
         max={Constants.maxValueDays}
         title={"Días a simular"}
         tooltip={"Cantidad de días que durará la simulación."}
@@ -118,7 +151,111 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
         handleValueChange={handleDaysValueChange}
       />
 
-      <Grid item xs={12} className={classes.buttonsGrid}>
+      <SimulateRulesFormSlider 
+        max={daysValue}
+        title={"Duración del virus"}
+        tooltip={"Cantidad de días que una persona es contagiosa."}
+        value={infectedDaysValue}
+        handleValueChange={handleDaysInfectedValueChange}
+      />
+
+      <Grid item xs={12}>
+        <h4 className={classes.mobility}>Movilidad:</h4>
+
+      </Grid>
+
+      <SimulateRulesFormSlider 
+        max={establishmentsValue}
+        title={"Variabilidad"}
+        tooltip={"Cantidad de establecimientos que suele visitar un usuario ('favoritos'). Durante la simulacion estos establecimientos tienen la misma probabilidad de ser visitados."}
+        value={mobVarValue}
+        handleValueChange={handleMobVarValueChange}
+      />
+
+      <SimulateRulesFormSlider 
+        max={Constants.maxValueMobility}
+        title={"Frecuencia"}
+        tooltip={"Cantidad máxima de salidas que realiza un usuario en un dia."}
+        value={mobFreqValue}
+        handleValueChange={handleMobFreqValueChange}
+      />
+    </Grid>
+    <Grid item xs={24}>
+
+    <Accordion expanded={expandedAdvanced} onChange={() => setAdvanced(!expandedAdvanced)}>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls="advanced-content"
+        id="advanced-settings"
+      >
+        <Box className={classes.accordion}>
+
+          <Typography className={classes.accordionTitle}>
+            Configuracion Avanzada
+          </Typography>
+
+          <Typography className={classes.accordionSubtitle}>Definí parametros no obligatorios para tener mayor control del contexto de la simulación.</Typography>
+
+        </Box>
+        
+      </AccordionSummary>
+      <AccordionDetails>
+        <Grid container>
+          <SimulateRulesFormSlider 
+            max={maxValuePartiallyVaccinatedUsers}
+            title={"% usuarios parcialmente vacunados"}
+            tooltip={"Porcentaje de usuarios que ha recibido una sola dosis. Se asumirá que la vacuna es la Sputnik V."}
+            value={partiallyVaccinatedUsersValue}
+            handleValueChange={handlePartiallyVaccinatedUsersValueChange}
+          />
+
+          <SimulateRulesFormSlider 
+            max={maxValueFullyVaccinatedUsers}
+            title={"% usuarios completamente vacunados"}
+            tooltip={"Porcentaje de usuarios que ha recibido las dos dosis. Se asumirá que la vacuna es la Sputnik V."}
+            value={fullyVaccinatedUsersValue}
+            handleValueChange={handleFullyVaccinatedUsersValueChange}
+          />
+
+          <SimulateRulesFormSlider 
+            max={daysValue}
+            title={"Duracion de restriccion por riesgo alto"}
+            tooltip="Cantidad de dias que una persona debe aislarse al ser detectada como riesgo alto."
+            value={lockdownRestriction}
+            handleValueChange={handleLockdownRestrictionValueChange}
+          />
+
+          <SimulateRulesFormSlider 
+            max={daysValue}
+            title={"Periodo de incubación del virus"}
+            tooltip="Cantidad de dias hasta que una persona empieza a desarrollar sintomas."
+            value={incubationDaysValue}
+            handleValueChange={handleDaysIncubationValueChange}
+          />
+
+        
+          <Grid className={classes.firstSliderGrid} item xs={6}>
+            <h4 className={classes.titles}>Semilla
+              <Tooltip className={classes.tooltips} placement="right" title={<span className={classes.tooltipsText}>Para la repetibilidad entre corridas</span>}>
+                <HelpIcon color="action" fontSize="small"></HelpIcon>
+              </Tooltip>
+            </h4>
+          </Grid>
+          <Grid className={classes.firstSliderGrid} item xs={6}>
+          <TextField
+              id="seed"
+              type="number"
+              variant="outlined"
+              onChange={handleSeedValueChange}
+              value={seed}
+            />
+          </Grid>
+          
+        </Grid>
+      </AccordionDetails>
+    </Accordion>
+
+    <Grid item xs={12} className={classes.buttonsGrid}>
         <Button onClick={handleClose} color="primary">
           Cancelar
         </Button>
@@ -126,6 +263,8 @@ export default function SimulateRulesForm({simulateRules, handleClose}) {
           Correr Simulación
         </Button>
       </Grid>
-    </Grid>
+
+  </Grid>
+  </>
   );
 }

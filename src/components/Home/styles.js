@@ -10,6 +10,9 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: '15px',
 		textTransform: 'uppercase',
 	},
+	subtitle: {
+		margin: "0 auto"
+	}
 }));
 
 export default useStyles;

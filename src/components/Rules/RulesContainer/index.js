@@ -11,7 +11,7 @@ import useStyles from './styles';
 import NoRulesMessage from '../NoRulesMessage';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-export default function RulesContainer({ rules, vaccines, getCurrentVaccines, addRule, saveChanges, canSaveChanges, onDragEnd, deleteRule, duplicateRule, newRuleIntialValue }) {
+export default function RulesContainer({ rules, vaccines, getCurrentVaccines, addRule, saveChanges, canSaveChanges, onDragEnd, deleteRule, duplicateRule, newRuleIntialValue, importRules }) {
 	const [state, setState] = useState({ rules: rules || [], vaccines: vaccines || [] });
   	const [addRuleFormOpen, setAddRuleFormOpen] = useState(false);
 	const classes = useStyles();
@@ -27,7 +27,7 @@ export default function RulesContainer({ rules, vaccines, getCurrentVaccines, ad
 					<TestRulesButton rules={state.rules} vaccines={state.vaccines} />
 				</Grid>
 				<Grid item xs={6}>
-					<SimulateRulesButton rules={state.rules} />
+					<SimulateRulesButton rules={state.rules} onImport={importRules} />
 				</Grid>
 				<Grid item xs={12}>
 					<EditVaccinesButton vaccines={state.vaccines} getCurrentVaccines={getCurrentVaccines} />

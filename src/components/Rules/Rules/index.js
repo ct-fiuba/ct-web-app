@@ -14,6 +14,7 @@ export default class Rules extends React.Component {
     this.duplicateRule = this.duplicateRule.bind(this);
     this.addRule = this.addRule.bind(this);
     this.saveChanges = this.saveChanges.bind(this);
+    this.importRules = this.importRules.bind(this);
     this.state = { rules: null, max_index: 0, savedRules: [], canSaveChanges: false, vaccines: [], newRuleIntialValue: null};
   }
 
@@ -119,6 +120,15 @@ export default class Rules extends React.Component {
 		window.location.replace("/reglas");
   }
 
+  importRules(new_rules) {
+    this.setState({
+      rules: new_rules
+    });
+    this.updateSavingButton(new_rules);
+  }
+
+  
+
   render() {
     return (
       <div>
@@ -132,6 +142,7 @@ export default class Rules extends React.Component {
           duplicateRule={this.duplicateRule}
           addRule={this.addRule}
           saveChanges={this.saveChanges}
+          importRules={this.importRules}
           newRuleIntialValue={this.state.newRuleIntialValue}
           canSaveChanges={this.state.canSaveChanges} />
       </div>

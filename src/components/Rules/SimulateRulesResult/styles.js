@@ -7,11 +7,22 @@ const useStyles = makeStyles({
     borderTopStyle: 'inset',
     borderTop: '5px solid #b5ffcf',
   },
+  grid: {
+    justifyContent: 'center',
+    textAlign: 'center'
+  },
   gridContainer: {
     alignItems: 'center',
   },
   gridProgress: {
     textAlign: 'center',
+  },
+  chart: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center'
   }
 });
 

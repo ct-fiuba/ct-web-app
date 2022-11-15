@@ -21,7 +21,7 @@ export default function SpaceCard({ id, name, m2, openSpace, hasExit,  estimated
             </Typography>
             <Typography variant="body1" component="p">
               {`Metros cuadrados: ${m2}`}<br />
-              {`Espacio ventilado: ${hasExit ? 'Si' : 'No'}`}<br />
+              {`Espacio ventilado: ${openSpace ? 'Si' : 'No'}`}<br />
               {`Duración estimada de la visita: ${estimatedVisitDuration} minutos`}<br />
               {`Tiene QR de salida: ${hasExit ? 'Si' : 'No'}`}<br />
               {`Habilitado: ${enabled ? 'Si' : 'No'}`}<br />
